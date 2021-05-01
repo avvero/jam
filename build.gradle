@@ -1,29 +1,53 @@
 plugins {
-	id 'org.springframework.boot' version '2.4.5'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-	id 'java'
-	id 'org.springframework.experimental.aot' version '0.9.2'
+    id 'java'
+    id 'groovy'
+    id 'antlr'
+    id 'idea'
+    id "com.palantir.graal" version "0.6.0"
 }
 
-group = 'pw.avvero'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+group 'pw.avvero'
+version '0.1.0'
+
+sourceCompatibility = 1.8
 
 repositories {
-	maven { url 'https://repo.spring.io/release' }
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    antlr "org.antlr:antlr4:4.7.1"
+    implementation 'org.antlr:antlr4-runtime:4.7.1'
+    implementation 'org.apache.commons:commons-lang3:3.9'
+    testImplementation "org.codehaus.groovy:groovy-all:2.4.6"
+    testImplementation "org.spockframework:spock-core:1.1-groovy-2.4-rc-2"
 }
 
-test {
-	useJUnitPlatform()
+compileJava {
+    options.compilerArgs += ["-Aproject=${project.group}/${project.name}"]
 }
 
-bootBuildImage {
-	builder = 'paketobuildpacks/builder:tiny'
-	environment = ['BP_NATIVE_IMAGE': 'true']
+jar {
+    manifest {
+        attributes "Main-Class": "pw.avvero.jiac.App"
+    }
+
+    from {
+        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
+
+generateGrammarSource {
+    maxHeapSize = "64m"
+    arguments += ['-package', 'pw.avvero.jiac.antlr']
+    outputDirectory = new File("${project.buildDir}/generated-src/antlr/main/pw/avvero/jiac/antlr".toString())
+}
+
+idea {
+    module {
+        sourceDirs += file("${project.buildDir}/generated-src/antlr/main")
+    }
+}
+
+graal.outputName("jiac")
+graal.mainClass("pw.avvero.jiac.App")
