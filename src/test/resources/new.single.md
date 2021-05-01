@@ -1,0 +1,1 @@
+# [OKR:Initiative] Working with jira issues as a code
