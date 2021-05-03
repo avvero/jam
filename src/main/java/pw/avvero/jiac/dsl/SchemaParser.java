@@ -13,8 +13,6 @@ import pw.avvero.jiac.dsl.LeveledIssue;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.util.List;
-
 public class SchemaParser {
 
     /**
@@ -58,38 +56,14 @@ public class SchemaParser {
         for (int i = 0; i < tree.getChildCount(); i++) {
             ParseTree treeChild = tree.getChild(i);
             if (treeChild instanceof DslParser.IssueContext) {
-                root = parse((DslParser.IssueContext) treeChild);
+                leveledIssues.add(new LeveledIssue(0, parse((DslParser.IssueContext) treeChild)));
+            } else if (treeChild instanceof DslParser.ChildContext) {
+                DslParser.ChildContext childContext = (DslParser.ChildContext) treeChild;
+                leveledIssues.add(parse(childContext));
             }
-//            else if (treeChild instanceof DslParser.ChildContext) {
-//                DslParser.ChildContext childContext = (DslParser.ChildContext) treeChild;
-//                Issue child = parse(childContext);
-//                root.getChildren().add(child);
-//            }
         }
         return IssueTreeBuilder.build(leveledIssues);
     }
-
-//    private Issue walk(ParseTree tree) {
-//        if (tree instanceof DslParser.IssueContext) {
-//            return parse((DslParser.IssueContext) tree);
-//        }
-//        if (tree.getChildCount() > 0) {
-//            for (int i = 0; i < tree.getChildCount(); i++) {
-//                walk(tree);
-//            }
-//        }
-//    }
-//
-//    private List<Issue> walk(ParseTree tree) {
-//        if (tree instanceof DslParser.IssueContext) {
-//            return parse((DslParser.IssueContext) tree);
-//        }
-//        if (tree.getChildCount() > 0) {
-//            for (int i = 0; i < tree.getChildCount(); i++) {
-//                walk(tree);
-//            }
-//        }
-//    }
 
     private Issue parse(DslParser.IssueContext tree) {
         Issue issue = new Issue();
@@ -106,13 +80,17 @@ public class SchemaParser {
         return issue;
     }
 
-//    private Issue parse(DslParser.ChildContext tree) {
-//        for (int i = 0; i < tree.getChildCount(); i++) {
-//            ParseTree childContextChild = tree.getChild(i);
-//            if (childContextChild instanceof DslParser.IssueContext) {
-//                return parse((DslParser.IssueContext) childContextChild);
-//            }
-//        }
-//        return null;
-//    }
+    private LeveledIssue parse(DslParser.ChildContext tree) {
+        LeveledIssue leveledIssue = new LeveledIssue();
+        for (int i = 0; i < tree.getChildCount(); i++) {
+            ParseTree child = tree.getChild(i);
+            if (child instanceof DslParser.IssueContext) {
+                Issue issue = parse((DslParser.IssueContext) child);
+                leveledIssue.setIssue(issue);
+            } else if (child instanceof DslParser.DashContext) {
+                leveledIssue.setLevel(leveledIssue.getLevel() + 1);
+            }
+        }
+        return leveledIssue;
+    }
 }
