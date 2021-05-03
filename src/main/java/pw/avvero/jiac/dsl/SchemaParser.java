@@ -6,9 +6,6 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import pw.avvero.jiac.antlr.DslLexer;
 import pw.avvero.jiac.antlr.DslParser;
-import pw.avvero.jiac.dsl.Issue;
-import pw.avvero.jiac.dsl.IssueTreeBuilder;
-import pw.avvero.jiac.dsl.LeveledIssue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +45,16 @@ public class SchemaParser {
         DslLexer lexer = new DslLexer(charStream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         DslParser parser = new DslParser(tokens);
-        ParseTree tree = parser.root();
+        return parse(parser.root());
+    }
+
+    /**
+     * Parses issue from ParseTree
+     * @param tree
+     * @return
+     * @throws Exception
+     */
+    public Issue parse(ParseTree tree) throws Exception {
         if (tree.getChildCount() == 0) {
             throw new Exception("Can't parse Issue");
         }
