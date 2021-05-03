@@ -1,40 +1,36 @@
 package pw.avvero.jiac.dsl;
 
-public class Pair<K, V> {
+public class Pair {
 
-    private K key;
-    private V v;
+    private int level;
+    private Issue issue;
 
-    public static <K, V> Pair<K, V> of(K k, V v) {
-        return new Pair<>(k, v);
+    public Pair(int level, Issue issue) {
+        this.level = level;
+        this.issue = issue;
     }
 
-    public Pair(K key, V v) {
-        this.key = key;
-        this.v = v;
+    public int getLevel() {
+        return level;
     }
 
-    public K getKey() {
-        return key;
+    public void setLevel(int level) {
+        this.level = level;
     }
 
-    public void setKey(K key) {
-        this.key = key;
+    public Issue getIssue() {
+        return issue;
     }
 
-    public V getV() {
-        return v;
-    }
-
-    public void setV(V v) {
-        this.v = v;
+    public void setIssue(Issue issue) {
+        this.issue = issue;
     }
 
     @Override
     public String toString() {
         return "{" +
-                "key=" + key +
-                ", v=" + v +
+                "level=" + level +
+                ", issue=" + issue +
                 '}';
     }
 }

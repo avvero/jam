@@ -21,14 +21,18 @@ class IssueTreeBuilderTests extends Specification {
     @Unroll
     def "Builder returns #result if list is #list"() {
         when:
-        def issues = list.collect { e -> Pair.of(e[0], new Issue(summary: e[1])) }
+        def issues = list.collect { e -> new Pair(e[0], new Issue(summary: e[1])) }
         then:
-        IssueTreeBuilder.build(issues).collect { i -> simplify(i) } == result
+        simplify(IssueTreeBuilder.build(issues)) == result
         where:
-        list                           | result
-        [[0, "1"]]                     | ["1": []]
-        [[0, "1"], [0, "2"]]           | ["1": [], "2": []]
-        [[0, "1"], [1, "2"], [0, "3"]] | ["1": [["2": []]], "3": []]
+        list                                               | result
+        [[0, "1"]]                                         | ["1": []]
+        [[0, "1"], [0, "2"]]                               | ["1": []]
+        [[0, "1"], [1, "2"], [0, "3"]]                     | ["1": [["2": []]]]
+        [[0, "1"], [1, "2"], [2, "3"]]                     | ["1": [["2": [["3": []]]]]]
+        [[0, "1"], [1, "2"], [1, "3"]]                     | ["1": [["2": []], ["3": []]]]
+        [[0, "1"], [1, "2"], [2, "3"], [1, "4"]]           | ["1": [["2": [["3": []]]], ["4": []]]]
+        [[0, "1"], [1, "2"], [2, "3"], [3, "4"], [1, "5"]] | ["1": [["2": [["3": [["4": []]]]]], ["5": []]]]
     }
 
     /**

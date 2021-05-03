@@ -1,28 +1,36 @@
 package pw.avvero.jiac.dsl;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class IssueTreeBuilder {
 
-    public static Issue build(List<Pair<Integer, Issue>> list) {
+    public static Issue build(List<Pair> list) {
         if (list == null || list.isEmpty()) return null;
-        Pair<Integer, Issue> root = null;
-        Pair<Integer, Issue> previous = null;
-        for (Pair<Integer, Issue> current : list) {
-            if (root == null) {
-                root = current;
-                previous = current;
-                continue;
-            }
-//            if
 
-            previous = current;
-        }
-        return previous.getV();
+        Iterator<Pair> iterator = list.iterator();
+        Pair root = iterator.next();
+        Pair ignored = walk(root, iterator);
+        return root.getIssue();
     }
 
-    private static void tree(Issue parent, List<Issue> children) {
-
+    private static Pair walk(Pair previous, Iterator<Pair> iterator) {
+        while (iterator.hasNext()) {
+            Pair current = iterator.next();
+            if (current.getLevel() > previous.getLevel()) {
+                previous.getIssue().getChildren().add(current.getIssue());
+            } else {
+                return current;
+            }
+            Pair next = walk(current, iterator);
+            if (next == null) return current;
+            if (next.getLevel() == current.getLevel()) {
+                previous.getIssue().getChildren().add(next.getIssue());
+            } else {
+                return next;
+            }
+        }
+        return null;
     }
 
 }

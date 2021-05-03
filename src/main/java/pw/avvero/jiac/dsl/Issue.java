@@ -49,6 +49,7 @@ public class Issue {
                 "project='" + project + '\'' +
                 ", type='" + type + '\'' +
                 ", summary='" + summary + '\'' +
+                ", children=" + children +
                 '}';
     }
 
