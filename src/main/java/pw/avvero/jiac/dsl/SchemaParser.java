@@ -1,4 +1,4 @@
-package pw.avvero.jiac;
+package pw.avvero.jiac.dsl;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -7,6 +7,11 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import pw.avvero.jiac.antlr.DslLexer;
 import pw.avvero.jiac.antlr.DslParser;
 import pw.avvero.jiac.dsl.Issue;
+import pw.avvero.jiac.dsl.IssueTreeBuilder;
+import pw.avvero.jiac.dsl.LeveledIssue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.List;
 
@@ -49,7 +54,7 @@ public class SchemaParser {
         if (tree.getChildCount() == 0) {
             throw new Exception("Can't parse Issue");
         }
-        Issue root = new Issue();
+        List<LeveledIssue> leveledIssues = new ArrayList<>();
         for (int i = 0; i < tree.getChildCount(); i++) {
             ParseTree treeChild = tree.getChild(i);
             if (treeChild instanceof DslParser.IssueContext) {
@@ -61,7 +66,7 @@ public class SchemaParser {
 //                root.getChildren().add(child);
 //            }
         }
-        return root;
+        return IssueTreeBuilder.build(leveledIssues);
     }
 
 //    private Issue walk(ParseTree tree) {

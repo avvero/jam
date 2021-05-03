@@ -1,6 +1,7 @@
-package pw.avvero.jiac
+package pw.avvero.jiac.dsl
 
 import pw.avvero.jiac.dsl.Issue
+import pw.avvero.jiac.dsl.SchemaParser
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -65,10 +66,12 @@ class SchemaParsingTests extends Specification {
         issue.project == "OKR"
         issue.type == "Story"
         issue.summary == "Working with jira issues as a code"
-        issue.children == [
-                new Issue(project: "WATCH", type: "Task", summary: "Prepare to do one thing"),
-                new Issue(project: "WATCH", type: "Task", summary: "Actually do one thing"),
-        ]
+        issue.children[0].project == "WATCH"
+        issue.children[0].type == "Task"
+        issue.children[0].summary == "Prepare to do one thing"
+        issue.children[1].project == "WATCH"
+        issue.children[1].type == "Task"
+        issue.children[1].summary == "Actually do one thing"
         where:
         schema = """# [OKR:Story] Working with jira issues as a code
                     - [WATCH:Task] Prepare to do one thing
@@ -84,10 +87,18 @@ class SchemaParsingTests extends Specification {
         issue.project == "OKR"
         issue.type == "Story"
         issue.summary == "Working with jira issues as a code"
-        issue.children == [
-                new Issue(project: "WATCH", type: "Task", summary: "Prepare to do one thing"),
-                new Issue(project: "WATCH", type: "Task", summary: "Actually do one thing"),
-        ]
+        issue.children[0].project == "WATCH"
+        issue.children[0].type == "Task"
+        issue.children[0].summary == "Prepare to do one thing"
+        issue.children[0].children[0].project == "WATCH"
+        issue.children[0].children[0].type == "Task"
+        issue.children[0].children[0].summary == "Prepare to do one thing part 1"
+        issue.children[0].children[1].project == "WATCH"
+        issue.children[0].children[1].type == "Task"
+        issue.children[0].children[1].summary == "Prepare to do one thing part 2"
+        issue.children[1].project == "WATCH"
+        issue.children[1].type == "Task"
+        issue.children[1].summary == "Actually do one thing"
         where:
         schema = """# [OKR:Story] Working with jira issues as a code
                     - [WATCH:Task] Prepare to do one thing

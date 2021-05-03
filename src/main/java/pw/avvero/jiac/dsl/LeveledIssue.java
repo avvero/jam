@@ -1,11 +1,14 @@
 package pw.avvero.jiac.dsl;
 
-public class Pair {
+public class LeveledIssue {
 
     private int level;
     private Issue issue;
 
-    public Pair(int level, Issue issue) {
+    public LeveledIssue() {
+    }
+
+    public LeveledIssue(int level, Issue issue) {
         this.level = level;
         this.issue = issue;
     }

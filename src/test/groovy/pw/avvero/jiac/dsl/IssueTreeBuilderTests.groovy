@@ -1,8 +1,8 @@
-package pw.avvero.jiac
+package pw.avvero.jiac.dsl
 
 import pw.avvero.jiac.dsl.Issue
 import pw.avvero.jiac.dsl.IssueTreeBuilder
-import pw.avvero.jiac.dsl.Pair
+import pw.avvero.jiac.dsl.LeveledIssue
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -19,9 +19,9 @@ class IssueTreeBuilderTests extends Specification {
     }
 
     @Unroll
-    def "Builder returns #result if list is #list"() {
+    def "Builder returns tree #result if list is #list"() {
         when:
-        def issues = list.collect { e -> new Pair(e[0], new Issue(summary: e[1])) }
+        def issues = list.collect { e -> new LeveledIssue(e[0], new Issue(summary: e[1])) }
         then:
         simplify(IssueTreeBuilder.build(issues)) == result
         where:
