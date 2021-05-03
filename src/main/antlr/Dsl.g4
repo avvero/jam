@@ -2,11 +2,12 @@ grammar Dsl;
 
 root       : SPACE? HASH? SPACE? EOL? issue child* SPACE? EOF;
 issue      : '[' SPACE? project SPACE? ':' SPACE? type SPACE? ']' SPACE? summary EOL?;
-child      : SPACE? DASH+ SPACE? issue;
+child      : SPACE? dash+ SPACE? issue;
 
 project     : WORD ;
 type        : WORD ;
 summary     : (WORD | SIGN | SPACE)+ ;
+dash        : DASH SPACE* ;
 
 HASH       : '#' ;
 DASH       : '-' ;
