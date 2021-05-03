@@ -1,10 +1,15 @@
 package pw.avvero.jiac.dsl;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public class Issue {
 
     private String project;
     private String type;
     private String summary;
+    private List<Issue> children = new ArrayList<>();
 
     public String getProject() {
         return project;
@@ -30,6 +35,14 @@ public class Issue {
         this.summary = summary;
     }
 
+    public List<Issue> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Issue> children) {
+        this.children = children;
+    }
+
     @Override
     public String toString() {
         return "Issue{" +
@@ -37,5 +50,18 @@ public class Issue {
                 ", type='" + type + '\'' +
                 ", summary='" + summary + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Issue issue = (Issue) o;
+        return Objects.equals(project, issue.project) && Objects.equals(type, issue.type) && Objects.equals(summary, issue.summary) && Objects.equals(children, issue.children);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(project, type, summary, children);
     }
 }

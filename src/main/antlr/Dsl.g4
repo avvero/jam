@@ -1,20 +1,20 @@
 grammar Dsl;
 
-issue      : HASH? '[' project ':' type ']' summary;
+root       : HASH? SPACE? EOL? issue child*;
+issue      : '[' SPACE? project SPACE? ':' SPACE? type SPACE? ']' SPACE? summary end;
+child      : DASH+  issue;
 
-project     : PROJECT ;
-type        : TYPE ;
-summary     : (WORD | sign)+ ;
-sign        : SIGN;
-space       : SPACE;
+project     : WORD ;
+type        : WORD ;
+summary     : (WORD | SIGN | SPACE)+ ;
+end         : EOF | EOL;
 
-PROJECT    : [a-zA-Z0-9]+ ;
-TYPE       : [a-zA-Z0-9-]+ ;
-WORD       : [a-zA-Z0-9'-]+ ;
 HASH       : '#' ;
+DASH       : '-' ;
+WORD       : [a-zA-Z0-9'-]+ ;
 SIGN       : [.,:-;(){}_*#^!~%&"?\\+=/] ;
 SPACE      : (' ' | '\t')+ ;
-NEWLINE    : ('\n' | '\r' | '\n\r' | '\r\n')+ ;
+EOL        : ('\n' | '\r' | '\n\r' | '\r\n')+ ;
 
-WS : [ \t\r\n]+ -> skip ; // skip spaces, tabs, newlines
+WS : [\t\r\n]+ -> skip ; // skip spaces, tabs, newlines
 ANY : . ;
