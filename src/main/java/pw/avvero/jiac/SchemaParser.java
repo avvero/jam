@@ -8,6 +8,8 @@ import pw.avvero.jiac.antlr.DslLexer;
 import pw.avvero.jiac.antlr.DslParser;
 import pw.avvero.jiac.dsl.Issue;
 
+import java.util.List;
+
 public class SchemaParser {
 
     /**
@@ -52,14 +54,37 @@ public class SchemaParser {
             ParseTree treeChild = tree.getChild(i);
             if (treeChild instanceof DslParser.IssueContext) {
                 root = parse((DslParser.IssueContext) treeChild);
-            } else if (treeChild instanceof DslParser.ChildContext) {
-                DslParser.ChildContext childContext = (DslParser.ChildContext) treeChild;
-                Issue child = parse(childContext);
-                root.getChildren().add(child);
             }
+//            else if (treeChild instanceof DslParser.ChildContext) {
+//                DslParser.ChildContext childContext = (DslParser.ChildContext) treeChild;
+//                Issue child = parse(childContext);
+//                root.getChildren().add(child);
+//            }
         }
         return root;
     }
+
+//    private Issue walk(ParseTree tree) {
+//        if (tree instanceof DslParser.IssueContext) {
+//            return parse((DslParser.IssueContext) tree);
+//        }
+//        if (tree.getChildCount() > 0) {
+//            for (int i = 0; i < tree.getChildCount(); i++) {
+//                walk(tree);
+//            }
+//        }
+//    }
+//
+//    private List<Issue> walk(ParseTree tree) {
+//        if (tree instanceof DslParser.IssueContext) {
+//            return parse((DslParser.IssueContext) tree);
+//        }
+//        if (tree.getChildCount() > 0) {
+//            for (int i = 0; i < tree.getChildCount(); i++) {
+//                walk(tree);
+//            }
+//        }
+//    }
 
     private Issue parse(DslParser.IssueContext tree) {
         Issue issue = new Issue();
@@ -76,13 +101,13 @@ public class SchemaParser {
         return issue;
     }
 
-    private Issue parse(DslParser.ChildContext tree) {
-        for (int i = 0; i < tree.getChildCount(); i++) {
-            ParseTree childContextChild = tree.getChild(i);
-            if (childContextChild instanceof DslParser.IssueContext) {
-                return parse((DslParser.IssueContext) childContextChild);
-            }
-        }
-        return null;
-    }
+//    private Issue parse(DslParser.ChildContext tree) {
+//        for (int i = 0; i < tree.getChildCount(); i++) {
+//            ParseTree childContextChild = tree.getChild(i);
+//            if (childContextChild instanceof DslParser.IssueContext) {
+//                return parse((DslParser.IssueContext) childContextChild);
+//            }
+//        }
+//        return null;
+//    }
 }

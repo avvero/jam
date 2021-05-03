@@ -1,8 +1,11 @@
 grammar Dsl;
 
-root       : SPACE? HASH? SPACE? EOL? issue child* SPACE? EOF;
+root       : SPACE? HASH? SPACE? EOL? issue issue_l1* SPACE? EOF;
+
+issue_l1   : SPACE? dash SPACE? issue issue_l2*;
+issue_l2   : SPACE? dash SPACE? dash SPACE? issue;
+
 issue      : '[' SPACE? project SPACE? ':' SPACE? type SPACE? ']' SPACE? summary EOL?;
-child      : SPACE? dash+ SPACE? issue;
 
 project     : WORD ;
 type        : WORD ;
