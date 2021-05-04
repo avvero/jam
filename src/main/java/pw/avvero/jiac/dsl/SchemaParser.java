@@ -77,7 +77,7 @@ public class SchemaParser {
             ParseTree treeChild = tree.getChild(i);
             if (treeChild instanceof DslParser.KeyContext) {
                 String key = treeChild.getText().trim();
-                String[] keyParts = key.split("-");
+                String[] keyParts = key.split("-"); // TODO move to antlr
                 issue.setProject(keyParts[0]);
                 if (keyParts.length == 2) {
                     issue.setKey(key);

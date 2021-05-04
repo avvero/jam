@@ -8,7 +8,7 @@ import spock.lang.Unroll
 import static pw.avvero.test.ResourceDataProvider.fromFile
 import static pw.avvero.test.SerializationUtils.json
 
-class SchemaParsingTests extends Specification {
+class SchemaParserTests extends Specification {
 
     @Unroll
     def "Single line schema is parsed from string #schema"() {
