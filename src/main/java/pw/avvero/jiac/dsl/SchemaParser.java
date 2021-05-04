@@ -75,8 +75,13 @@ public class SchemaParser {
         Issue issue = new Issue();
         for (int i = 0; i < tree.getChildCount(); i++) {
             ParseTree treeChild = tree.getChild(i);
-            if (treeChild instanceof DslParser.ProjectContext) {
-                issue.setProject(treeChild.getText().trim());
+            if (treeChild instanceof DslParser.KeyContext) {
+                String key = treeChild.getText().trim();
+                String[] keyParts = key.split("-");
+                issue.setProject(keyParts[0]);
+                if (keyParts.length == 2) {
+                    issue.setKey(key);
+                }
             } else if (treeChild instanceof DslParser.TypeContext) {
                 issue.setType(treeChild.getText().trim());
             } else if (treeChild instanceof DslParser.SummaryContext) {

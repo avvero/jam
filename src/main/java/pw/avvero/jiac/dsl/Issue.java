@@ -7,6 +7,7 @@ import java.util.Objects;
 public class Issue {
 
     private String project;
+    private String key;
     private String type;
     private String summary;
     private List<Issue> children = new ArrayList<>();
@@ -17,6 +18,14 @@ public class Issue {
 
     public void setProject(String project) {
         this.project = project;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getType() {
@@ -47,6 +56,7 @@ public class Issue {
     public String toString() {
         return "Issue{" +
                 "project='" + project + '\'' +
+                ", key='" + key + '\'' +
                 ", type='" + type + '\'' +
                 ", summary='" + summary + '\'' +
                 ", children=" + children +
@@ -58,11 +68,11 @@ public class Issue {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Issue issue = (Issue) o;
-        return Objects.equals(project, issue.project) && Objects.equals(type, issue.type) && Objects.equals(summary, issue.summary) && Objects.equals(children, issue.children);
+        return Objects.equals(project, issue.project) && Objects.equals(key, issue.key) && Objects.equals(type, issue.type) && Objects.equals(summary, issue.summary) && Objects.equals(children, issue.children);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(project, type, summary, children);
+        return Objects.hash(project, key, type, summary, children);
     }
 }

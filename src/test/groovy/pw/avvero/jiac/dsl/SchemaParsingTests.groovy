@@ -15,18 +15,26 @@ class SchemaParsingTests extends Specification {
         when:
         def issue = new SchemaParser().parseFromString(schema)
         then:
+        issue.key == key
         issue.project == "OKR"
         issue.type == "Task"
-        issue.summary == "Working with jira issues as a code"
+        issue.summary == "Do some stuff"
         where:
-        schema                                                  | _
-        "[OKR:Task]Working with jira issues as a code"          | _
-        "# [OKR:Task]Working with jira issues as a code"        | _
-        " [OKR:Task]Working with jira issues as a code   "      | _
-        "# [OKR:Task] Working with jira issues as a code"       | _
-        "[OKR:Task] Working with jira issues as a code"         | _
-        "[  OKR  :  Task  ] Working with jira issues as a code" | _
-        "  [OKR:Task]   Working with jira issues as a code"     | _
+        schema                                | key
+        "[OKR:Task]Do some stuff"             | null
+        "# [OKR:Task]Do some stuff"           | null
+        " [OKR:Task]Do some stuff   "         | null
+        "# [OKR:Task] Do some stuff"          | null
+        "[OKR:Task] Do some stuff"            | null
+        "[  OKR  :  Task  ] Do some stuff"    | null
+        "  [OKR:Task]   Do some stuff"        | null
+        "[OKR-12:Task]Do some stuff"          | "OKR-12"
+        "# [OKR-12:Task]Do some stuff"        | "OKR-12"
+        " [OKR-12:Task]Do some stuff   "      | "OKR-12"
+        "# [OKR-12:Task] Do some stuff"       | "OKR-12"
+        "[OKR-12:Task] Do some stuff"         | "OKR-12"
+        "[  OKR-12  :  Task  ] Do some stuff" | "OKR-12"
+        "  [OKR-12:Task]   Do some stuff"     | "OKR-12"
     }
 
     @Unroll
@@ -36,10 +44,10 @@ class SchemaParsingTests extends Specification {
         then:
         issue.project == "OKR"
         issue.type == "Task"
-        issue.summary == "Working with jira issues as a code"
+        issue.summary == "Do some stuff"
         where:
         schema = """
-[OKR:Task]Working with jira issues as a code
+[OKR:Task]Do some stuff
 """
     }
 
@@ -50,13 +58,13 @@ class SchemaParsingTests extends Specification {
         then:
         issue.project == "OKR"
         issue.type == "Story"
-        issue.summary == "Working with jira issues as a code"
+        issue.summary == "Do some stuff"
         issue.children == [
                 new Issue(project: "WATCH", type: "Task", summary: "Prepare to do one thing"),
                 new Issue(project: "WATCH", type: "Task", summary: "Actually do one thing"),
         ]
         where:
-        schema = """[OKR:Story]Working with jira issues as a code
+        schema = """[OKR:Story]Do some stuff
 -[WATCH:Task]Prepare to do one thing
 -[WATCH:Task]Actually do one thing"""
     }
@@ -68,7 +76,7 @@ class SchemaParsingTests extends Specification {
         then:
         issue.project == "OKR"
         issue.type == "Story"
-        issue.summary == "Working with jira issues as a code"
+        issue.summary == "Do some stuff"
         issue.children[0].project == "WATCH"
         issue.children[0].type == "Task"
         issue.children[0].summary == "Prepare to do one thing"
@@ -76,7 +84,7 @@ class SchemaParsingTests extends Specification {
         issue.children[1].type == "Task"
         issue.children[1].summary == "Actually do one thing"
         where:
-        schema = """# [OKR:Story] Working with jira issues as a code
+        schema = """# [OKR:Story] Do some stuff
                     - [WATCH:Task] Prepare to do one thing
                     - [WATCH:Task] Actually do one thing
         """
@@ -89,7 +97,7 @@ class SchemaParsingTests extends Specification {
         then:
         issue.project == "OKR"
         issue.type == "Story"
-        issue.summary == "Working with jira issues as a code"
+        issue.summary == "Do some stuff"
         issue.children[0].project == "WATCH"
         issue.children[0].type == "Task"
         issue.children[0].summary == "Prepare to do one thing"
@@ -103,7 +111,7 @@ class SchemaParsingTests extends Specification {
         issue.children[1].type == "Task"
         issue.children[1].summary == "Actually do one thing"
         where:
-        schema = """# [OKR:Story] Working with jira issues as a code
+        schema = """# [OKR:Story] Do some stuff
                     - [WATCH:Task] Prepare to do one thing
                     - - [WATCH:Task] Prepare to do one thing part 1
                     - - [WATCH:Task] Prepare to do one thing part 2
@@ -118,7 +126,7 @@ class SchemaParsingTests extends Specification {
         then:
         issue.project == "OKR"
         issue.type == "Story"
-        issue.summary == "Working with jira issues as a code"
+        issue.summary == "Do some stuff"
         issue.children[0].project == "WATCH"
         issue.children[0].type == "Task"
         issue.children[0].summary == "Prepare to do one thing"
@@ -138,7 +146,7 @@ class SchemaParsingTests extends Specification {
         issue.children[1].type == "Task"
         issue.children[1].summary == "Actually do one thing"
         where:
-        schema = """# [OKR:Story] Working with jira issues as a code
+        schema = """# [OKR:Story] Do some stuff
                     - [WATCH:Task] Prepare to do one thing
                     - - [WATCH:SubTask] Prepare to do one thing part 1
                     - - [WATCH:SubTask] Prepare to do one thing part 2
