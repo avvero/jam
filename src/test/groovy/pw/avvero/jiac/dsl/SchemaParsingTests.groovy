@@ -164,7 +164,8 @@ class SchemaParsingTests extends Specification {
         then:
         fromSchema == fromJson
         where:
-        jiacFile            | jsonFile
-        "new-multilevel.md" | "new-multilevel.json"
+        jiacFile                | jsonFile
+        "new-multilevel.md"     | "new-multilevel.json"
+        "existed-multilevel.md" | "existed-multilevel.json"
     }
 }
