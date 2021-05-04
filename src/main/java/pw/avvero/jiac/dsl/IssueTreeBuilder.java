@@ -9,28 +9,25 @@ public class IssueTreeBuilder {
         if (list == null || list.isEmpty()) return null;
 
         Iterator<LeveledIssue> iterator = list.iterator();
-        LeveledIssue root = iterator.next();
-        LeveledIssue ignored = walk(root, iterator);
+        LeveledIssue root = next(iterator);
+        LeveledIssue ignored = walk(root, next(iterator), iterator);
         return root.getIssue();
     }
 
-    private static LeveledIssue walk(LeveledIssue previous, Iterator<LeveledIssue> iterator) {
-        while (iterator.hasNext()) {
-            LeveledIssue current = iterator.next();
-            if (current.getLevel() > previous.getLevel()) {
-                previous.getIssue().getChildren().add(current.getIssue());
-            } else {
-                return current;
+    private static LeveledIssue walk(LeveledIssue previous, LeveledIssue current, Iterator<LeveledIssue> iterator) {
+        if (current == null) return null;
+        if (current.getLevel() > previous.getLevel()) {
+            previous.getIssue().getChildren().add(current.getIssue());
+            LeveledIssue next = walk(current, next(iterator), iterator);
+            if (next != null && next.getLevel() == current.getLevel()) {
+                return walk(previous, next, iterator);
             }
-            LeveledIssue next = walk(current, iterator);
-            if (next == null) return current;
-            if (next.getLevel() == current.getLevel()) {
-                previous.getIssue().getChildren().add(next.getIssue());
-            } else {
-                return next;
-            }
+            return next;
         }
-        return null;
+        return current;
     }
 
+    private static LeveledIssue next(Iterator<LeveledIssue> iterator) {
+        return iterator.hasNext() ? iterator.next() : null;
+    }
 }

@@ -1,0 +1,45 @@
+{
+  "project": "OKR",
+  "type": "Story",
+  "summary": "Working with jira issues as a code",
+  "children": [
+    {
+      "project": "WATCH",
+      "type": "Task",
+      "summary": "Prepare to do one thing",
+      "children": [
+        {
+          "project": "WATCH",
+          "type": "SubTask",
+          "summary": "Prepare to do one thing part 1",
+          "children": []
+        },
+        {
+          "project": "WATCH",
+          "type": "SubTask",
+          "summary": "Prepare to do one thing part 2",
+          "children": [
+            {
+              "project": "WATCH",
+              "type": "SubBug",
+              "summary": "Part 2 is not working",
+              "children": []
+            }
+          ]
+        },
+        {
+          "project": "WATCH",
+          "type": "Bug",
+          "summary": "Some error for whole task",
+          "children": []
+        }
+      ]
+    },
+    {
+      "project": "WATCH",
+      "type": "Task",
+      "summary": "Actually do one thing",
+      "children": []
+    }
+  ]
+}
