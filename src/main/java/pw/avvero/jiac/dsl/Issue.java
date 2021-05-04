@@ -1,9 +1,11 @@
 package pw.avvero.jiac.dsl;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+@Data
 public class Issue {
 
     private String project;
@@ -12,67 +14,4 @@ public class Issue {
     private String summary;
     private List<Issue> children = new ArrayList<>();
 
-    public String getProject() {
-        return project;
-    }
-
-    public void setProject(String project) {
-        this.project = project;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    public List<Issue> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<Issue> children) {
-        this.children = children;
-    }
-
-    @Override
-    public String toString() {
-        return "Issue{" +
-                "project='" + project + '\'' +
-                ", key='" + key + '\'' +
-                ", type='" + type + '\'' +
-                ", summary='" + summary + '\'' +
-                ", children=" + children +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Issue issue = (Issue) o;
-        return Objects.equals(project, issue.project) && Objects.equals(key, issue.key) && Objects.equals(type, issue.type) && Objects.equals(summary, issue.summary) && Objects.equals(children, issue.children);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(project, key, type, summary, children);
-    }
 }

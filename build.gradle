@@ -19,6 +19,12 @@ dependencies {
     antlr "org.antlr:antlr4:4.7.1"
     implementation 'org.antlr:antlr4-runtime:4.7.1'
     implementation 'org.apache.commons:commons-lang3:3.9'
+
+    compileOnly "org.projectlombok:lombok:1.18.12"
+    annotationProcessor "org.projectlombok:lombok:1.18.12"
+    testCompileOnly "org.projectlombok:lombok:1.18.12"
+    testAnnotationProcessor "org.projectlombok:lombok:1.18.12"
+
     testImplementation "org.codehaus.groovy:groovy-all:2.4.6"
     testImplementation "org.spockframework:spock-core:1.1-groovy-2.4-rc-2"
     testImplementation "com.fasterxml.jackson.core:jackson-core:2.6.5"

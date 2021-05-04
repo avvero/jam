@@ -1,5 +1,8 @@
 package pw.avvero.jiac;
 
+import pw.avvero.jiac.dsl.Issue;
+import pw.avvero.jiac.dsl.SchemaParser;
+
 import java.util.concurrent.atomic.AtomicLong;
 
 public class App {
@@ -11,9 +14,11 @@ public class App {
         if (args.length == 0) {
             throw new IllegalArgumentException("Please specify feature file");
         }
-        String featureFile = args[0];
-        console.newLine("Feature file is: " + featureFile);
+        String schemaFile = args[0];
+        console.newLine("Schema file is: " + schemaFile);
         console.newLineBlueBold("------------------------------------------------------------------------------");
+        Issue issue = new SchemaParser().parseFromFile(schemaFile);
+        console.newLineBlue(issue.toString());
         console.newLineBlueBold("------------------------------------------------------------------------------");
         final AtomicLong linePassed = new AtomicLong();
         final AtomicLong lastAffectionTimeNanos = new AtomicLong();
