@@ -26,7 +26,7 @@ class IntegrationalHandle extends Specification {
 
     def "Parse jira issue files and print schema to sout"() {
         when:
-        def provider = new FileIssueDataProvider("jira/xxx")
+        def provider = new IssueFileDataProvider("jira/xxx")
         def issue = provider.getWithChildren("WATCH-1000")
         def schema = SchemaWriter.toString(issue)
         new ConsoleWriter().newLineBlue(schema)

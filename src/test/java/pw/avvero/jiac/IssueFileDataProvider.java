@@ -18,9 +18,9 @@ import static java.lang.String.format;
 import static pw.avvero.test.ResourceDataProvider.fromFile;
 
 @AllArgsConstructor
-public class FileIssueDataProvider extends IssueDataProvider {
+public class IssueFileDataProvider extends IssueDataProvider {
 
-    private String path;
+    private final String path;
 
     @Override
     public Issue getByCode(String key) {
@@ -29,7 +29,7 @@ public class FileIssueDataProvider extends IssueDataProvider {
             JiraIssue jiraIssue = SerializationUtils.read(content, JiraIssue.class);
             return JiraIssueMapper.map(jiraIssue);
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println(e.getLocalizedMessage());
             return null;
         }
     }
