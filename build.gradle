@@ -3,13 +3,13 @@ plugins {
     id 'groovy'
     id 'antlr'
     id 'idea'
-    id "com.palantir.graal" version "0.6.0"
+    id "com.palantir.graal" version "0.7.2"
 }
 
 group 'pw.avvero'
 version '0.1.0'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 11
 
 repositories {
     mavenCentral()
@@ -59,3 +59,4 @@ idea {
 
 graal.outputName("jiac")
 graal.mainClass("pw.avvero.jiac.App")
+graal.javaVersion("11")
