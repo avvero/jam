@@ -3,13 +3,13 @@ package pw.avvero.jiac
 import pw.avvero.jiac.dsl.SchemaWriter
 import pw.avvero.jiac.jira.JiraIssue
 import pw.avvero.jiac.jira.JiraIssueMapper
+import pw.avvero.jiac.terminal.ConsoleWriter
 import pw.avvero.test.SerializationUtils
-import spock.lang.Ignore
 import spock.lang.Specification
 
 import static pw.avvero.test.ResourceDataProvider.fromFile
 
-@Ignore
+//@Ignore
 class IntegrationalHandle extends Specification {
 
     def "Parse jira issue file and print schema to sout"() {

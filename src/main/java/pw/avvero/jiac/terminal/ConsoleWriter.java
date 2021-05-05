@@ -1,4 +1,4 @@
-package pw.avvero.jiac;
+package pw.avvero.jiac.terminal;
 
 public class ConsoleWriter {
 

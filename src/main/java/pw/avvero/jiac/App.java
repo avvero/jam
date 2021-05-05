@@ -2,6 +2,8 @@ package pw.avvero.jiac;
 
 import pw.avvero.jiac.entity.Issue;
 import pw.avvero.jiac.dsl.SchemaParser;
+import pw.avvero.jiac.terminal.ConsoleWriter;
+import pw.avvero.jiac.terminal.Progress;
 
 import java.util.concurrent.atomic.AtomicLong;
 

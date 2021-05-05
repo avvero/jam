@@ -1,4 +1,4 @@
-package pw.avvero.jiac;
+package pw.avvero.jiac.terminal;
 
 import java.util.function.Consumer;
 
