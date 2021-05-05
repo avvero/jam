@@ -6,7 +6,7 @@ class IssueDataProviderTests extends Specification {
 
     def "Data provider provides issue with children using file api for epic with children"() {
         when:
-        def provider = new FileIssueDataProvider()
+        def provider = new FileIssueDataProvider("jira/file-api")
         def issue = provider.getWithChildren("WATCH-1")
         then:
         issue.project == "WATCH"
@@ -33,7 +33,7 @@ class IssueDataProviderTests extends Specification {
 
     def "Data provider provides issue with children using file api for empty epic"() {
         when:
-        def provider = new FileIssueDataProvider()
+        def provider = new FileIssueDataProvider("jira/file-api")
         def issue = provider.getWithChildren("WATCH-6")
         then:
         issue.project == "WATCH"
