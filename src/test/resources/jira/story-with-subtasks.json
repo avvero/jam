@@ -1,0 +1,221 @@
+{
+  "expand": "renderedFields,names,schema,operations,editmeta,changelog,versionedRepresentations",
+  "id": "10001",
+  "self": "http://localhost:8081/rest/api/latest/issue/10001",
+  "key": "WATCH-2",
+  "fields": {
+    "issuetype": {
+      "self": "http://localhost:8081/rest/api/2/issuetype/10001",
+      "id": "10001",
+      "description": "Created by Jira Software - do not edit or delete. Issue type for a user story.",
+      "iconUrl": "http://localhost:8081/images/icons/issuetypes/story.svg",
+      "name": "Story",
+      "subtask": false
+    },
+    "timespent": null,
+    "project": {
+      "self": "http://localhost:8081/rest/api/2/project/10000",
+      "id": "10000",
+      "key": "WATCH",
+      "name": "WATCH",
+      "projectTypeKey": "software",
+      "avatarUrls": {
+        "48x48": "http://localhost:8081/secure/projectavatar?avatarId=10324",
+        "24x24": "http://localhost:8081/secure/projectavatar?size=small&avatarId=10324",
+        "16x16": "http://localhost:8081/secure/projectavatar?size=xsmall&avatarId=10324",
+        "32x32": "http://localhost:8081/secure/projectavatar?size=medium&avatarId=10324"
+      }
+    },
+    "fixVersions": [],
+    "customfield_10110": null,
+    "customfield_10111": null,
+    "aggregatetimespent": null,
+    "resolution": null,
+    "customfield_10105": null,
+    "customfield_10106": null,
+    "customfield_10107": null,
+    "customfield_10108": null,
+    "customfield_10109": null,
+    "resolutiondate": null,
+    "workratio": -1,
+    "lastViewed": "2021-05-05T02:50:05.770+0000",
+    "watches": {
+      "self": "http://localhost:8081/rest/api/2/issue/WATCH-2/watchers",
+      "watchCount": 1,
+      "isWatching": true
+    },
+    "created": "2021-05-04T16:47:42.086+0000",
+    "priority": {
+      "self": "http://localhost:8081/rest/api/2/priority/3",
+      "iconUrl": "http://localhost:8081/images/icons/priorities/medium.svg",
+      "name": "Medium",
+      "id": "3"
+    },
+    "customfield_10100": "0|i00007:",
+    "customfield_10101": "WATCH-1",
+    "labels": [],
+    "timeestimate": null,
+    "aggregatetimeoriginalestimate": null,
+    "versions": [],
+    "issuelinks": [],
+    "assignee": null,
+    "updated": "2021-05-04T16:47:42.086+0000",
+    "status": {
+      "self": "http://localhost:8081/rest/api/2/status/10000",
+      "description": "",
+      "iconUrl": "http://localhost:8081/",
+      "name": "To Do",
+      "id": "10000",
+      "statusCategory": {
+        "self": "http://localhost:8081/rest/api/2/statuscategory/2",
+        "id": 2,
+        "key": "new",
+        "colorName": "blue-gray",
+        "name": "To Do"
+      }
+    },
+    "components": [],
+    "timeoriginalestimate": null,
+    "description": null,
+    "archiveddate": null,
+    "timetracking": {},
+    "attachment": [],
+    "aggregatetimeestimate": null,
+    "summary": "Prepare to do one thing",
+    "creator": {
+      "self": "http://localhost:8081/rest/api/2/user?username=admin",
+      "name": "admin",
+      "key": "JIRAUSER10000",
+      "emailAddress": "admin@admin",
+      "avatarUrls": {
+        "48x48": "https://www.gravatar.com/avatar/a3175a452c7a8fea80c62a198a40f6c9?d=mm&s=48",
+        "24x24": "https://www.gravatar.com/avatar/a3175a452c7a8fea80c62a198a40f6c9?d=mm&s=24",
+        "16x16": "https://www.gravatar.com/avatar/a3175a452c7a8fea80c62a198a40f6c9?d=mm&s=16",
+        "32x32": "https://www.gravatar.com/avatar/a3175a452c7a8fea80c62a198a40f6c9?d=mm&s=32"
+      },
+      "displayName": "admin",
+      "active": true,
+      "timeZone": "GMT"
+    },
+    "subtasks": [
+      {
+        "id": "10002",
+        "key": "WATCH-3",
+        "self": "http://localhost:8081/rest/api/2/issue/10002",
+        "fields": {
+          "summary": "Prepare to do one thing part 1",
+          "status": {
+            "self": "http://localhost:8081/rest/api/2/status/10000",
+            "description": "",
+            "iconUrl": "http://localhost:8081/",
+            "name": "To Do",
+            "id": "10000",
+            "statusCategory": {
+              "self": "http://localhost:8081/rest/api/2/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "http://localhost:8081/rest/api/2/priority/3",
+            "iconUrl": "http://localhost:8081/images/icons/priorities/medium.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "http://localhost:8081/rest/api/2/issuetype/10003",
+            "id": "10003",
+            "description": "The sub-task of the issue",
+            "iconUrl": "http://localhost:8081/secure/viewavatar?size=xsmall&avatarId=10316&avatarType=issuetype",
+            "name": "Sub-task",
+            "subtask": true,
+            "avatarId": 10316
+          }
+        }
+      },
+      {
+        "id": "10003",
+        "key": "WATCH-4",
+        "self": "http://localhost:8081/rest/api/2/issue/10003",
+        "fields": {
+          "summary": "Prepare to do one thing part 2",
+          "status": {
+            "self": "http://localhost:8081/rest/api/2/status/10000",
+            "description": "",
+            "iconUrl": "http://localhost:8081/",
+            "name": "To Do",
+            "id": "10000",
+            "statusCategory": {
+              "self": "http://localhost:8081/rest/api/2/statuscategory/2",
+              "id": 2,
+              "key": "new",
+              "colorName": "blue-gray",
+              "name": "To Do"
+            }
+          },
+          "priority": {
+            "self": "http://localhost:8081/rest/api/2/priority/3",
+            "iconUrl": "http://localhost:8081/images/icons/priorities/medium.svg",
+            "name": "Medium",
+            "id": "3"
+          },
+          "issuetype": {
+            "self": "http://localhost:8081/rest/api/2/issuetype/10003",
+            "id": "10003",
+            "description": "The sub-task of the issue",
+            "iconUrl": "http://localhost:8081/secure/viewavatar?size=xsmall&avatarId=10316&avatarType=issuetype",
+            "name": "Sub-task",
+            "subtask": true,
+            "avatarId": 10316
+          }
+        }
+      }
+    ],
+    "reporter": {
+      "self": "http://localhost:8081/rest/api/2/user?username=admin",
+      "name": "admin",
+      "key": "JIRAUSER10000",
+      "emailAddress": "admin@admin",
+      "avatarUrls": {
+        "48x48": "https://www.gravatar.com/avatar/a3175a452c7a8fea80c62a198a40f6c9?d=mm&s=48",
+        "24x24": "https://www.gravatar.com/avatar/a3175a452c7a8fea80c62a198a40f6c9?d=mm&s=24",
+        "16x16": "https://www.gravatar.com/avatar/a3175a452c7a8fea80c62a198a40f6c9?d=mm&s=16",
+        "32x32": "https://www.gravatar.com/avatar/a3175a452c7a8fea80c62a198a40f6c9?d=mm&s=32"
+      },
+      "displayName": "admin",
+      "active": true,
+      "timeZone": "GMT"
+    },
+    "customfield_10000": "{summaryBean=com.atlassian.jira.plugin.devstatus.rest.SummaryBean@e4d522cf[summary={pullrequest=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@a6517b20[overall=PullRequestOverallBean{stateCount=0, state='OPEN', details=PullRequestOverallDetails{openCount=0, mergedCount=0, declinedCount=0}},byInstanceType={}], build=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@c260a27d[overall=com.atlassian.jira.plugin.devstatus.summary.beans.BuildOverallBean@9292e8d3[failedBuildCount=0,successfulBuildCount=0,unknownBuildCount=0,count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}], review=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@a4a75fd8[overall=com.atlassian.jira.plugin.devstatus.summary.beans.ReviewsOverallBean@e71a6947[stateCount=0,state=<null>,dueDate=<null>,overDue=false,count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}], deployment-environment=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@155d7795[overall=com.atlassian.jira.plugin.devstatus.summary.beans.DeploymentOverallBean@2058d75f[topEnvironments=[],showProjects=false,successfulCount=0,count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}], repository=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@14781bdb[overall=com.atlassian.jira.plugin.devstatus.summary.beans.CommitOverallBean@731ea1da[count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}], branch=com.atlassian.jira.plugin.devstatus.rest.SummaryItemBean@d9958657[overall=com.atlassian.jira.plugin.devstatus.summary.beans.BranchOverallBean@2c7bcfd0[count=0,lastUpdated=<null>,lastUpdatedTimestamp=<null>],byInstanceType={}]},errors=[],configErrors=[]], devSummaryJson={\"cachedValue\":{\"errors\":[],\"configErrors\":[],\"summary\":{\"pullrequest\":{\"overall\":{\"count\":0,\"lastUpdated\":null,\"stateCount\":0,\"state\":\"OPEN\",\"details\":{\"openCount\":0,\"mergedCount\":0,\"declinedCount\":0,\"total\":0},\"open\":true},\"byInstanceType\":{}},\"build\":{\"overall\":{\"count\":0,\"lastUpdated\":null,\"failedBuildCount\":0,\"successfulBuildCount\":0,\"unknownBuildCount\":0},\"byInstanceType\":{}},\"review\":{\"overall\":{\"count\":0,\"lastUpdated\":null,\"stateCount\":0,\"state\":null,\"dueDate\":null,\"overDue\":false,\"completed\":false},\"byInstanceType\":{}},\"deployment-environment\":{\"overall\":{\"count\":0,\"lastUpdated\":null,\"topEnvironments\":[],\"showProjects\":false,\"successfulCount\":0},\"byInstanceType\":{}},\"repository\":{\"overall\":{\"count\":0,\"lastUpdated\":null},\"byInstanceType\":{}},\"branch\":{\"overall\":{\"count\":0,\"lastUpdated\":null},\"byInstanceType\":{}}}},\"isStale\":false}}",
+    "aggregateprogress": {
+      "progress": 0,
+      "total": 0
+    },
+    "environment": null,
+    "duedate": null,
+    "progress": {
+      "progress": 0,
+      "total": 0
+    },
+    "comment": {
+      "comments": [],
+      "maxResults": 0,
+      "total": 0,
+      "startAt": 0
+    },
+    "votes": {
+      "self": "http://localhost:8081/rest/api/2/issue/WATCH-2/votes",
+      "votes": 0,
+      "hasVoted": false
+    },
+    "worklog": {
+      "startAt": 0,
+      "maxResults": 20,
+      "total": 0,
+      "worklogs": []
+    },
+    "archivedby": null
+  }
+}
