@@ -4,7 +4,7 @@ import spock.lang.Specification
 
 class IssueDataProviderTests extends Specification {
 
-    def "Data provider provides issue with children using file api"() {
+    def "Data provider provides issue with children using file api for epic with children"() {
         when:
         def provider = new FileIssueDataProvider()
         def issue = provider.getWithChildren("WATCH-1")
@@ -29,6 +29,18 @@ class IssueDataProviderTests extends Specification {
         issue.children[1].key == "WATCH-5"
         issue.children[1].type == "Story"
         issue.children[1].summary == "Actually do one thing"
+    }
+
+    def "Data provider provides issue with children using file api for empty epic"() {
+        when:
+        def provider = new FileIssueDataProvider()
+        def issue = provider.getWithChildren("WATCH-6")
+        then:
+        issue.project == "WATCH"
+        issue.key == "WATCH-6"
+        issue.type == "Epic"
+        issue.summary == "Empty epic"
+        issue.children == []
     }
 
 }
