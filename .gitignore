@@ -5,6 +5,7 @@ build/
 !**/src/test/**/build/
 ./jiac
 src/test/resources/jira/xxx.json
+src/test/resources/jira/xxx
 
 ### STS ###
 .apt_generated

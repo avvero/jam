@@ -1,5 +1,6 @@
 package pw.avvero.jiac
 
+import org.junit.Ignore
 import pw.avvero.jiac.dsl.SchemaWriter
 import pw.avvero.jiac.jira.JiraIssue
 import pw.avvero.jiac.jira.JiraIssueMapper
@@ -9,7 +10,7 @@ import spock.lang.Specification
 
 import static pw.avvero.test.ResourceDataProvider.fromFile
 
-//@Ignore
+@Ignore
 class IntegrationalHandle extends Specification {
 
     def "Parse jira issue file and print schema to sout"() {
@@ -21,6 +22,16 @@ class IntegrationalHandle extends Specification {
         1 == 1
         where:
         file = "jira/xxx.json"
+    }
+
+    def "Parse jira issue files and print schema to sout"() {
+        when:
+        def provider = new FileIssueDataProvider("jira/xxx")
+        def issue = provider.getWithChildren("WATCH-1000")
+        def schema = SchemaWriter.toString(issue)
+        new ConsoleWriter().newLineBlue(schema)
+        then:
+        1 == 1
     }
 
 }
