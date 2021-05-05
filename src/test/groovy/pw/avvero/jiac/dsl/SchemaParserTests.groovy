@@ -1,12 +1,11 @@
 package pw.avvero.jiac.dsl
 
-import pw.avvero.jiac.dsl.Issue
-import pw.avvero.jiac.dsl.SchemaParser
+import pw.avvero.jiac.entity.Issue
 import spock.lang.Specification
 import spock.lang.Unroll
 
 import static pw.avvero.test.ResourceDataProvider.fromFile
-import static pw.avvero.test.SerializationUtils.json
+import static pw.avvero.test.SerializationUtils.read
 
 class SchemaParserTests extends Specification {
 
@@ -159,8 +158,8 @@ class SchemaParserTests extends Specification {
     @Unroll
     def "Multi level schema is parsed from file #schema"() {
         when:
-        def fromSchema = new SchemaParser().parseFromFile("src/test/resources/" + jiacFile)
-        def fromJson = json(fromFile(jsonFile), Issue)
+        def fromSchema = new SchemaParser().parseFromFile("src/test/resources/jiac/" + jiacFile)
+        def fromJson = read(fromFile("jiac/" + jsonFile), Issue)
         then:
         fromSchema == fromJson
         where:

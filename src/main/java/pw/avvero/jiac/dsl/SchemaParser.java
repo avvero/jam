@@ -4,6 +4,7 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
+import pw.avvero.jiac.entity.Issue;
 import pw.avvero.jiac.antlr.DslLexer;
 import pw.avvero.jiac.antlr.DslParser;
 

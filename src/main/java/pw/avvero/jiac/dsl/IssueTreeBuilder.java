@@ -1,5 +1,7 @@
 package pw.avvero.jiac.dsl;
 
+import pw.avvero.jiac.entity.Issue;
+
 import java.util.Iterator;
 import java.util.List;
 

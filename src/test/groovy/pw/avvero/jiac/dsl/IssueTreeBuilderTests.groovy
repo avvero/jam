@@ -1,8 +1,6 @@
 package pw.avvero.jiac.dsl
 
-import pw.avvero.jiac.dsl.Issue
-import pw.avvero.jiac.dsl.IssueTreeBuilder
-import pw.avvero.jiac.dsl.LeveledIssue
+import pw.avvero.jiac.entity.Issue
 import spock.lang.Specification
 import spock.lang.Unroll
 

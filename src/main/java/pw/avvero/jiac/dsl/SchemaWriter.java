@@ -1,5 +1,7 @@
 package pw.avvero.jiac.dsl;
 
+import pw.avvero.jiac.entity.Issue;
+
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;

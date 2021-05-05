@@ -1,11 +1,11 @@
 package pw.avvero.jiac.dsl
 
-
+import pw.avvero.jiac.entity.Issue
 import spock.lang.Specification
 import spock.lang.Unroll
 
 import static pw.avvero.test.ResourceDataProvider.fromFile
-import static pw.avvero.test.SerializationUtils.json
+import static pw.avvero.test.SerializationUtils.read
 
 class SchemaWriterTests extends Specification {
 
@@ -15,7 +15,7 @@ class SchemaWriterTests extends Specification {
         SchemaWriter.toString(issue) == schema
         where:
         issue                                                                               | schema
-        new Issue(project: "WATCH", type: "Task", summary: "Do some stuff")                 | "# [WATCH:Task] Do some stuff"
+        new Issue(project: "WATCH", type: "Task", summary: "Do some stuff") | "# [WATCH:Task] Do some stuff"
         new Issue(project: "WATCH", key: "WATCH-1", type: "Task", summary: "Do some stuff") | "# [WATCH-1:Task] Do some stuff"
         new Issue(key: "WATCH-1", type: "Task", summary: "Do some stuff")                   | "# [WATCH-1:Task] Do some stuff"
     }
@@ -56,10 +56,10 @@ class SchemaWriterTests extends Specification {
     @Unroll
     def "Issue would be written to multi level schema"() {
         when:
-        def issue = json(fromFile(jsonFile), Issue)
+        def issue = read(fromFile("jiac/" + jsonFile), Issue)
         def schema = SchemaWriter.toString(issue)
         then:
-        fromFile(jiacFile) == schema
+        fromFile("jiac/" + jiacFile) == schema
         where:
         jiacFile                | jsonFile
         "new-multilevel.md"     | "new-multilevel.json"
