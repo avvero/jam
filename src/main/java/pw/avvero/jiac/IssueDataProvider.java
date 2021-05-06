@@ -1,6 +1,6 @@
 package pw.avvero.jiac;
 
-import pw.avvero.jiac.entity.Issue;
+import pw.avvero.jiac.schema.Issue;
 
 import java.util.List;
 

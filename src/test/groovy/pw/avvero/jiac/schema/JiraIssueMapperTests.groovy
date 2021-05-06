@@ -1,7 +1,9 @@
-package pw.avvero.jiac.jira
+package pw.avvero.jiac.schema
 
 
 import pw.avvero.jiac.SerializationUtils
+import pw.avvero.jiac.jira.JiraIssue
+import pw.avvero.jiac.schema.JiraIssueMapper
 import spock.lang.Specification
 
 import static pw.avvero.test.ResourceDataProvider.fromFile

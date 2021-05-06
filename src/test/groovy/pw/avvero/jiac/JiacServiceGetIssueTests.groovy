@@ -1,13 +1,16 @@
 package pw.avvero.jiac
 
+import spock.lang.Shared
 import spock.lang.Specification
 
-class IssueDataProviderTests extends Specification {
+class JiacServiceGetIssueTests extends Specification {
 
-    def "Data provider provides issue with children using file api for epic with children"() {
+    @Shared
+    def service = new JiacService(new IssueFileDataProvider("jira/file-api"))
+
+    def "Method getIssueWithChildren returns issue with children for epic with children"() {
         when:
-        def provider = new IssueFileDataProvider("jira/file-api")
-        def issue = provider.getWithChildren("WATCH-1")
+        def issue = service.getIssueWithChildren("WATCH-1")
         then:
         issue.project == "WATCH"
         issue.key == "WATCH-1"
@@ -31,10 +34,9 @@ class IssueDataProviderTests extends Specification {
         issue.children[1].summary == "Actually do one thing"
     }
 
-    def "Data provider provides issue with children using file api for empty epic"() {
+    def "Method getIssueWithChildren returns issue without children for empty epic"() {
         when:
-        def provider = new IssueFileDataProvider("jira/file-api")
-        def issue = provider.getWithChildren("WATCH-6")
+        def issue = service.getIssueWithChildren("WATCH-6")
         then:
         issue.project == "WATCH"
         issue.key == "WATCH-6"

@@ -1,9 +1,9 @@
 package pw.avvero.jiac;
 
 import lombok.AllArgsConstructor;
-import pw.avvero.jiac.entity.Issue;
+import pw.avvero.jiac.schema.Issue;
 import pw.avvero.jiac.jira.JiraIssue;
-import pw.avvero.jiac.jira.JiraIssueMapper;
+import pw.avvero.jiac.schema.JiraIssueMapper;
 import pw.avvero.jiac.jira.SearchResponse;
 
 import java.io.IOException;

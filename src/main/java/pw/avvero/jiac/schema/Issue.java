@@ -1,4 +1,4 @@
-package pw.avvero.jiac.entity;
+package pw.avvero.jiac.schema;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

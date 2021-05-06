@@ -1,7 +1,7 @@
 package pw.avvero.jiac;
 
-import pw.avvero.jiac.dsl.SchemaWriter;
-import pw.avvero.jiac.entity.Issue;
+import pw.avvero.jiac.schema.SchemaWriter;
+import pw.avvero.jiac.schema.Issue;
 import pw.avvero.jiac.terminal.ConsoleWriter;
 import pw.avvero.jiac.terminal.Progress;
 

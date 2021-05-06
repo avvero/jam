@@ -1,9 +1,8 @@
-package pw.avvero.jiac.dsl;
+package pw.avvero.jiac.schema;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pw.avvero.jiac.entity.Issue;
 
 @Data
 @NoArgsConstructor

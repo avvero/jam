@@ -1,6 +1,6 @@
-package pw.avvero.jiac.dsl
+package pw.avvero.jiac.schema
 
-import pw.avvero.jiac.entity.Issue
+
 import spock.lang.Specification
 import spock.lang.Unroll
 

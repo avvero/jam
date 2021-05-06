@@ -1,9 +1,9 @@
 package pw.avvero.jiac
 
 import org.junit.Ignore
-import pw.avvero.jiac.dsl.SchemaWriter
+import pw.avvero.jiac.schema.SchemaWriter
 import pw.avvero.jiac.jira.JiraIssue
-import pw.avvero.jiac.jira.JiraIssueMapper
+import pw.avvero.jiac.schema.JiraIssueMapper
 import pw.avvero.jiac.terminal.ConsoleWriter
 import spock.lang.Specification
 
