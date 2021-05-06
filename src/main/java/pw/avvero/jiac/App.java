@@ -2,7 +2,6 @@ package pw.avvero.jiac;
 
 import pw.avvero.jiac.dsl.SchemaWriter;
 import pw.avvero.jiac.entity.Issue;
-import pw.avvero.jiac.dsl.SchemaParser;
 import pw.avvero.jiac.terminal.ConsoleWriter;
 import pw.avvero.jiac.terminal.Progress;
 
@@ -17,10 +16,13 @@ public class App {
         if (args.length == 0) {
             throw new IllegalArgumentException("Please specify feature file");
         }
-        String issueKey = args[0];
+        String host = args[0];
+        String username = args[1];
+        String password = args[2];
+        String issueKey = args[3];
         console.newLine("Issue key is: " + issueKey);
         console.newLineBlueBold("------------------------------------------------------------------------------");
-        Issue issue = new IssueApiDataProvider().getByCode(issueKey);
+        Issue issue = new IssueApiDataProvider(host, username, password).getWithChildren(issueKey);
         console.newLineBlue(SchemaWriter.toString(issue));
         console.newLineBlueBold("------------------------------------------------------------------------------");
         final AtomicLong linePassed = new AtomicLong();
