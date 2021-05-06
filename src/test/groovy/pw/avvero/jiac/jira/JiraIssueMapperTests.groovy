@@ -1,7 +1,7 @@
 package pw.avvero.jiac.jira
 
 
-import pw.avvero.test.SerializationUtils
+import pw.avvero.jiac.SerializationUtils
 import spock.lang.Specification
 
 import static pw.avvero.test.ResourceDataProvider.fromFile

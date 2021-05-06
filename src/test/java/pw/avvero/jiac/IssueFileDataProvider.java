@@ -1,13 +1,10 @@
 package pw.avvero.jiac;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import pw.avvero.jiac.entity.Issue;
 import pw.avvero.jiac.jira.JiraIssue;
 import pw.avvero.jiac.jira.JiraIssueMapper;
 import pw.avvero.jiac.jira.SearchResponse;
-import pw.avvero.test.ResourceDataProvider;
-import pw.avvero.test.SerializationUtils;
 
 import java.io.IOException;
 import java.util.Comparator;

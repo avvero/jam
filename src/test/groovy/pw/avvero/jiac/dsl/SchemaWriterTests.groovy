@@ -5,7 +5,7 @@ import spock.lang.Specification
 import spock.lang.Unroll
 
 import static pw.avvero.test.ResourceDataProvider.fromFile
-import static pw.avvero.test.SerializationUtils.read
+import static pw.avvero.jiac.SerializationUtils.read
 
 class SchemaWriterTests extends Specification {
 

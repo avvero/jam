@@ -20,6 +20,9 @@ dependencies {
     implementation 'org.antlr:antlr4-runtime:4.7.1'
     implementation 'org.apache.commons:commons-lang3:3.9'
 
+    implementation "com.fasterxml.jackson.core:jackson-core:2.6.5"
+    implementation "com.fasterxml.jackson.core:jackson-databind:2.6.5"
+
     compileOnly "org.projectlombok:lombok:1.18.12"
     annotationProcessor "org.projectlombok:lombok:1.18.12"
     testCompileOnly "org.projectlombok:lombok:1.18.12"
@@ -27,8 +30,6 @@ dependencies {
 
     testImplementation "org.codehaus.groovy:groovy-all:2.4.6"
     testImplementation "org.spockframework:spock-core:1.1-groovy-2.4-rc-2"
-    testImplementation "com.fasterxml.jackson.core:jackson-core:2.6.5"
-    testImplementation "com.fasterxml.jackson.core:jackson-databind:2.6.5"
 }
 
 compileJava {
@@ -60,3 +61,4 @@ idea {
 graal.outputName("jiac")
 graal.mainClass("pw.avvero.jiac.App")
 graal.javaVersion("11")
+graal.option("--enable-https")

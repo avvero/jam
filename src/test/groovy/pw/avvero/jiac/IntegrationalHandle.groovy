@@ -5,7 +5,6 @@ import pw.avvero.jiac.dsl.SchemaWriter
 import pw.avvero.jiac.jira.JiraIssue
 import pw.avvero.jiac.jira.JiraIssueMapper
 import pw.avvero.jiac.terminal.ConsoleWriter
-import pw.avvero.test.SerializationUtils
 import spock.lang.Specification
 
 import static pw.avvero.test.ResourceDataProvider.fromFile

@@ -1,5 +1,6 @@
 package pw.avvero.jiac;
 
+import pw.avvero.jiac.dsl.SchemaWriter;
 import pw.avvero.jiac.entity.Issue;
 import pw.avvero.jiac.dsl.SchemaParser;
 import pw.avvero.jiac.terminal.ConsoleWriter;
@@ -16,11 +17,11 @@ public class App {
         if (args.length == 0) {
             throw new IllegalArgumentException("Please specify feature file");
         }
-        String schemaFile = args[0];
-        console.newLine("Schema file is: " + schemaFile);
+        String issueKey = args[0];
+        console.newLine("Issue key is: " + issueKey);
         console.newLineBlueBold("------------------------------------------------------------------------------");
-        Issue issue = new SchemaParser().parseFromFile(schemaFile);
-        console.newLineBlue(issue.toString());
+        Issue issue = new IssueApiDataProvider().getByCode(issueKey);
+        console.newLineBlue(SchemaWriter.toString(issue));
         console.newLineBlueBold("------------------------------------------------------------------------------");
         final AtomicLong linePassed = new AtomicLong();
         final AtomicLong lastAffectionTimeNanos = new AtomicLong();
