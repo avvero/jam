@@ -1,11 +1,10 @@
 package pw.avvero.jiac.schema
 
-
 import spock.lang.Specification
 import spock.lang.Unroll
 
-import static pw.avvero.test.ResourceDataProvider.fromFile
 import static pw.avvero.jiac.SerializationUtils.read
+import static pw.avvero.test.ResourceDataProvider.fromFile
 
 class SchemaWriterTests extends Specification {
 
@@ -15,7 +14,7 @@ class SchemaWriterTests extends Specification {
         SchemaWriter.toString(issue) == schema
         where:
         issue                                                                               | schema
-        new Issue(project: "WATCH", type: "Task", summary: "Do some stuff") | "# [WATCH:Task] Do some stuff"
+        new Issue(project: "WATCH", type: "Task", summary: "Do some stuff")                 | "# [WATCH:Task] Do some stuff"
         new Issue(project: "WATCH", key: "WATCH-1", type: "Task", summary: "Do some stuff") | "# [WATCH-1:Task] Do some stuff"
         new Issue(key: "WATCH-1", type: "Task", summary: "Do some stuff")                   | "# [WATCH-1:Task] Do some stuff"
     }

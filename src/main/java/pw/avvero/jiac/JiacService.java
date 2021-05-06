@@ -2,6 +2,7 @@ package pw.avvero.jiac;
 
 import lombok.AllArgsConstructor;
 import pw.avvero.jiac.schema.Issue;
+import pw.avvero.jiac.schema.SchemaWriter;
 
 @AllArgsConstructor
 public class JiacService {
@@ -12,8 +13,8 @@ public class JiacService {
         return dataProvider.getWithChildren(key);
     }
 
-    public String getSchemaForIssue(String key) {
-        return null;
+    public String getSchemaForIssueWithChildren(String key) {
+        return SchemaWriter.toString(getIssueWithChildren(key));
     }
 
 }
