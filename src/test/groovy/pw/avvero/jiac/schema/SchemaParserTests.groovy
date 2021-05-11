@@ -15,7 +15,7 @@ class SchemaParserTests extends Specification {
         then:
         issue.key == key
         issue.project == "OKR"
-        issue.type == "Task"
+        issue.type == type
         issue.summary == summary
         where:
         schema                                | key      | type       | summary
@@ -34,7 +34,11 @@ class SchemaParserTests extends Specification {
         "[  OKR-12  :  Task  ] Do some stuff" | "OKR-12" | "Task"     | "Do some stuff"
         "  [OKR-12:Task]   Do some stuff"     | "OKR-12" | "Task"     | "Do some stuff"
         "# [OKR-12:Sub Task] Do some stuff"   | "OKR-12" | "Sub Task" | "Do some stuff"
-        "# [OKR-12:Task] Do some stuff: one"  | "OKR-12" | "Sub Task" | "Do some stuff: one"
+        "# [OKR-12:Sub-Task] Do some stuff"   | "OKR-12" | "Sub-Task" | "Do some stuff"
+        "# [OKR-12:Task] Do some stuff: one"  | "OKR-12" | "Task"     | "Do some stuff: one"
+        "# [OKR-12:Task] Do some stuff, one"  | "OKR-12" | "Task"     | "Do some stuff, one"
+        "# [OKR-12:Task] Do some stuff. one"  | "OKR-12" | "Task"     | "Do some stuff. one"
+        "# [OKR-12:Task] Do some stuff? one"  | "OKR-12" | "Task"     | "Do some stuff? one"
     }
 
     @Unroll
@@ -47,8 +51,8 @@ class SchemaParserTests extends Specification {
         issue.summary == "Do some stuff"
         where:
         schema = """
-[OKR:Task]Do some stuff
-"""
+                [OKR:Task]Do some stuff
+                """
     }
 
     @Unroll
@@ -65,8 +69,8 @@ class SchemaParserTests extends Specification {
         ]
         where:
         schema = """[OKR:Story]Do some stuff
--[WATCH:Task]Prepare to do one thing
--[WATCH:Task]Actually do one thing"""
+                    -[WATCH:Task]Prepare to do one thing
+                    -[WATCH:Task]Actually do one thing"""
     }
 
     @Unroll

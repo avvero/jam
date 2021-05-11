@@ -51,7 +51,7 @@ public class Commands implements Callable<Integer> {
             console.newLineGreen("No difference");
         } else {
             console.newLineBlue("Differences: ");
-            diff.forEach(d -> console.newLineBlue(d.toString()));
+            diff.forEach(d -> console.newLineBlue(" " + d));
         }
     }
 
