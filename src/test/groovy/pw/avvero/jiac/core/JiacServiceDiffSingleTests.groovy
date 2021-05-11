@@ -1,5 +1,6 @@
-package pw.avvero.jiac
+package pw.avvero.jiac.core
 
+import pw.avvero.jiac.IssueMapDataProvider
 import pw.avvero.jiac.core.IssueComparisonException
 import pw.avvero.jiac.core.JiacService
 import pw.avvero.jiac.schema.SchemaParser

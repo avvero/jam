@@ -22,7 +22,7 @@ public class JiacService {
         return SchemaWriter.toString(getIssueWithChildren(key));
     }
 
-    public <T> List<Difference<T>> diff(String key, String schema) throws Exception {
+    public List<Difference<?>> diff(String key, String schema) throws Exception {
         Issue from = dataProvider.getWithChildren(key);
         Issue to = issueParser.parseFromString(schema);
         return issueComparator.compare(from, to);

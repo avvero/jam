@@ -2,6 +2,7 @@ package pw.avvero.jiac.core;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import pw.avvero.jiac.schema.Issue;
 
 @Data
 @AllArgsConstructor
@@ -15,5 +16,9 @@ public class Difference<T> {
     private final String type;
     private final T oldValue;
     private final T newValue;
+
+    public static Difference<String> ofSummary(Issue from, Issue to) {
+        return new Difference<>(from.getKey(), SUMMARY_CHANGED, from.getSummary(), to.getSummary());
+    }
 
 }

@@ -1,5 +1,6 @@
-package pw.avvero.jiac
+package pw.avvero.jiac.core
 
+import pw.avvero.jiac.IssueMapDataProvider
 import pw.avvero.jiac.core.JiacService
 import pw.avvero.jiac.schema.Issue
 import pw.avvero.jiac.schema.SchemaParser
@@ -27,15 +28,15 @@ class JiacServiceDiffCompositeTests extends Specification {
         diff == []
         where:
         oldOne = """# [WATCH-1:Epic] Working with jira issues as a code
-- [WATCH-2:Story] Prepare to do one thing
-- - [WATCH-3:Sub-task] Prepare to do one thing part 1
-- - [WATCH-4:Sub-task] Prepare to do one thing part 2
-- [WATCH-5:Story] Actually do one thing"""
+                    - [WATCH-2:Story] Prepare to do one thing
+                    - - [WATCH-3:Sub-task] Prepare to do one thing part 1
+                    - - [WATCH-4:Sub-task] Prepare to do one thing part 2
+                    - [WATCH-5:Story] Actually do one thing"""
         newOne = """# [WATCH-1:Epic] Working with jira issues as a code
-- [WATCH-2:Story] Prepare to do one thing
-- - [WATCH-3:Sub-task] Prepare to do one thing part 1
-- - [WATCH-4:Sub-task] Prepare to do one thing part 2
-- [WATCH-5:Story] Actually do one thing"""
+                    - [WATCH-2:Story] Prepare to do one thing
+                    - - [WATCH-3:Sub-task] Prepare to do one thing part 1
+                    - - [WATCH-4:Sub-task] Prepare to do one thing part 2
+                    - [WATCH-5:Story] Actually do one thing"""
     }
 
     @Unroll
@@ -57,25 +58,25 @@ class JiacServiceDiffCompositeTests extends Specification {
         diff[1].type == SUMMARY_CHANGED
         diff[1].oldValue == "Prepare to do one thing"
         diff[1].newValue == "Prepare to do one thing (updated)"
-        diff[0].issueKey == "WATCH-4"
+        diff[3].issueKey == "WATCH-4"
         diff[3].type == SUMMARY_CHANGED
         diff[3].oldValue == "Prepare to do one thing part 2"
         diff[3].newValue == "Prepare to do one thing part 2 (updated)"
-        diff[0].issueKey == "WATCH-5"
+        diff[4].issueKey == "WATCH-5"
         diff[4].type == SUMMARY_CHANGED
         diff[4].oldValue == "Actually do one thing"
         diff[4].newValue == "Actually do one thing (updated)"
         where:
         oldOne = """# [WATCH-1:Epic] Working with jira issues as a code
-- [WATCH-2:Story] Prepare to do one thing
-- - [WATCH-3:Sub-task] Prepare to do one thing part 1
-- - [WATCH-4:Sub-task] Prepare to do one thing part 2
-- [WATCH-5:Story] Actually do one thing"""
+                    - [WATCH-2:Story] Prepare to do one thing
+                    - - [WATCH-3:Sub-task] Prepare to do one thing part 1
+                    - - [WATCH-4:Sub-task] Prepare to do one thing part 2
+                    - [WATCH-5:Story] Actually do one thing"""
         newOne = """# [WATCH-1:Epic] Working with jira issues as a code (updated)
-- [WATCH-2:Story] Prepare to do one thing (updated)
-- - [WATCH-3:Sub-task] Prepare to do one thing part 1 (updated)
-- - [WATCH-4:Sub-task] Prepare to do one thing part 2 (updated)
-- [WATCH-5:Story] Actually do one thing (updated)"""
+                    - [WATCH-2:Story] Prepare to do one thing (updated)
+                    - - [WATCH-3:Sub-task] Prepare to do one thing part 1 (updated)
+                    - - [WATCH-4:Sub-task] Prepare to do one thing part 2 (updated)
+                    - [WATCH-5:Story] Actually do one thing (updated)"""
     }
 
     @Unroll
@@ -91,15 +92,15 @@ class JiacServiceDiffCompositeTests extends Specification {
         diff == []
         where:
         oldOne = """# [WATCH-1:Epic] Working with jira issues as a code
-- [WATCH-2:Story] Prepare to do one thing
-- - [WATCH-3:Sub-task] Prepare to do one thing part 1
-- - [WATCH-4:Sub-task] Prepare to do one thing part 2
-- [WATCH-5:Story] Actually do one thing"""
+                    - [WATCH-2:Story] Prepare to do one thing
+                    - - [WATCH-3:Sub-task] Prepare to do one thing part 1
+                    - - [WATCH-4:Sub-task] Prepare to do one thing part 2
+                    - [WATCH-5:Story] Actually do one thing"""
         newOne = """# [WATCH-1:Story] Working with jira issues as a code
-- [WATCH-2:Tak] Prepare to do one thing
-- - [WATCH-3:Sub-bug] Prepare to do one thing part 1
-- - [WATCH-4:Sub-bug] Prepare to do one thing part 2
-- [WATCH-5:Task] Actually do one thing"""
+                    - [WATCH-2:Tak] Prepare to do one thing
+                    - - [WATCH-3:Sub-bug] Prepare to do one thing part 1
+                    - - [WATCH-4:Sub-bug] Prepare to do one thing part 2
+                    - [WATCH-5:Task] Actually do one thing"""
     }
 
     @Unroll
@@ -110,15 +111,15 @@ class JiacServiceDiffCompositeTests extends Specification {
         when:
         dataProvider.put("WATCH-1", parser.parseFromString(oldOne))
         and:
-        def diff = service.diff("WATCH-1", newOne)
+        service.diff("WATCH-1", newOne)
         then:
-        diff == []
+        thrown(IssueComparisonException)
         where:
         oldOne = """# [WATCH-1:Epic] Working with jira issues as a code
-- [WATCH-2:Story] Prepare to do one thing
-- - [WATCH-3:Sub-task] Prepare to do one thing part 1
-- - [WATCH-4:Sub-task] Prepare to do one thing part 2
-- [WATCH-5:Story] Actually do one thing"""
+                    - [WATCH-2:Story] Prepare to do one thing
+                    - - [WATCH-3:Sub-task] Prepare to do one thing part 1
+                    - - [WATCH-4:Sub-task] Prepare to do one thing part 2
+                    - [WATCH-5:Story] Actually do one thing"""
         newOne = """# [WATCH-6:Story] Working with jira issues as a code"""
     }
 
@@ -135,15 +136,15 @@ class JiacServiceDiffCompositeTests extends Specification {
         diff == []
         where:
         oldOne = """# [WATCH-1:Epic] Working with jira issues as a code
-- [WATCH-2:Story] Prepare to do one thing
-- - [WATCH-3:Sub-task] Prepare to do one thing part 1
-- - [WATCH-4:Sub-task] Prepare to do one thing part 2
-- [WATCH-5:Story] Actually do one thing"""
+                    - [WATCH-2:Story] Prepare to do one thing
+                    - - [WATCH-3:Sub-task] Prepare to do one thing part 1
+                    - - [WATCH-4:Sub-task] Prepare to do one thing part 2
+                    - [WATCH-5:Story] Actually do one thing"""
         newOne = """# [WATCH-1:Epic] Working with jira issues as a code
-- [WATCH-5:Story] Actually do one thing
-- [WATCH-2:Story] Prepare to do one thing
-- - [WATCH-4:Sub-task] Prepare to do one thing part 2
-- - [WATCH-3:Sub-task] Prepare to do one thing part 1"""
+                    - [WATCH-5:Story] Actually do one thing
+                    - [WATCH-2:Story] Prepare to do one thing
+                    - - [WATCH-4:Sub-task] Prepare to do one thing part 2
+                    - - [WATCH-3:Sub-task] Prepare to do one thing part 1"""
     }
 
     @Unroll
@@ -168,10 +169,10 @@ class JiacServiceDiffCompositeTests extends Specification {
         where:
         oldOne = """# [WATCH-1:Epic] Working with jira issues as a code"""
         newOne = """# [WATCH-1:Epic] Working with jira issues as a code
-- [WATCH:Story] Prepare to do one thing
-- - [WATCH:Sub-task] Prepare to do one thing part 1
-- - [WATCH:Sub-task] Prepare to do one thing part 2
-- [WATCH:Story] Actually do one thing"""
+                    - [WATCH:Story] Prepare to do one thing
+                    - - [WATCH:Sub-task] Prepare to do one thing part 1
+                    - - [WATCH:Sub-task] Prepare to do one thing part 2
+                    - [WATCH:Story] Actually do one thing"""
     }
 
     @Unroll
@@ -191,12 +192,12 @@ class JiacServiceDiffCompositeTests extends Specification {
         diff[0].type == ISSUE_ABSENT
         where:
         oldOne = """# [WATCH-1:Epic] Working with jira issues as a code
-- [WATCH-2:Story] Prepare to do one thing
-- - [WATCH-3:Sub-task] Prepare to do one thing part 1
-- - [WATCH-4:Sub-task] Prepare to do one thing part 2
-- [WATCH-5:Story] Actually do one thing"""
+                    - [WATCH-2:Story] Prepare to do one thing
+                    - - [WATCH-3:Sub-task] Prepare to do one thing part 1
+                    - - [WATCH-4:Sub-task] Prepare to do one thing part 2
+                    - [WATCH-5:Story] Actually do one thing"""
         newOne = """# [WATCH-1:Epic] Working with jira issues as a code
-- [WATCH-2:Story] Prepare to do one thing
-- - [WATCH-4:Sub-task] Prepare to do one thing part 2"""
+                    - [WATCH-2:Story] Prepare to do one thing
+                    - - [WATCH-4:Sub-task] Prepare to do one thing part 2"""
     }
 }
