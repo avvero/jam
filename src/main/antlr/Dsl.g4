@@ -6,7 +6,7 @@ child      : dash+ issue;
 
 key        : WORD ;
 type       : WORD SPACE* WORD*;
-summary    : (WORD | SIGN | SPACE) + ;
+summary    : (WORD | SIGN | SPACE | ':') + ;
 dash       : DASH SPACE* ;
 
 HASH       : '#' ;
