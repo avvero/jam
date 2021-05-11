@@ -16,23 +16,25 @@ class SchemaParserTests extends Specification {
         issue.key == key
         issue.project == "OKR"
         issue.type == "Task"
-        issue.summary == "Do some stuff"
+        issue.summary == summary
         where:
-        schema                                | key
-        "[OKR:Task]Do some stuff"             | null
-        "# [OKR:Task]Do some stuff"           | null
-        " [OKR:Task]Do some stuff   "         | null
-        "# [OKR:Task] Do some stuff"          | null
-        "[OKR:Task] Do some stuff"            | null
-        "[  OKR  :  Task  ] Do some stuff"    | null
-        "  [OKR:Task]   Do some stuff"        | null
-        "[OKR-12:Task]Do some stuff"          | "OKR-12"
-        "# [OKR-12:Task]Do some stuff"        | "OKR-12"
-        " [OKR-12:Task]Do some stuff   "      | "OKR-12"
-        "# [OKR-12:Task] Do some stuff"       | "OKR-12"
-        "[OKR-12:Task] Do some stuff"         | "OKR-12"
-        "[  OKR-12  :  Task  ] Do some stuff" | "OKR-12"
-        "  [OKR-12:Task]   Do some stuff"     | "OKR-12"
+        schema                                | key      | type       | summary
+        "[OKR:Task]Do some stuff"             | null     | "Task"     | "Do some stuff"
+        "# [OKR:Task]Do some stuff"           | null     | "Task"     | "Do some stuff"
+        " [OKR:Task]Do some stuff   "         | null     | "Task"     | "Do some stuff"
+        "# [OKR:Task] Do some stuff"          | null     | "Task"     | "Do some stuff"
+        "[OKR:Task] Do some stuff"            | null     | "Task"     | "Do some stuff"
+        "[  OKR  :  Task  ] Do some stuff"    | null     | "Task"     | "Do some stuff"
+        "  [OKR:Task]   Do some stuff"        | null     | "Task"     | "Do some stuff"
+        "[OKR-12:Task]Do some stuff"          | "OKR-12" | "Task"     | "Do some stuff"
+        "# [OKR-12:Task]Do some stuff"        | "OKR-12" | "Task"     | "Do some stuff"
+        " [OKR-12:Task]Do some stuff   "      | "OKR-12" | "Task"     | "Do some stuff"
+        "# [OKR-12:Task] Do some stuff"       | "OKR-12" | "Task"     | "Do some stuff"
+        "[OKR-12:Task] Do some stuff"         | "OKR-12" | "Task"     | "Do some stuff"
+        "[  OKR-12  :  Task  ] Do some stuff" | "OKR-12" | "Task"     | "Do some stuff"
+        "  [OKR-12:Task]   Do some stuff"     | "OKR-12" | "Task"     | "Do some stuff"
+        "# [OKR-12:Sub Task] Do some stuff"   | "OKR-12" | "Sub Task" | "Do some stuff"
+        "# [OKR-12:Task] Do some stuff: one"  | "OKR-12" | "Sub Task" | "Do some stuff: one"
     }
 
     @Unroll

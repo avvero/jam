@@ -2,10 +2,12 @@ package pw.avvero.jiac.core;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.ToString;
 import pw.avvero.jiac.schema.Issue;
 
 @Data
 @AllArgsConstructor
+@ToString
 public class Difference<T> {
 
     public static final String SUMMARY_CHANGED = "summary is changed";
