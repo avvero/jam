@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import pw.avvero.jiac.schema.Issue;
 import pw.avvero.jiac.schema.SchemaWriter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @AllArgsConstructor
 public class JiacService {
 
@@ -17,4 +20,7 @@ public class JiacService {
         return SchemaWriter.toString(getIssueWithChildren(key));
     }
 
+    public <T> List<Difference<T>> diff(String key, String schema) {
+        return new ArrayList<>();
+    }
 }

@@ -6,6 +6,13 @@ import java.util.List;
 
 public abstract class IssueDataProvider {
 
+    /**
+     * Returns issues with children:
+     * - sub-tasks any kind if issue has it
+     * - task of ony kind withing epic if this is this epic
+     * @param key
+     * @return
+     */
     public Issue getWithChildren(String key) {
         Issue root = getByCode(key);
         if ("Epic".equalsIgnoreCase(root.getType())) {
