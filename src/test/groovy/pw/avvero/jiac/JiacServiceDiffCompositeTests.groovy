@@ -1,6 +1,7 @@
 package pw.avvero.jiac
 
 import pw.avvero.jiac.core.JiacService
+import pw.avvero.jiac.schema.Issue
 import pw.avvero.jiac.schema.SchemaParser
 import spock.lang.Shared
 import spock.lang.Specification
@@ -48,19 +49,19 @@ class JiacServiceDiffCompositeTests extends Specification {
         def diff = service.diff("WATCH-1", newOne)
         then:
         diff.size() == 5
-        diff[0].issue.key == "WATCH-1"
+        diff[0].issueKey == "WATCH-1"
         diff[0].type == SUMMARY_CHANGED
         diff[0].oldValue == "Working with jira issues as a code"
         diff[0].newValue == "Working with jira issues as a code (updated)"
-        diff[1].issue.key == "WATCH-2"
+        diff[1].issueKey == "WATCH-2"
         diff[1].type == SUMMARY_CHANGED
         diff[1].oldValue == "Prepare to do one thing"
         diff[1].newValue == "Prepare to do one thing (updated)"
-        diff[0].issue.key == "WATCH-4"
+        diff[0].issueKey == "WATCH-4"
         diff[3].type == SUMMARY_CHANGED
         diff[3].oldValue == "Prepare to do one thing part 2"
         diff[3].newValue == "Prepare to do one thing part 2 (updated)"
-        diff[0].issue.key == "WATCH-5"
+        diff[0].issueKey == "WATCH-5"
         diff[4].type == SUMMARY_CHANGED
         diff[4].oldValue == "Actually do one thing"
         diff[4].newValue == "Actually do one thing (updated)"
@@ -156,22 +157,14 @@ class JiacServiceDiffCompositeTests extends Specification {
         def diff = service.diff("WATCH-1", newOne)
         then:
         diff == []
-        diff[0].issue.key == null
-        diff[0].issue.type == "Story"
-        diff[0].issue.summary == "Prepare to do one thing"
         diff[0].type == NEW_ISSUE
-        diff[1].issue.key == null
-        diff[1].issue.type == "Sub-task"
-        diff[1].issue.summary == "Prepare to do one thing part 1"
+        diff[0].newValue == new Issue(key: "Story", summary: "Prepare to do one thing")
         diff[1].type == NEW_ISSUE
-        diff[2].issue.key == null
-        diff[2].issue.type == "Sub-task"
-        diff[2].issue.summary == "Prepare to do one thing part 2"
+        diff[1].newValue == new Issue(key: "Sub-task", summary: "Prepare to do one thing part 1")
         diff[2].type == NEW_ISSUE
-        diff[3].issue.key == null
-        diff[3].issue.type == "Story"
-        diff[3].issue.summary == "Actually do one thing"
+        diff[2].newValue == new Issue(key: "Sub-task", summary: "Prepare to do one thing part 2")
         diff[3].type == NEW_ISSUE
+        diff[3].newValue == new Issue(key: "Story", summary: "Actually do one thing")
         where:
         oldOne = """# [WATCH-1:Epic] Working with jira issues as a code"""
         newOne = """# [WATCH-1:Epic] Working with jira issues as a code
@@ -192,9 +185,9 @@ class JiacServiceDiffCompositeTests extends Specification {
         def diff = service.diff("WATCH-1", newOne)
         then:
         diff.size() == 2
-        diff[0].issue.key == "WATCH-3"
+        diff[0].issueKey == "WATCH-3"
         diff[0].type == ISSUE_ABSENT
-        diff[0].issue.key == "WATCH-5"
+        diff[0].issueKey == "WATCH-5"
         diff[0].type == ISSUE_ABSENT
         where:
         oldOne = """# [WATCH-1:Epic] Working with jira issues as a code
