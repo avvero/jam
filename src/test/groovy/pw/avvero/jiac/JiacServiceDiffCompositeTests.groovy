@@ -6,9 +6,7 @@ import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
 
-import static pw.avvero.jiac.core.Difference.ISSUE_ABSENT
-import static pw.avvero.jiac.core.Difference.NEW_ISSUE
-import static pw.avvero.jiac.core.Difference.SUMMARY_CHANGED
+import static pw.avvero.jiac.core.Difference.*
 
 class JiacServiceDiffCompositeTests extends Specification {
 
@@ -19,7 +17,7 @@ class JiacServiceDiffCompositeTests extends Specification {
     def "There are no differences if there are no difference"() {
         setup:
         def dataProvider = new IssueMapDataProvider()
-        def service = new JiacService(dataProvider, new SchemaParser())
+        def service = new JiacService(dataProvider)
         when:
         dataProvider.put("WATCH-1", parser.parseFromString(oldOne))
         and:
@@ -43,7 +41,7 @@ class JiacServiceDiffCompositeTests extends Specification {
     def "There are differences if summary is different"() {
         setup:
         def dataProvider = new IssueMapDataProvider()
-        def service = new JiacService(dataProvider, new SchemaParser())
+        def service = new JiacService(dataProvider)
         when:
         dataProvider.put("WATCH-1", parser.parseFromString(oldOne))
         and:
@@ -83,7 +81,7 @@ class JiacServiceDiffCompositeTests extends Specification {
     def "There are no differences if type is different"() {
         setup:
         def dataProvider = new IssueMapDataProvider()
-        def service = new JiacService(dataProvider, new SchemaParser())
+        def service = new JiacService(dataProvider)
         when:
         dataProvider.put("WATCH-1", parser.parseFromString(oldOne))
         and:
@@ -107,7 +105,7 @@ class JiacServiceDiffCompositeTests extends Specification {
     def "There are no differences if root key is different"() {
         setup:
         def dataProvider = new IssueMapDataProvider()
-        def service = new JiacService(dataProvider, new SchemaParser())
+        def service = new JiacService(dataProvider)
         when:
         dataProvider.put("WATCH-1", parser.parseFromString(oldOne))
         and:
@@ -127,7 +125,7 @@ class JiacServiceDiffCompositeTests extends Specification {
     def "There are no differences if the only change is order of tasks"() {
         setup:
         def dataProvider = new IssueMapDataProvider()
-        def service = new JiacService(dataProvider, new SchemaParser())
+        def service = new JiacService(dataProvider)
         when:
         dataProvider.put("WATCH-1", parser.parseFromString(oldOne))
         and:
@@ -151,7 +149,7 @@ class JiacServiceDiffCompositeTests extends Specification {
     def "There are differences if there are new issues"() {
         setup:
         def dataProvider = new IssueMapDataProvider()
-        def service = new JiacService(dataProvider, new SchemaParser())
+        def service = new JiacService(dataProvider)
         when:
         dataProvider.put("WATCH-1", parser.parseFromString(oldOne))
         and:
@@ -187,7 +185,7 @@ class JiacServiceDiffCompositeTests extends Specification {
     def "There are differences if some issues are deleted"() {
         setup:
         def dataProvider = new IssueMapDataProvider()
-        def service = new JiacService(dataProvider, new SchemaParser())
+        def service = new JiacService(dataProvider)
         when:
         dataProvider.put("WATCH-1", parser.parseFromString(oldOne))
         and:

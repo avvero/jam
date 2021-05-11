@@ -8,7 +8,7 @@ import spock.lang.Specification
 class JiacServiceGetSchemaTests extends Specification {
 
     @Shared
-    def service = new JiacService(new IssueFileDataProvider("jira/file-api"), new SchemaParser())
+    def service = new JiacService(new IssueFileDataProvider("jira/file-api"))
 
     def "Method getSchemaForIssueWithChildren returns schema with children for epic with children"() {
         when:

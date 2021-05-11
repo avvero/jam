@@ -11,7 +11,7 @@ import java.util.List;
 public class JiacService {
 
     private final IssueDataProvider dataProvider;
-    private final SchemaParser issueParser;
+    private final SchemaParser issueParser = new SchemaParser();
     private final IssueComparator issueComparator = new IssueComparator();
 
     public Issue getIssueWithChildren(String key) {

@@ -1,4 +1,4 @@
-package pw.avvero.jiac
+package pw.avvero.jiac.core
 
 import pw.avvero.jiac.core.IssueComparator
 import pw.avvero.jiac.schema.Issue
