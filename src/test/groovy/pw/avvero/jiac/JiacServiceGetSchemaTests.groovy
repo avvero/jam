@@ -1,12 +1,13 @@
 package pw.avvero.jiac
 
+import pw.avvero.jiac.schema.SchemaParser
 import spock.lang.Shared
 import spock.lang.Specification
 
 class JiacServiceGetSchemaTests extends Specification {
 
     @Shared
-    def service = new JiacService(new IssueFileDataProvider("jira/file-api"))
+    def service = new JiacService(new IssueFileDataProvider("jira/file-api"), new SchemaParser())
 
     def "Method getSchemaForIssueWithChildren returns schema with children for epic with children"() {
         when:

@@ -4,9 +4,11 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.apache.commons.lang3.StringUtils;
 import pw.avvero.jiac.antlr.DslLexer;
 import pw.avvero.jiac.antlr.DslParser;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +21,8 @@ public class SchemaParser {
      * @return
      * @throws Exception
      */
-    public Issue parseFromString(String string) throws Exception {
+    public Issue parseFromString(String string) throws SchemaParsingError {
+        if (StringUtils.isBlank(string)) throw new SchemaParsingError("Provided schema is empty");
         return parseFromCharStream(CharStreams.fromString(string));
     }
 
@@ -30,8 +33,12 @@ public class SchemaParser {
      * @return
      * @throws Exception
      */
-    public Issue parseFromFile(String filePath) throws Exception {
-        return parseFromCharStream(CharStreams.fromFileName(filePath));
+    public Issue parseFromFile(String filePath) throws SchemaParsingError {
+        try {
+            return parseFromCharStream(CharStreams.fromFileName(filePath));
+        } catch (IOException e) {
+            throw new SchemaParsingError(e.getLocalizedMessage(), e);
+        }
     }
 
     /**
@@ -41,7 +48,7 @@ public class SchemaParser {
      * @return
      * @throws Exception
      */
-    public Issue parseFromCharStream(CharStream charStream) throws Exception {
+    public Issue parseFromCharStream(CharStream charStream) throws SchemaParsingError {
         DslLexer lexer = new DslLexer(charStream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         DslParser parser = new DslParser(tokens);
@@ -50,13 +57,14 @@ public class SchemaParser {
 
     /**
      * Parses issue from ParseTree
+     *
      * @param tree
      * @return
      * @throws Exception
      */
-    public Issue parse(ParseTree tree) throws Exception {
+    public Issue parse(ParseTree tree) throws SchemaParsingError {
         if (tree.getChildCount() == 0) {
-            throw new Exception("Can't parse Issue");
+            throw new SchemaParsingError("Can't parse issue: no entries are detected");
         }
         List<LeveledIssue> leveledIssues = new ArrayList<>();
         for (int i = 0; i < tree.getChildCount(); i++) {
@@ -68,7 +76,9 @@ public class SchemaParser {
                 leveledIssues.add(parse(childContext));
             }
         }
-        return IssueTreeBuilder.build(leveledIssues);
+        Issue issue = IssueTreeBuilder.build(leveledIssues);
+        if (issue == null) throw new SchemaParsingError("Can't parse issue: no entries are detected");
+        return issue;
     }
 
     private Issue parse(DslParser.IssueContext tree) {

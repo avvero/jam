@@ -16,7 +16,7 @@ class JiacServiceDiffSingleTests extends Specification {
     def "There is no difference if there is no difference"() {
         setup:
         def dataProvider = new IssueMapDataProvider()
-        def service = new JiacService(dataProvider)
+        def service = new JiacService(dataProvider, new SchemaParser())
         when:
         dataProvider.put("WATCH-1", parser.parseFromString(oldOne))
         and:
@@ -37,7 +37,7 @@ class JiacServiceDiffSingleTests extends Specification {
     def "There is a difference if summary is different"() {
         setup:
         def dataProvider = new IssueMapDataProvider()
-        def service = new JiacService(dataProvider)
+        def service = new JiacService(dataProvider, new SchemaParser())
         when:
         dataProvider.put("WATCH-1", parser.parseFromString(oldOne))
         and:
@@ -56,7 +56,7 @@ class JiacServiceDiffSingleTests extends Specification {
     def "There is no difference if type is different"() {
         setup:
         def dataProvider = new IssueMapDataProvider()
-        def service = new JiacService(dataProvider)
+        def service = new JiacService(dataProvider, new SchemaParser())
         when:
         dataProvider.put("WATCH-1", parser.parseFromString(oldOne))
         and:
@@ -71,7 +71,7 @@ class JiacServiceDiffSingleTests extends Specification {
     def "There is no difference if root key is different"() {
         setup:
         def dataProvider = new IssueMapDataProvider()
-        def service = new JiacService(dataProvider)
+        def service = new JiacService(dataProvider, new SchemaParser())
         when:
         dataProvider.put("WATCH-1", parser.parseFromString(oldOne))
         and:

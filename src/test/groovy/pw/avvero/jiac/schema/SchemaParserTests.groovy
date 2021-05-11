@@ -1,11 +1,10 @@
 package pw.avvero.jiac.schema
 
-
 import spock.lang.Specification
 import spock.lang.Unroll
 
-import static pw.avvero.test.ResourceDataProvider.fromFile
 import static pw.avvero.jiac.SerializationUtils.read
+import static pw.avvero.test.ResourceDataProvider.fromFile
 
 class SchemaParserTests extends Specification {
 
@@ -166,5 +165,18 @@ class SchemaParserTests extends Specification {
         jiacFile                | jsonFile
         "new-multilevel.md"     | "new-multilevel.json"
         "existed-multilevel.md" | "existed-multilevel.json"
+    }
+
+    @Unroll
+    def "SchemaParsingError is thrown if schema is incorrect"() {
+        when:
+        new SchemaParser().parseFromString(schema)
+        then:
+        thrown(SchemaParsingError)
+        where:
+        schema | _
+        null   | _
+        ""     | _
+        "foo"  | _
     }
 }
