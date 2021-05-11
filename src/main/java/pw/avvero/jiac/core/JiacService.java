@@ -1,12 +1,10 @@
-package pw.avvero.jiac;
+package pw.avvero.jiac.core;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import pw.avvero.jiac.schema.Issue;
 import pw.avvero.jiac.schema.SchemaParser;
 import pw.avvero.jiac.schema.SchemaWriter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor

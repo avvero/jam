@@ -1,6 +1,7 @@
 package pw.avvero.jiac
 
 import org.junit.Ignore
+import pw.avvero.jiac.core.SerializationUtils
 import pw.avvero.jiac.schema.SchemaWriter
 import pw.avvero.jiac.jira.JiraIssue
 import pw.avvero.jiac.schema.JiraIssueMapper

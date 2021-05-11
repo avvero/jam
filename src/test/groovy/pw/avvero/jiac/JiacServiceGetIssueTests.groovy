@@ -1,5 +1,6 @@
 package pw.avvero.jiac
 
+import pw.avvero.jiac.core.JiacService
 import spock.lang.Shared
 import spock.lang.Specification
 

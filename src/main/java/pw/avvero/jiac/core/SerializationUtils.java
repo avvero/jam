@@ -1,4 +1,4 @@
-package pw.avvero.jiac;
+package pw.avvero.jiac.core;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;

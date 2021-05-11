@@ -3,7 +3,7 @@ package pw.avvero.jiac.schema
 import spock.lang.Specification
 import spock.lang.Unroll
 
-import static pw.avvero.jiac.SerializationUtils.read
+import static pw.avvero.jiac.core.SerializationUtils.read
 import static pw.avvero.test.ResourceDataProvider.fromFile
 
 class SchemaWriterTests extends Specification {

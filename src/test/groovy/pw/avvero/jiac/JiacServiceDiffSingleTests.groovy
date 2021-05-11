@@ -1,11 +1,12 @@
 package pw.avvero.jiac
 
+import pw.avvero.jiac.core.JiacService
 import pw.avvero.jiac.schema.SchemaParser
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
 
-import static pw.avvero.jiac.Difference.SUMMARY_CHANGED
+import static pw.avvero.jiac.core.Difference.SUMMARY_CHANGED
 
 class JiacServiceDiffSingleTests extends Specification {
 

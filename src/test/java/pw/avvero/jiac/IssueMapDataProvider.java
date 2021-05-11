@@ -1,5 +1,6 @@
 package pw.avvero.jiac;
 
+import pw.avvero.jiac.core.IssueDataProvider;
 import pw.avvero.jiac.schema.Issue;
 
 import java.util.ArrayList;
