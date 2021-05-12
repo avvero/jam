@@ -31,18 +31,18 @@ public class IssueApiDataProvider extends IssueDataProvider {
     @Override
     public Issue getByCode(String key) {
         JiraIssue issue = requestGet(host + "/rest/api/latest/issue/" + key, JiraIssue.class);
-        return JiraIssueMapper.map(issue);
+        return JiraIssueMapper.map(issue, null);
     }
 
     @Override
-    protected List<Issue> getIssuesInEpic(String key) {
+    protected List<Issue> getIssuesInEpic(String key, Issue epic) {
         // TODO improve concatenation
         String url = host + "/rest/api/latest/search?jql=%22Epic%20Link%22=" + key + "&expand=schema,names,children";
         SearchResponse response = requestGet(url, SearchResponse.class);
         if (response.getTotal() == 0) return null;
         return response.getIssues().stream()
                 .sorted(Comparator.comparingInt(JiraIssue::getId))
-                .map(JiraIssueMapper::map)
+                .map(i -> JiraIssueMapper.map(i, epic))
                 .collect(Collectors.toList());
     }
 

@@ -18,7 +18,7 @@ public class IssueMapDataProvider extends IssueDataProvider {
     }
 
     @Override
-    protected List<Issue> getIssuesInEpic(String key) {
+    protected List<Issue> getIssuesInEpic(String key, Issue epic) {
         return new ArrayList<>();
     }
 

@@ -34,7 +34,11 @@ public class IssueComparator {
         if (to.getChildren() != null) {
             for (Issue toChild : to.getChildren()) {
                 if (StringUtils.isBlank(toChild.getKey())) {
-                    diffs.add(Difference.ofNewIssue(to));
+                    if ("Epic".equals(to.getType())) {
+                        diffs.add(Difference.ofNewIssueInEpic(to, toChild));
+                    } else {
+                        diffs.add(Difference.ofNewSubTask(to, toChild));
+                    }
                     continue;
                 }
                 Issue fromChild = fromIssuesMap.get(toChild.getKey());

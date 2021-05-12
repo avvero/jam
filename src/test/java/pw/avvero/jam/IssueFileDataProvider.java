@@ -26,7 +26,7 @@ public class IssueFileDataProvider extends IssueDataProvider {
         try {
             String content = fromFile(format("%s/%s.json", path, key));
             JiraIssue jiraIssue = SerializationUtils.read(content, JiraIssue.class);
-            return JiraIssueMapper.map(jiraIssue);
+            return JiraIssueMapper.map(jiraIssue, null);
         } catch (IOException e) {
             System.out.println(e.getLocalizedMessage());
             return null;
@@ -34,14 +34,14 @@ public class IssueFileDataProvider extends IssueDataProvider {
     }
 
     @Override
-    protected List<Issue> getIssuesInEpic(String key) {
+    protected List<Issue> getIssuesInEpic(String key, Issue epic) {
         try {
             String content = fromFile(format("%s/issues-in-epic-%s.json", path, key));
             SearchResponse searchResponse = SerializationUtils.read(content, SearchResponse.class);
             if (searchResponse.getTotal() == 0) return null;
             return searchResponse.getIssues().stream()
                     .sorted(Comparator.comparingInt(JiraIssue::getId))
-                    .map(JiraIssueMapper::map)
+                    .map(c -> JiraIssueMapper.map(c, epic))
                     .collect(Collectors.toList());
         } catch (IOException e) {
             System.out.println(e);

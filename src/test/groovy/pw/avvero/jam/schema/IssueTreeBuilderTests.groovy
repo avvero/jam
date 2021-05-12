@@ -1,8 +1,6 @@
 package pw.avvero.jam.schema
 
-import pw.avvero.jam.schema.Issue
-import pw.avvero.jam.schema.IssueTreeBuilder
-import pw.avvero.jam.schema.LeveledIssue
+
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -21,7 +19,7 @@ class IssueTreeBuilderTests extends Specification {
     @Unroll
     def "Builder returns tree #result if list is #list"() {
         when:
-        def issues = list.collect { e -> new LeveledIssue(e[0], new Issue(summary: e[1])) }
+        def issues = list.collect { e -> new FlatLevelIssue(e[0], new Issue(summary: e[1])) }
         then:
         simplify(IssueTreeBuilder.build(issues)) == result
         where:

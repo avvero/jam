@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LeveledIssue {
+public class FlatLevelIssue {
 
     private int level;
     private Issue issue;

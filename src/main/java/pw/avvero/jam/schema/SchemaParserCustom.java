@@ -26,15 +26,15 @@ public class SchemaParserCustom {
     }
 
     public Issue parse(Stream<String> lines) throws SchemaParsingError {
-        List<LeveledIssue> leveledIssues = lines
+        List<FlatLevelIssue> flatLevelIssues = lines
                 .map(this::mapLineToIssue)
                 .collect(Collectors.toList());
-        Issue issue = IssueTreeBuilder.build(leveledIssues);
+        Issue issue = IssueTreeBuilder.build(flatLevelIssues);
         if (issue == null) throw new SchemaParsingError("Can't parse issue: no entries are detected");
         return issue;
     }
 
-    private LeveledIssue mapLineToIssue(String value) {
+    private FlatLevelIssue mapLineToIssue(String value) {
         return null;
     }
 

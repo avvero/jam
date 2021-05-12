@@ -16,7 +16,7 @@ public abstract class IssueDataProvider {
     public Issue getWithChildren(String key) {
         Issue root = getByCode(key);
         if ("Epic".equalsIgnoreCase(root.getType())) {
-            List<Issue> epiclings = getIssuesInEpic(key);
+            List<Issue> epiclings = getIssuesInEpic(key, root);
             if (epiclings != null && !epiclings.isEmpty()) {
                 root.getChildren().addAll(epiclings);
             }
@@ -26,5 +26,5 @@ public abstract class IssueDataProvider {
 
     public abstract Issue getByCode(String key);
 
-    protected abstract List<Issue> getIssuesInEpic(String key);
+    protected abstract List<Issue> getIssuesInEpic(String key, Issue epic);
 }

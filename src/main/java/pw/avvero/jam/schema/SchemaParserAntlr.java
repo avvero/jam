@@ -66,17 +66,17 @@ public class SchemaParserAntlr {
         if (tree.getChildCount() == 0) {
             throw new SchemaParsingError("Can't parse issue: no entries are detected");
         }
-        List<LeveledIssue> leveledIssues = new ArrayList<>();
+        List<FlatLevelIssue> flatLevelIssues = new ArrayList<>();
         for (int i = 0; i < tree.getChildCount(); i++) {
             ParseTree treeChild = tree.getChild(i);
             if (treeChild instanceof DslParser.IssueContext) {
-                leveledIssues.add(new LeveledIssue(0, parse((DslParser.IssueContext) treeChild)));
+                flatLevelIssues.add(new FlatLevelIssue(0, parse((DslParser.IssueContext) treeChild)));
             } else if (treeChild instanceof DslParser.ChildContext) {
                 DslParser.ChildContext childContext = (DslParser.ChildContext) treeChild;
-                leveledIssues.add(parse(childContext));
+                flatLevelIssues.add(parse(childContext));
             }
         }
-        Issue issue = IssueTreeBuilder.build(leveledIssues);
+        Issue issue = IssueTreeBuilder.build(flatLevelIssues);
         if (issue == null) throw new SchemaParsingError("Can't parse issue: no entries are detected");
         return issue;
     }
@@ -101,18 +101,18 @@ public class SchemaParserAntlr {
         return issue;
     }
 
-    private LeveledIssue parse(DslParser.ChildContext tree) {
-        LeveledIssue leveledIssue = new LeveledIssue();
+    private FlatLevelIssue parse(DslParser.ChildContext tree) {
+        FlatLevelIssue flatLevelIssue = new FlatLevelIssue();
         for (int i = 0; i < tree.getChildCount(); i++) {
             ParseTree child = tree.getChild(i);
             if (child instanceof DslParser.IssueContext) {
                 Issue issue = parse((DslParser.IssueContext) child);
-                leveledIssue.setIssue(issue);
+                flatLevelIssue.setIssue(issue);
             } else if (child instanceof DslParser.DashContext) {
-                leveledIssue.setLevel(leveledIssue.getLevel() + 1);
+                flatLevelIssue.setLevel(flatLevelIssue.getLevel() + 1);
             }
         }
-        return leveledIssue;
+        return flatLevelIssue;
     }
 
 }

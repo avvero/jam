@@ -8,10 +8,10 @@ import pw.avvero.jam.schema.Issue;
 @Data
 @EqualsAndHashCode(callSuper=false)
 @AllArgsConstructor
-public class DifferenceNewSubTask extends Difference {
+public class DifferenceNewIssueInEpic extends Difference {
 
-    private final Issue parent;
-    private final Issue child;
+    private final Issue epic;
+    private final Issue issue;
 
     @Override
     public String getType() {

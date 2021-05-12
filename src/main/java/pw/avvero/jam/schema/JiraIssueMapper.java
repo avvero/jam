@@ -10,15 +10,15 @@ import static java.util.Collections.emptyList;
 
 public class JiraIssueMapper {
 
-    public static Issue map(JiraIssue jiraIssue) {
+    public static Issue map(JiraIssue jiraIssue, Issue parent) {
         String key = jiraIssue.getKey();
         String project = jiraIssue.getFields().getProject() != null ? jiraIssue.getFields().getProject().getKey() :
                 getProject(key);
         String type = jiraIssue.getFields().getIssuetype().getName();
         String summary = jiraIssue.getFields().getSummary();
-        Issue issue = new Issue(project, key, type, summary, emptyList());
+        Issue issue = new Issue(project, key, type, summary, parent, emptyList());
         List<Issue> children = Optional.ofNullable(jiraIssue.getFields().getSubtasks()).orElse(emptyList()).stream()
-                .map(JiraIssueMapper::map)
+                .map(c -> map(c, issue))
                 .collect(Collectors.toList());
         issue.setChildren(children);
         return issue;
