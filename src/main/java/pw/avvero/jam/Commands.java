@@ -3,11 +3,11 @@ package pw.avvero.jam;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
-import pw.avvero.jam.schema.Issue;
-import pw.avvero.jam.schema.SchemaWriter;
 import pw.avvero.jam.core.Difference;
 import pw.avvero.jam.core.IssueDataProvider;
 import pw.avvero.jam.core.JamService;
+import pw.avvero.jam.schema.Issue;
+import pw.avvero.jam.schema.SchemaWriter;
 import pw.avvero.jam.terminal.ConsoleWriter;
 
 import java.io.File;
@@ -23,29 +23,27 @@ public class Commands implements Callable<Integer> {
     private static ConsoleWriter console = new ConsoleWriter();
 
     @Command(description = "Provide schema representation for the issue")
-    public void schema(@Parameters(index = "0", description = "Key of the issue")
-                               String key,
-                       @Option(names = {"-c", "--configuration"},
-                               description = "File with configuration",
-                               defaultValue = "jam.properties")
-                               File file) throws IOException {
-        JamService service = getJamService(file);
+    public void checkout(@Parameters(index = "0", description = "Key of the issue")
+                                 String key,
+                         @Option(names = {"-c", "--configuration"},
+                                 description = "File with configuration",
+                                 defaultValue = "jam.properties")
+                                 File properties) throws IOException {
+        JamService service = getJamService(properties);
         Issue issue = service.getIssueWithChildren(key);
         console.newLineBlue(SchemaWriter.toString(issue));
     }
 
-    @Command(description = "Checks schema representation with the issue on server")
-    public void check(@Parameters(index = "0", description = "Key of the issue")
-                              String key,
-                      @Parameters(index = "1", description = "Target schema file")
+    @Command(description = "Offer changes that schema represents to the issue")
+    public void offer(@Parameters(index = "0", description = "Target schema file")
                               String schemaFile,
                       @Option(names = {"-c", "--configuration"},
                               description = "File with configuration",
                               defaultValue = "jam.properties")
-                              File file) throws Exception {
-        JamService service = getJamService(file);
-        Issue from = service.getIssueWithChildren(key);
+                              File properties) throws Exception {
+        JamService service = getJamService(properties);
         Issue to = service.parseFromFile(schemaFile);
+        Issue from = service.getIssueWithChildren(to.getKey());
         List<Difference<?>> diff = service.diff(from, to);
         if (diff == null || diff.size() == 0) {
             console.newLineGreen("No difference");
