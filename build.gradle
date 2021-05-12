@@ -40,7 +40,7 @@ compileJava {
 
 jar {
     manifest {
-        attributes "Main-Class": "pw.avvero.jiac.App"
+        attributes "Main-Class": "pw.avvero.jam.App"
     }
 
     from {
@@ -50,8 +50,8 @@ jar {
 
 generateGrammarSource {
     maxHeapSize = "64m"
-    arguments += ['-package', 'pw.avvero.jiac.antlr']
-    outputDirectory = new File("${project.buildDir}/generated-src/antlr/main/pw/avvero/jiac/antlr".toString())
+    arguments += ['-package', 'pw.avvero.jam.antlr']
+    outputDirectory = new File("${project.buildDir}/generated-src/antlr/main/pw/avvero/jam/antlr".toString())
 }
 
 idea {
@@ -60,7 +60,7 @@ idea {
     }
 }
 
-graal.outputName("jiac")
-graal.mainClass("pw.avvero.jiac.App")
+graal.outputName("jam")
+graal.mainClass("pw.avvero.jam.App")
 graal.javaVersion("11")
 graal.option("--enable-https")

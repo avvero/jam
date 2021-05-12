@@ -3,7 +3,7 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
-./jiac
+./jam
 src/test/resources/jira/xxx.json
 src/test/resources/jira/xxx
 
