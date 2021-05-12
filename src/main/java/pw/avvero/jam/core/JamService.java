@@ -31,13 +31,13 @@ public class JamService {
         return SchemaWriter.toString(getIssueWithChildren(key));
     }
 
-    public List<Difference<?>> diff(String key, String schema) throws Exception {
+    public List<Difference> diff(String key, String schema) throws Exception {
         Issue from = dataProvider.getWithChildren(key);
         Issue to = issueParser.parseFromString(schema);
         return diff(from, to);
     }
 
-    public List<Difference<?>> diff(Issue from, Issue to) throws Exception {
+    public List<Difference> diff(Issue from, Issue to) throws Exception {
         return issueComparator.compare(from, to);
     }
 }

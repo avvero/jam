@@ -1,5 +1,6 @@
 package pw.avvero.jam.core;
 
+import org.apache.commons.lang3.StringUtils;
 import pw.avvero.jam.schema.Issue;
 
 import java.util.*;
@@ -9,13 +10,13 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class IssueComparator {
 
-    public List<Difference<?>> compare(Issue from, Issue to) throws IssueComparisonException {
-        List<Difference<?>> diffs = new ArrayList<>();
+    public List<Difference> compare(Issue from, Issue to) throws IssueComparisonException {
+        List<Difference> diffs = new ArrayList<>();
         compare(diffs, from, to);
         return diffs;
     }
 
-    public void compare(List<Difference<?>> diffs, Issue from, Issue to) throws IssueComparisonException {
+    public void compare(List<Difference> diffs, Issue from, Issue to) throws IssueComparisonException {
         if (from == null || to == null)
             throw new IssueComparisonException("Can't compare empty issues");
         if (isBlank(from.getKey()) || isBlank(to.getKey()))
@@ -31,10 +32,14 @@ public class IssueComparator {
         alignToMap(fromIssuesMap, from);
         // Compare children
         if (to.getChildren() != null) {
-            for (Issue toChildren : to.getChildren()) {
-                Issue fromChildren = fromIssuesMap.get(toChildren.getKey());
-                if (fromChildren == null) continue;
-                compare(diffs, fromChildren, toChildren);
+            for (Issue toChild : to.getChildren()) {
+                if (StringUtils.isBlank(toChild.getKey())) {
+                    diffs.add(Difference.ofNewIssue(to));
+                    continue;
+                }
+                Issue fromChild = fromIssuesMap.get(toChild.getKey());
+                if (fromChild == null) continue;
+                compare(diffs, fromChild, toChild);
             }
         }
     }

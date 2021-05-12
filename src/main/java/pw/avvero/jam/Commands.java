@@ -44,7 +44,7 @@ public class Commands implements Callable<Integer> {
         JamService service = getJamService(properties);
         Issue to = service.parseFromFile(schemaFile);
         Issue from = service.getIssueWithChildren(to.getKey());
-        List<Difference<?>> diff = service.diff(from, to);
+        List<Difference> diff = service.diff(from, to);
         if (diff == null || diff.size() == 0) {
             console.newLineGreen("No difference");
         } else {

@@ -8,19 +8,25 @@ import pw.avvero.jam.schema.Issue;
 @Data
 @AllArgsConstructor
 @ToString
-public class Difference<T> {
+public abstract class Difference {
 
-    public static final String SUMMARY_CHANGED = "summary is changed";
+    public static final String SUMMARY_CHANGED = DifferenceSummary.class.getSimpleName();
     public static final String ISSUE_ABSENT = "summary is absent";
-    public static final String NEW_ISSUE = "new issue";
+    public static final String NEW_ISSUE = DifferenceNewIssue.class.getSimpleName();
+    public static final String NEW_SUB_TASK = DifferenceNewSubTask.class.getSimpleName();
 
-    private final String issueKey;
-    private final String type;
-    private final T oldValue;
-    private final T newValue;
+    public abstract String getType();
 
-    public static Difference<String> ofSummary(Issue from, Issue to) {
-        return new Difference<>(from.getKey(), SUMMARY_CHANGED, from.getSummary(), to.getSummary());
+    public static DifferenceSummary ofSummary(Issue from, Issue to) {
+        return new DifferenceSummary(from.getKey(), from.getSummary(), to.getSummary());
+    }
+
+    public static DifferenceNewIssue ofNewIssue(Issue to) {
+        return new DifferenceNewIssue(to);
+    }
+
+    public static DifferenceNewSubTask ofNewSubTask(Issue parent, Issue child) {
+        return new DifferenceNewSubTask(parent, child);
     }
 
 }

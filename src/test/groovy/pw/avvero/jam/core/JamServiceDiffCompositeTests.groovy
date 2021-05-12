@@ -159,10 +159,10 @@ class JamServiceDiffCompositeTests extends Specification {
         then:
         diff == []
         diff[0].type == NEW_ISSUE
-        diff[0].newValue == new Issue(key: "Story", summary: "Prepare to do one thing")
-        diff[1].type == NEW_ISSUE
+        diff[0].issue == new Issue(key: "Story", summary: "Prepare to do one thing")
+        diff[1].type == NEW_SUB_TASK
         diff[1].newValue == new Issue(key: "Sub-task", summary: "Prepare to do one thing part 1")
-        diff[2].type == NEW_ISSUE
+        diff[2].type == NEW_SUB_TASK
         diff[2].newValue == new Issue(key: "Sub-task", summary: "Prepare to do one thing part 2")
         diff[3].type == NEW_ISSUE
         diff[3].newValue == new Issue(key: "Story", summary: "Actually do one thing")
