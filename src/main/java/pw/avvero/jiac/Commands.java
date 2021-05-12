@@ -44,9 +44,9 @@ public class Commands implements Callable<Integer> {
                               defaultValue = "jiac.properties")
                               File file) throws Exception {
         JiacService service = getJiacService(file);
-        Issue source = service.parseFromFile(schemaFile);
-        Issue target = service.getIssueWithChildren(key);
-        List<Difference<?>> diff = service.diff(source, target);
+        Issue from = service.getIssueWithChildren(key);
+        Issue to = service.parseFromFile(schemaFile);
+        List<Difference<?>> diff = service.diff(from, to);
         if (diff == null || diff.size() == 0) {
             console.newLineGreen("No difference");
         } else {
