@@ -1,6 +1,7 @@
 package pw.avvero.jam.jira;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import pw.avvero.jam.core.IssueDataProvider;
 import pw.avvero.jam.jira.dto.*;
 import pw.avvero.jam.schema.Issue;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 import static pw.avvero.jam.core.SerializationUtils.read;
 import static pw.avvero.jam.core.SerializationUtils.stringify;
 
+@Slf4j
 @AllArgsConstructor
 public class JiraApiDataProvider extends IssueDataProvider {
 
@@ -54,7 +56,7 @@ public class JiraApiDataProvider extends IssueDataProvider {
 
     @Override
     public void addSubTask(Issue parent, Issue child) {
-        System.out.println("Adding task to issue: " + parent.getKey());
+        log.info("Adding task to issue: " + parent.getKey());
         IssueType issueType = getIssueType(child.getProject(), child.getType());
         JiraIssue jiraIssue = JiraIssue.builder()
                 .fields(Fields.builder()
@@ -92,7 +94,7 @@ public class JiraApiDataProvider extends IssueDataProvider {
 
     private <T> T requestGet(String url, Class<T> clazz) {
         try {
-            System.out.println("Calling: " + url);
+            log.debug("Calling: " + url);
             String auth = username + ":" + password;
             byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes(StandardCharsets.US_ASCII));
             String authHeader = "Basic " + new String(encodedAuth);
@@ -107,7 +109,7 @@ public class JiraApiDataProvider extends IssueDataProvider {
                     .proxy(ProxySelector.getDefault())
                     .build()
                     .send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println("Response payload: " + response.body());
+            log.debug("Response payload: " + response.body());
             return read(response.body(), clazz);
         } catch (InterruptedException | URISyntaxException | IOException e) {
             throw new RuntimeException(e.getLocalizedMessage(), e);
@@ -116,13 +118,13 @@ public class JiraApiDataProvider extends IssueDataProvider {
 
     private <T> T requestPost(String url, Object payload, Class<T> clazz) {
         try {
-            System.out.println("Calling: " + url);
+            log.debug("Calling: " + url);
             String auth = username + ":" + password;
             byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes(StandardCharsets.US_ASCII));
             String authHeader = "Basic " + new String(encodedAuth);
 
             String payloadString = stringify(payload);
-            System.out.println("Payload: " + payloadString);
+            log.debug("Payload: " + payloadString);
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(new URI(url))
                     .headers("Authorization", authHeader)
@@ -134,9 +136,9 @@ public class JiraApiDataProvider extends IssueDataProvider {
                     .proxy(ProxySelector.getDefault())
                     .build()
                     .send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println("Response code: " + response.statusCode());
+            log.debug("Response code: " + response.statusCode());
             String responseBody = response.body();
-            System.out.println("Response payload: " + responseBody);
+            log.debug("Response payload: " + responseBody);
             return read(responseBody, clazz);
         } catch (InterruptedException | URISyntaxException | IOException e) {
             throw new RuntimeException(e.getLocalizedMessage(), e);

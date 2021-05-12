@@ -17,8 +17,8 @@ class Scenarios extends Specification {
         1 == 1
         where:
         schema = """# [WATCH-2:Story] Do some stuff
-                    - [WATCH-4:Sub-task] Prepare to do one thing part 1
-                    - [WATCH-5:Sub-task] Prepare to do one thing part 2"""
+                    - [WATCH:Sub-task] Prepare to do one thing part 1
+                    - [WATCH:Sub-task] Prepare to do one thing part 2"""
     }
 
 }

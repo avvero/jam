@@ -1,6 +1,7 @@
 package pw.avvero.jam.core;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import pw.avvero.jam.schema.Issue;
 import pw.avvero.jam.schema.SchemaParser;
 import pw.avvero.jam.schema.SchemaParsingError;
@@ -8,6 +9,7 @@ import pw.avvero.jam.schema.SchemaWriter;
 
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 public class JamService {
 
@@ -51,6 +53,12 @@ public class JamService {
         Issue to = parseFromString(schema);
         Issue from = getIssueWithChildren(to.getKey());
         List<Difference> diffs = diff(from, to);
-        differenceResolver.resolve(diffs);
+        if (diffs == null || diffs.size() == 0) {
+            log.info("There are no difference");
+        } else {
+            log.info("There differences: ");
+            diffs.forEach(d -> log.info("    [" + d.toString() + "]"));
+            differenceResolver.resolve(diffs);
+        }
     }
 }
