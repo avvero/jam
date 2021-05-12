@@ -1,13 +1,12 @@
 package pw.avvero.jam.core.diff
 
 import pw.avvero.jam.IssueMapDataProvider
+import pw.avvero.jam.core.DifferenceNewSubTask
 import pw.avvero.jam.core.JamService
 import pw.avvero.jam.schema.SchemaParser
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
-
-import static pw.avvero.jam.core.Difference.NEW_SUB_TASK
 
 class CompositeDiffSubTasksTests extends Specification {
 
@@ -24,11 +23,11 @@ class CompositeDiffSubTasksTests extends Specification {
         and:
         def diff = service.diff("WATCH-1", newOne)
         then:
-        diff[0].type == NEW_SUB_TASK
+        diff[0] instanceof DifferenceNewSubTask
         diff[0].parent.summary == "Prepare to do one thing"
         diff[0].child.type == "Sub-task"
         diff[0].child.summary == "Prepare to do one thing part 1"
-        diff[1].type == NEW_SUB_TASK
+        diff[1] instanceof DifferenceNewSubTask
         diff[1].parent.summary == "Prepare to do one thing"
         diff[1].child.type == "Sub-task"
         diff[1].child.summary == "Prepare to do one thing part 2"

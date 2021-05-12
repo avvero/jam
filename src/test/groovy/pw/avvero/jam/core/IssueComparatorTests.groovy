@@ -7,9 +7,6 @@ import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
 
-import static pw.avvero.jam.core.Difference.NEW_ISSUE
-import static pw.avvero.jam.core.Difference.NEW_SUB_TASK
-
 class IssueComparatorTests extends Specification {
 
     @Shared
@@ -38,7 +35,7 @@ class IssueComparatorTests extends Specification {
         def diff = comparator.compare(from, to)
         then:
         diff.size() == 1
-        diff[0].type == NEW_SUB_TASK
+        diff[0] instanceof DifferenceNewSubTask
         diff[0].parent.summary == "Do 1"
         diff[0].child.summary == "Do 2"
         where:

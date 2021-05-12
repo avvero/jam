@@ -1,9 +1,7 @@
 package pw.avvero.jam.schema
 
 
-import pw.avvero.jam.core.SerializationUtils
-import pw.avvero.jam.jira.JiraIssue
-import pw.avvero.jam.schema.JiraIssueMapper
+import pw.avvero.jam.jira.dto.JiraIssue
 import spock.lang.Specification
 
 import static pw.avvero.jam.core.SerializationUtils.read

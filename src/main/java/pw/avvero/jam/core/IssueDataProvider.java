@@ -27,4 +27,10 @@ public abstract class IssueDataProvider {
     public abstract Issue getByCode(String key);
 
     protected abstract List<Issue> getIssuesInEpic(String key, Issue epic);
+
+    public abstract void updateSummary(String key, String newValue);
+
+    public abstract void addSubTask(Issue parent, Issue child);
+
+    public abstract void addIssueToEpic(Issue epic, Issue issue);
 }

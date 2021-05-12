@@ -1,6 +1,7 @@
 package pw.avvero.jam.core.diff
 
 import pw.avvero.jam.IssueMapDataProvider
+import pw.avvero.jam.core.DifferenceIssueAbsent
 import pw.avvero.jam.core.IssueComparisonException
 import pw.avvero.jam.core.JamService
 import pw.avvero.jam.schema.SchemaParser
@@ -8,8 +9,6 @@ import spock.lang.Ignore
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
-
-import static pw.avvero.jam.core.Difference.ISSUE_ABSENT
 
 class CompositeDiffCommonTests extends Specification {
 
@@ -96,10 +95,10 @@ class CompositeDiffCommonTests extends Specification {
         def diff = service.diff("WATCH-1", newOne)
         then:
         diff.size() == 2
+        diff[0] instanceof DifferenceIssueAbsent
         diff[0].issueKey == "WATCH-3"
-        diff[0].type == ISSUE_ABSENT
-        diff[0].issueKey == "WATCH-5"
-        diff[0].type == ISSUE_ABSENT
+        diff[1] instanceof DifferenceIssueAbsent
+        diff[1].issueKey == "WATCH-5"
         where:
         oldOne = """# [WATCH-1:Epic] Working with jira issues as a code
                     - [WATCH-2:Story] Prepare to do one thing

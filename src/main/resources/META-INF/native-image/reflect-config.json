@@ -1,6 +1,6 @@
 [
   {
-    "name": "pw.avvero.jam.jira.JiraIssue",
+    "name": "pw.avvero.jav.jira.dto.JiraIssue",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -9,7 +9,7 @@
     "allPublicClasses": true
   },
   {
-    "name": "pw.avvero.jam.jira.Fields",
+    "name": "pw.avvero.jav.jira.dto.Fields",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -18,7 +18,7 @@
     "allPublicClasses": true
   },
   {
-    "name": "pw.avvero.jam.jira.IssueType",
+    "name": "pw.avvero.jav.jira.dto.IssueType",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -27,7 +27,7 @@
     "allPublicClasses": true
   },
   {
-    "name": "pw.avvero.jam.jira.Project",
+    "name": "pw.avvero.jav.jira.dto.Project",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,
@@ -36,7 +36,7 @@
     "allPublicClasses": true
   },
   {
-    "name": "pw.avvero.jam.jira.SearchResponse",
+    "name": "pw.avvero.jav.jira.dto.SearchResponse",
     "allDeclaredConstructors": true,
     "allPublicConstructors": true,
     "allDeclaredMethods": true,

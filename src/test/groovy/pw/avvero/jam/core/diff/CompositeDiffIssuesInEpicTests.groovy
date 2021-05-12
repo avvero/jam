@@ -1,13 +1,12 @@
 package pw.avvero.jam.core.diff
 
 import pw.avvero.jam.IssueMapDataProvider
+import pw.avvero.jam.core.DifferenceNewIssueInEpic
 import pw.avvero.jam.core.JamService
 import pw.avvero.jam.schema.SchemaParser
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
-
-import static pw.avvero.jam.core.Difference.NEW_ISSUE_IN_EPIC
 
 class CompositeDiffIssuesInEpicTests extends Specification {
 
@@ -24,11 +23,11 @@ class CompositeDiffIssuesInEpicTests extends Specification {
         and:
         def diff = service.diff("WATCH-1", newOne)
         then:
-        diff[0].type == NEW_ISSUE_IN_EPIC
+        diff[0] instanceof DifferenceNewIssueInEpic
         diff[0].epic.key == "WATCH-1"
         diff[0].issue.type == "Story"
         diff[0].issue.summary == "Prepare to do one thing"
-        diff[1].type == NEW_ISSUE_IN_EPIC
+        diff[1] instanceof DifferenceNewIssueInEpic
         diff[1].epic.key == "WATCH-1"
         diff[1].issue.type == "Story"
         diff[1].issue.summary == "Actually do one thing"

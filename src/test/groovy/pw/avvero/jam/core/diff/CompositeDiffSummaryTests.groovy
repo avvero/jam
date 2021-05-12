@@ -1,13 +1,12 @@
 package pw.avvero.jam.core.diff
 
 import pw.avvero.jam.IssueMapDataProvider
+import pw.avvero.jam.core.DifferenceSummary
 import pw.avvero.jam.core.JamService
 import pw.avvero.jam.schema.SchemaParser
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
-
-import static pw.avvero.jam.core.Difference.SUMMARY_CHANGED
 
 class CompositeDiffSummaryTests extends Specification {
 
@@ -26,19 +25,19 @@ class CompositeDiffSummaryTests extends Specification {
         then:
         diff.size() == 5
         diff[0].issueKey == "WATCH-1"
-        diff[0].type == SUMMARY_CHANGED
+        diff[0] instanceof DifferenceSummary
         diff[0].oldValue == "Working with jira issues as a code"
         diff[0].newValue == "Working with jira issues as a code (updated)"
         diff[1].issueKey == "WATCH-2"
-        diff[1].type == SUMMARY_CHANGED
+        diff[1] instanceof DifferenceSummary
         diff[1].oldValue == "Prepare to do one thing"
         diff[1].newValue == "Prepare to do one thing (updated)"
         diff[3].issueKey == "WATCH-4"
-        diff[3].type == SUMMARY_CHANGED
+        diff[3] instanceof DifferenceSummary
         diff[3].oldValue == "Prepare to do one thing part 2"
         diff[3].newValue == "Prepare to do one thing part 2 (updated)"
         diff[4].issueKey == "WATCH-5"
-        diff[4].type == SUMMARY_CHANGED
+        diff[4] instanceof DifferenceSummary
         diff[4].oldValue == "Actually do one thing"
         diff[4].newValue == "Actually do one thing (updated)"
         where:

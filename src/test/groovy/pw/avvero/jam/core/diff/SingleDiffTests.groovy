@@ -1,14 +1,13 @@
 package pw.avvero.jam.core.diff
 
 import pw.avvero.jam.IssueMapDataProvider
+import pw.avvero.jam.core.DifferenceSummary
 import pw.avvero.jam.core.IssueComparisonException
 import pw.avvero.jam.core.JamService
 import pw.avvero.jam.schema.SchemaParser
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
-
-import static pw.avvero.jam.core.Difference.SUMMARY_CHANGED
 
 class SingleDiffTests extends Specification {
 
@@ -48,7 +47,7 @@ class SingleDiffTests extends Specification {
         then:
         diff.size() == 1
         diff[0].issueKey == "WATCH-1"
-        diff[0].type == SUMMARY_CHANGED
+        diff[0] instanceof DifferenceSummary
         diff[0].oldValue == "Working with jira issues as a code"
         diff[0].newValue == "Working with jira issues as a code (updated)"
         where:

@@ -3,6 +3,7 @@ package pw.avvero.jam;
 import pw.avvero.jam.core.IssueDataProvider;
 import pw.avvero.jam.schema.Issue;
 
+import java.security.UnrecoverableEntryException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,5 +25,20 @@ public class IssueMapDataProvider extends IssueDataProvider {
 
     public void put(String key, Issue issue) {
         issues.put(key, issue);
+    }
+
+    @Override
+    public void updateSummary(String key, String newValue) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void addSubTask(Issue parent, Issue child) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void addIssueToEpic(Issue epic, Issue issue) {
+        throw new UnsupportedOperationException();
     }
 }

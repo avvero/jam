@@ -3,10 +3,10 @@ package pw.avvero.jam;
 import lombok.AllArgsConstructor;
 import pw.avvero.jam.core.IssueDataProvider;
 import pw.avvero.jam.core.SerializationUtils;
+import pw.avvero.jam.jira.dto.JiraIssue;
+import pw.avvero.jam.jira.dto.SearchResponse;
 import pw.avvero.jam.schema.Issue;
-import pw.avvero.jam.jira.JiraIssue;
 import pw.avvero.jam.schema.JiraIssueMapper;
-import pw.avvero.jam.jira.SearchResponse;
 
 import java.io.IOException;
 import java.util.Comparator;
@@ -47,6 +47,21 @@ public class IssueFileDataProvider extends IssueDataProvider {
             System.out.println(e);
             return null;
         }
+    }
+
+    @Override
+    public void updateSummary(String key, String newValue) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void addSubTask(Issue parent, Issue child) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void addIssueToEpic(Issue epic, Issue issue) {
+        throw new UnsupportedOperationException();
     }
 
 }

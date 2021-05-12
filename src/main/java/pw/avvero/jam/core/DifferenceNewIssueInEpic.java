@@ -6,15 +6,11 @@ import lombok.EqualsAndHashCode;
 import pw.avvero.jam.schema.Issue;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 public class DifferenceNewIssueInEpic extends Difference {
 
     private final Issue epic;
     private final Issue issue;
 
-    @Override
-    public String getType() {
-        return this.getClass().getSimpleName();
-    }
 }
