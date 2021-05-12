@@ -1,5 +1,5 @@
 package pw.avvero.jam.core;
 
-public class DifferenceIssueAbsent extends Difference{
+public class DifferenceIssueAbsent implements Difference{
 
 }

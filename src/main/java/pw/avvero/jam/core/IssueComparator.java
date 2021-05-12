@@ -26,7 +26,7 @@ public class IssueComparator {
 
         // Summary
         if (!isSummaryEqual(from, to)) {
-            diffs.add(Difference.ofSummary(from, to));
+            diffs.add(DifferenceFactory.ofSummary(from, to));
         }
         Map<String, Issue> fromIssuesMap = new HashMap<>();
         alignToMap(fromIssuesMap, from);
@@ -35,9 +35,9 @@ public class IssueComparator {
             for (Issue toChild : to.getChildren()) {
                 if (StringUtils.isBlank(toChild.getKey())) {
                     if ("Epic".equals(to.getType())) {
-                        diffs.add(Difference.ofNewIssueInEpic(to, toChild));
+                        diffs.add(DifferenceFactory.ofNewIssueInEpic(to, toChild));
                     } else {
-                        diffs.add(Difference.ofNewSubTask(to, toChild));
+                        diffs.add(DifferenceFactory.ofNewSubTask(to, toChild));
                     }
                     continue;
                 }
