@@ -1,3 +1,3 @@
-# Jam project
+# JAM
 
-**J**ira issue structure **a**s a **m**arkdown
+**J**ira **a**bstraction with **m**arkdown.
