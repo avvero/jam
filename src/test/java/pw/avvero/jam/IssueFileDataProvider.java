@@ -55,7 +55,7 @@ public class IssueFileDataProvider extends IssueDataProvider {
     }
 
     @Override
-    public void addSubTask(Issue parent, Issue child) {
+    public String addSubTask(Issue parent, Issue child) {
         throw new UnsupportedOperationException();
     }
 

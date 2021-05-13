@@ -55,7 +55,7 @@ public class JiraApiDataProvider extends IssueDataProvider {
     }
 
     @Override
-    public void addSubTask(Issue parent, Issue child) {
+    public String addSubTask(Issue parent, Issue child) {
         log.info("Adding task to issue: " + parent.getKey());
         IssueType issueType = getIssueType(child.getProject(), child.getType());
         JiraIssue jiraIssue = JiraIssue.builder()
@@ -67,7 +67,7 @@ public class JiraApiDataProvider extends IssueDataProvider {
                         .build())
                 .build();
         JiraIssue response = requestPost(host + "/rest/api/2/issue", jiraIssue, JiraIssue.class);
-        child.setKey(response.getKey());
+        return response.getKey();
     }
 
     @Override

@@ -20,7 +20,8 @@ public class DifferenceResolver {
             }
             if (difference instanceof DifferenceNewSubTask) {
                 DifferenceNewSubTask diff = (DifferenceNewSubTask) difference;
-                dataProvider.addSubTask(diff.getParent(), diff.getChild());
+                String key = dataProvider.addSubTask(diff.getParent(), diff.getChild());
+                diff.getChild().setKey(key);
                 continue;
             }
             if (difference instanceof DifferenceNewIssueInEpic) {

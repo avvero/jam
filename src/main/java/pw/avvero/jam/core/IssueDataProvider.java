@@ -30,7 +30,13 @@ public abstract class IssueDataProvider {
 
     public abstract void updateSummary(String key, String newValue);
 
-    public abstract void addSubTask(Issue parent, Issue child);
+    /**
+     * Adds sub task for the issue
+     * @param parent
+     * @param child
+     * @return key for new issue
+     */
+    public abstract String addSubTask(Issue parent, Issue child);
 
     public abstract void addIssueToEpic(Issue epic, Issue issue);
 }
