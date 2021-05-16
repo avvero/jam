@@ -1,6 +1,7 @@
-package pw.avvero.jam.core
+package pw.avvero.jam
 
 import pw.avvero.jam.IssueFileDataProvider
+import pw.avvero.jam.JamService
 import spock.lang.Shared
 import spock.lang.Specification
 

@@ -7,6 +7,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.lang3.StringUtils;
 import pw.avvero.jam.antlr.DslLexer;
 import pw.avvero.jam.antlr.DslParser;
+import pw.avvero.jam.core.Issue;
 
 import java.io.IOException;
 import java.util.ArrayList;

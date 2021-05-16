@@ -1,5 +1,6 @@
-package pw.avvero.jam.schema;
+package pw.avvero.jam.jira;
 
+import pw.avvero.jam.core.Issue;
 import pw.avvero.jam.jira.dto.JiraIssue;
 
 import java.util.List;

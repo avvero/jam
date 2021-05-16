@@ -1,7 +1,7 @@
 package pw.avvero.jam.core.diff
 
 import pw.avvero.jam.IssueMapDataProvider
-import pw.avvero.jam.core.JamService
+import pw.avvero.jam.JamService
 import pw.avvero.jam.schema.SchemaParser
 import spock.lang.Shared
 import spock.lang.Specification

@@ -1,6 +1,6 @@
 package pw.avvero.jam.integrational
 
-import pw.avvero.jam.core.JamService
+import pw.avvero.jam.JamService
 import pw.avvero.jam.jira.JiraApiDataProvider
 import spock.lang.Ignore
 import spock.lang.Specification

@@ -1,6 +1,6 @@
-package pw.avvero.jam.schema
+package pw.avvero.jam.jira
 
-
+import pw.avvero.jam.jira.JiraIssueMapper
 import pw.avvero.jam.jira.dto.JiraIssue
 import spock.lang.Specification
 

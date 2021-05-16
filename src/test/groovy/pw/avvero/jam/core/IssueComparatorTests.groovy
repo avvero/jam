@@ -1,8 +1,6 @@
 package pw.avvero.jam.core
 
-import pw.avvero.jam.core.IssueComparator
-import pw.avvero.jam.core.IssueComparisonException
-import pw.avvero.jam.schema.Issue
+
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll

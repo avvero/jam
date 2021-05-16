@@ -1,9 +1,8 @@
 package pw.avvero.jam;
 
 import pw.avvero.jam.core.IssueDataProvider;
-import pw.avvero.jam.schema.Issue;
+import pw.avvero.jam.core.Issue;
 
-import java.security.UnrecoverableEntryException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

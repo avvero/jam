@@ -1,7 +1,5 @@
 package pw.avvero.jam.core;
 
-import pw.avvero.jam.schema.Issue;
-
 import java.util.List;
 
 public abstract class IssueDataProvider {

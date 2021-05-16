@@ -1,5 +1,7 @@
 package pw.avvero.jam.schema;
 
+import pw.avvero.jam.core.Issue;
+
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;

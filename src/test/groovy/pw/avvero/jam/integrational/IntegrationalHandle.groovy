@@ -3,7 +3,7 @@ package pw.avvero.jam.integrational
 import org.junit.Ignore
 import pw.avvero.jam.IssueFileDataProvider
 import pw.avvero.jam.jira.dto.JiraIssue
-import pw.avvero.jam.schema.JiraIssueMapper
+import pw.avvero.jam.jira.JiraIssueMapper
 import pw.avvero.jam.schema.SchemaWriter
 import pw.avvero.jam.terminal.ConsoleWriter
 import spock.lang.Specification

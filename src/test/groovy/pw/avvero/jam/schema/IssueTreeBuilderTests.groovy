@@ -1,6 +1,6 @@
 package pw.avvero.jam.schema
 
-
+import pw.avvero.jam.core.Issue
 import spock.lang.Specification
 import spock.lang.Unroll
 

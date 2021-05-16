@@ -4,8 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import pw.avvero.jam.core.IssueDataProvider;
 import pw.avvero.jam.jira.dto.*;
-import pw.avvero.jam.schema.Issue;
-import pw.avvero.jam.schema.JiraIssueMapper;
+import pw.avvero.jam.core.Issue;
 
 import java.io.IOException;
 import java.net.ProxySelector;

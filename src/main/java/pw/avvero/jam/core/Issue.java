@@ -1,4 +1,4 @@
-package pw.avvero.jam.schema;
+package pw.avvero.jam.core;
 
 import lombok.*;
 

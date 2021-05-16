@@ -5,8 +5,8 @@ import pw.avvero.jam.core.IssueDataProvider;
 import pw.avvero.jam.core.SerializationUtils;
 import pw.avvero.jam.jira.dto.JiraIssue;
 import pw.avvero.jam.jira.dto.SearchResponse;
-import pw.avvero.jam.schema.Issue;
-import pw.avvero.jam.schema.JiraIssueMapper;
+import pw.avvero.jam.core.Issue;
+import pw.avvero.jam.jira.JiraIssueMapper;
 
 import java.io.IOException;
 import java.util.Comparator;

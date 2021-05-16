@@ -1,7 +1,6 @@
 package pw.avvero.jam.core;
 
 import org.apache.commons.lang3.StringUtils;
-import pw.avvero.jam.schema.Issue;
 
 import java.util.*;
 

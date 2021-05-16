@@ -5,9 +5,8 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 import pw.avvero.jam.core.Difference;
 import pw.avvero.jam.core.IssueDataProvider;
-import pw.avvero.jam.core.JamService;
 import pw.avvero.jam.jira.JiraApiDataProvider;
-import pw.avvero.jam.schema.Issue;
+import pw.avvero.jam.core.Issue;
 import pw.avvero.jam.schema.SchemaWriter;
 import pw.avvero.jam.terminal.ConsoleWriter;
 

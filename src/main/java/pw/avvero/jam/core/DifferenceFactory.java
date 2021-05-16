@@ -1,7 +1,5 @@
 package pw.avvero.jam.core;
 
-import pw.avvero.jam.schema.Issue;
-
 public class DifferenceFactory {
 
     public static DifferenceSummary ofSummary(Issue from, Issue to) {

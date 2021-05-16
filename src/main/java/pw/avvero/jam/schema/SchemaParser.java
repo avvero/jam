@@ -1,5 +1,7 @@
 package pw.avvero.jam.schema;
 
+import pw.avvero.jam.core.Issue;
+
 public class SchemaParser {
 
     private final SchemaParserAntlr parserAntlr = new SchemaParserAntlr();

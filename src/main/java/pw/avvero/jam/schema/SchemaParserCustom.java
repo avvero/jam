@@ -1,5 +1,7 @@
 package pw.avvero.jam.schema;
 
+import pw.avvero.jam.core.Issue;
+
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;

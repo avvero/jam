@@ -1,8 +1,8 @@
-package pw.avvero.jam.core;
+package pw.avvero.jam;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import pw.avvero.jam.schema.Issue;
+import pw.avvero.jam.core.*;
 import pw.avvero.jam.schema.SchemaParser;
 import pw.avvero.jam.schema.SchemaParsingError;
 import pw.avvero.jam.schema.SchemaWriter;
