@@ -15,12 +15,14 @@ public class JamService {
 
     private final IssueDataProvider dataProvider;
     private final DifferenceResolver differenceResolver;
-    private final SchemaParser issueParser = new SchemaParser();
-    private final IssueComparator issueComparator = new IssueComparator();
+    private final SchemaParser issueParser;
+    private final IssueComparator issueComparator;
 
     public JamService(IssueDataProvider dataProvider) {
         this.dataProvider = dataProvider;
         this.differenceResolver = new DifferenceResolver(dataProvider);
+        this.issueParser = new SchemaParser();
+        this.issueComparator = new IssueComparator();
     }
 
     public Issue parseFromString(String value) throws SchemaParsingError {
