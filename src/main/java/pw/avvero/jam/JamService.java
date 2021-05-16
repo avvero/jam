@@ -2,6 +2,7 @@ package pw.avvero.jam;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import pw.avvero.jam.core.*;
 import pw.avvero.jam.schema.SchemaParser;
 import pw.avvero.jam.schema.SchemaParsingError;
@@ -51,9 +52,19 @@ public class JamService {
         return issueComparator.compare(from, to);
     }
 
-    public void offer(String schema) throws SchemaParsingError, IssueComparisonException {
+    public String checkout(String issueKey) {
+        Issue issue = getIssueWithChildren(issueKey);
+        return SchemaWriter.toString(issue);
+    }
+
+    public String offer(String schema) throws SchemaParsingError, IssueComparisonException, JamException {
         Issue to = parseFromString(schema);
+        if (StringUtils.isBlank(to.getKey())) {
+            throw new JamException("Please provide key for root issue");
+        }
         offer(to);
+        Issue issue = getIssueWithChildren(to.getKey());
+        return SchemaWriter.toString(issue);
     }
 
     public void offer(Issue to) throws SchemaParsingError, IssueComparisonException {

@@ -45,6 +45,20 @@ public class JiraApiDataProvider extends IssueDataProvider {
         httpApiClient.requestPut("/rest/api/2/issue/" + key, jiraIssue, JiraIssue.class);
     }
 
+    public String createIssue(Issue issue) {
+        log.info("Creating issue: " + issue.getKey());
+        IssueType issueType = getIssueType(issue.getProject(), issue.getType());
+        JiraIssue jiraIssue = JiraIssue.builder()
+                .fields(Fields.builder()
+                        .project(Project.builder().key(issue.getProject()).build())
+                        .summary(issue.getSummary())
+                        .issuetype(issueType)
+                        .build())
+                .build();
+        JiraIssue response = httpApiClient.requestPost("/rest/api/2/issue", jiraIssue, JiraIssue.class);
+        return response.getKey();
+    }
+
     @Override
     public String addSubTask(Issue parent, Issue child) {
         log.info("Adding task to issue: " + parent.getKey());

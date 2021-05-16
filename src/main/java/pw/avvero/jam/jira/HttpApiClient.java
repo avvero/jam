@@ -42,7 +42,10 @@ public class HttpApiClient {
                     .proxy(ProxySelector.getDefault())
                     .build()
                     .send(request, HttpResponse.BodyHandlers.ofString());
-            log.debug("Response payload: " + response.body());
+            log.debug("Response payload: {}: {}", response.statusCode(), response.body());
+            if (response.statusCode() == 404) {
+                return null;
+            }
             return read(response.body(), clazz);
         } catch (InterruptedException | URISyntaxException | IOException e) {
             throw new RuntimeException(e.getLocalizedMessage(), e);
@@ -72,7 +75,7 @@ public class HttpApiClient {
                     .send(request, HttpResponse.BodyHandlers.ofString());
             log.debug("Response code: " + response.statusCode());
             String responseBody = response.body();
-            log.debug("Response payload: " + responseBody);
+            log.debug("Response payload: {}: {}", response.statusCode(), response.body());
             return read(responseBody, clazz);
         } catch (InterruptedException | URISyntaxException | IOException e) {
             throw new RuntimeException(e.getLocalizedMessage(), e);
@@ -102,7 +105,7 @@ public class HttpApiClient {
                     .send(request, HttpResponse.BodyHandlers.ofString());
             log.debug("Response code: " + response.statusCode());
             String responseBody = response.body();
-            log.debug("Response payload: " + responseBody);
+            log.debug("Response payload: {}: {}", response.statusCode(), response.body());
             return read(responseBody, clazz);
         } catch (InterruptedException | URISyntaxException | IOException e) {
             throw new RuntimeException(e.getLocalizedMessage(), e);

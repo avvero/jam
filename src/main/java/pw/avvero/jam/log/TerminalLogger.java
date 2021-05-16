@@ -2,11 +2,16 @@ package pw.avvero.jam.log;
 
 import org.slf4j.Logger;
 import org.slf4j.Marker;
+import org.slf4j.helpers.MessageFormatter;
 import pw.avvero.jam.terminal.ConsoleWriter;
 
 public class TerminalLogger implements Logger {
 
     private ConsoleWriter consoleWriter = new ConsoleWriter();
+
+    private String format(String pattern, Object... args) {
+        return MessageFormatter.arrayFormat(pattern, args).getMessage();
+    }
 
     @Override
     public String getName() {
@@ -24,18 +29,18 @@ public class TerminalLogger implements Logger {
     }
 
     @Override
-    public void trace(String format, Object arg) {
-        consoleWriter.newLine(format);
+    public void trace(String pattern, Object arg) {
+        consoleWriter.newLine(format(pattern, arg));
     }
 
     @Override
-    public void trace(String format, Object arg1, Object arg2) {
-        consoleWriter.newLine(format);
+    public void trace(String pattern, Object arg1, Object arg2) {
+        consoleWriter.newLine(format(pattern, arg1, arg2));
     }
 
     @Override
-    public void trace(String format, Object... arguments) {
-        consoleWriter.newLine(format);
+    public void trace(String pattern, Object... arguments) {
+        consoleWriter.newLine(format(pattern, arguments));
     }
 
     @Override
@@ -54,17 +59,17 @@ public class TerminalLogger implements Logger {
     }
 
     @Override
-    public void trace(Marker marker, String format, Object arg) {
+    public void trace(Marker marker, String pattern, Object arg) {
 
     }
 
     @Override
-    public void trace(Marker marker, String format, Object arg1, Object arg2) {
+    public void trace(Marker marker, String pattern, Object arg1, Object arg2) {
 
     }
 
     @Override
-    public void trace(Marker marker, String format, Object... argArray) {
+    public void trace(Marker marker, String pattern, Object... argArray) {
 
     }
 
@@ -84,18 +89,18 @@ public class TerminalLogger implements Logger {
     }
 
     @Override
-    public void debug(String format, Object arg) {
-        consoleWriter.newLine(format);
+    public void debug(String pattern, Object arg) {
+        consoleWriter.newLine(format(pattern, arg));
     }
 
     @Override
-    public void debug(String format, Object arg1, Object arg2) {
-        consoleWriter.newLine(format);
+    public void debug(String pattern, Object arg1, Object arg2) {
+        consoleWriter.newLine(format(pattern, arg1, arg2));
     }
 
     @Override
-    public void debug(String format, Object... arguments) {
-        consoleWriter.newLine(format);
+    public void debug(String pattern, Object... arguments) {
+        consoleWriter.newLine(format(pattern, arguments));
     }
 
     @Override
@@ -114,17 +119,17 @@ public class TerminalLogger implements Logger {
     }
 
     @Override
-    public void debug(Marker marker, String format, Object arg) {
+    public void debug(Marker marker, String pattern, Object arg) {
 
     }
 
     @Override
-    public void debug(Marker marker, String format, Object arg1, Object arg2) {
+    public void debug(Marker marker, String pattern, Object arg1, Object arg2) {
 
     }
 
     @Override
-    public void debug(Marker marker, String format, Object... arguments) {
+    public void debug(Marker marker, String pattern, Object... arguments) {
 
     }
 
@@ -144,18 +149,18 @@ public class TerminalLogger implements Logger {
     }
 
     @Override
-    public void info(String format, Object arg) {
-        consoleWriter.newLine(format);
+    public void info(String pattern, Object arg) {
+        consoleWriter.newLine(format(pattern, arg));
     }
 
     @Override
-    public void info(String format, Object arg1, Object arg2) {
-        consoleWriter.newLine(format);
+    public void info(String pattern, Object arg1, Object arg2) {
+        consoleWriter.newLine(format(pattern, arg1, arg2));
     }
 
     @Override
-    public void info(String format, Object... arguments) {
-        consoleWriter.newLine(format);
+    public void info(String pattern, Object... arguments) {
+        consoleWriter.newLine(format(pattern, arguments));
     }
 
     @Override
@@ -174,17 +179,17 @@ public class TerminalLogger implements Logger {
     }
 
     @Override
-    public void info(Marker marker, String format, Object arg) {
+    public void info(Marker marker, String pattern, Object arg) {
 
     }
 
     @Override
-    public void info(Marker marker, String format, Object arg1, Object arg2) {
+    public void info(Marker marker, String pattern, Object arg1, Object arg2) {
 
     }
 
     @Override
-    public void info(Marker marker, String format, Object... arguments) {
+    public void info(Marker marker, String pattern, Object... arguments) {
 
     }
 
@@ -204,18 +209,18 @@ public class TerminalLogger implements Logger {
     }
 
     @Override
-    public void warn(String format, Object arg) {
-        consoleWriter.newLine(format);
+    public void warn(String pattern, Object arg) {
+        consoleWriter.newLine(format(pattern, arg));
     }
 
     @Override
-    public void warn(String format, Object... arguments) {
-        consoleWriter.newLine(format);
+    public void warn(String pattern, Object... arguments) {
+        consoleWriter.newLine(format(pattern, arguments));
     }
 
     @Override
-    public void warn(String format, Object arg1, Object arg2) {
-        consoleWriter.newLine(format);
+    public void warn(String pattern, Object arg1, Object arg2) {
+        consoleWriter.newLine(format(pattern, arg1, arg2));
     }
 
     @Override
@@ -234,17 +239,17 @@ public class TerminalLogger implements Logger {
     }
 
     @Override
-    public void warn(Marker marker, String format, Object arg) {
+    public void warn(Marker marker, String pattern, Object arg) {
 
     }
 
     @Override
-    public void warn(Marker marker, String format, Object arg1, Object arg2) {
+    public void warn(Marker marker, String pattern, Object arg1, Object arg2) {
 
     }
 
     @Override
-    public void warn(Marker marker, String format, Object... arguments) {
+    public void warn(Marker marker, String pattern, Object... arguments) {
 
     }
 
@@ -264,18 +269,18 @@ public class TerminalLogger implements Logger {
     }
 
     @Override
-    public void error(String format, Object arg) {
-        consoleWriter.newLine(format);
+    public void error(String pattern, Object arg) {
+        consoleWriter.newLine(format(pattern, arg));
     }
 
     @Override
-    public void error(String format, Object arg1, Object arg2) {
-        consoleWriter.newLine(format);
+    public void error(String pattern, Object arg1, Object arg2) {
+        consoleWriter.newLine(format(pattern, arg1, arg2));
     }
 
     @Override
-    public void error(String format, Object... arguments) {
-        consoleWriter.newLine(format);
+    public void error(String pattern, Object... arguments) {
+        consoleWriter.newLine(format(pattern, arguments));
     }
 
     @Override
@@ -294,17 +299,17 @@ public class TerminalLogger implements Logger {
     }
 
     @Override
-    public void error(Marker marker, String format, Object arg) {
+    public void error(Marker marker, String pattern, Object arg) {
 
     }
 
     @Override
-    public void error(Marker marker, String format, Object arg1, Object arg2) {
+    public void error(Marker marker, String pattern, Object arg1, Object arg2) {
 
     }
 
     @Override
-    public void error(Marker marker, String format, Object... arguments) {
+    public void error(Marker marker, String pattern, Object... arguments) {
 
     }
 
