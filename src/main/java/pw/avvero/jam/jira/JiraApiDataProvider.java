@@ -16,10 +16,6 @@ public class JiraApiDataProvider extends IssueDataProvider {
 
     private final HttpApiClient httpApiClient;
 
-    public JiraApiDataProvider(String host, String username, String password) {
-        this.httpApiClient = new HttpApiClient(host, username, password);
-    }
-
     @Override
     public Issue getByCode(String key) {
         JiraIssue issue = httpApiClient.requestGet("/rest/api/latest/issue/" + key, JiraIssue.class);

@@ -1,6 +1,7 @@
 package pw.avvero.jam.integrational
 
 import pw.avvero.jam.JamService
+import pw.avvero.jam.jira.HttpApiClient
 import pw.avvero.jam.jira.JiraApiDataProvider
 import spock.lang.Ignore
 import spock.lang.Specification
@@ -10,7 +11,7 @@ class Scenarios extends Specification {
 
     def "Create stories with tasks"() {
         setup:
-        def apiAdapter = new JiraApiDataProvider("http://localhost:8081", "admin", "admin")
+        def apiAdapter = new JiraApiDataProvider(new HttpApiClient("http://localhost:8081", "admin", "admin"))
         def jamService = new JamService(apiAdapter)
         when:
         jamService.offer(schema)

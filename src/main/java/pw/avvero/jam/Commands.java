@@ -4,9 +4,10 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 import pw.avvero.jam.core.Difference;
-import pw.avvero.jam.core.IssueDataProvider;
-import pw.avvero.jam.jira.JiraApiDataProvider;
 import pw.avvero.jam.core.Issue;
+import pw.avvero.jam.core.IssueDataProvider;
+import pw.avvero.jam.jira.HttpApiClient;
+import pw.avvero.jam.jira.JiraApiDataProvider;
 import pw.avvero.jam.schema.SchemaWriter;
 import pw.avvero.jam.terminal.ConsoleWriter;
 
@@ -59,7 +60,7 @@ public class Commands implements Callable<Integer> {
         String host = prop.getProperty("host");
         String username = prop.getProperty("username");
         String password = prop.getProperty("password");
-        IssueDataProvider dataProvider = new JiraApiDataProvider(host, username, password);
+        IssueDataProvider dataProvider = new JiraApiDataProvider(new HttpApiClient(host, username, password));
         return new JamService(dataProvider);
     }
 
