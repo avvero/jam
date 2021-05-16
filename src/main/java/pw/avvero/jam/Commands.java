@@ -3,7 +3,6 @@ package pw.avvero.jam;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
-import pw.avvero.jam.core.Difference;
 import pw.avvero.jam.core.Issue;
 import pw.avvero.jam.core.IssueDataProvider;
 import pw.avvero.jam.jira.HttpApiClient;
@@ -14,7 +13,6 @@ import pw.avvero.jam.terminal.ConsoleWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.Callable;
 
@@ -44,14 +42,7 @@ public class Commands implements Callable<Integer> {
                               File properties) throws Exception {
         JamService service = getJamService(properties);
         Issue to = service.parseFromFile(schemaFile);
-        Issue from = service.getIssueWithChildren(to.getKey());
-        List<Difference> diff = service.diff(from, to);
-        if (diff == null || diff.size() == 0) {
-            console.newLineGreen("No difference");
-        } else {
-            console.newLineBlue("Differences: ");
-            diff.forEach(d -> console.newLineBlue(" " + d));
-        }
+        service.offer(to);
     }
 
     private JamService getJamService(File file) throws IOException {

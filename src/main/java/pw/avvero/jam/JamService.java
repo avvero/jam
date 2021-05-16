@@ -53,6 +53,10 @@ public class JamService {
 
     public void offer(String schema) throws SchemaParsingError, IssueComparisonException {
         Issue to = parseFromString(schema);
+        offer(to);
+    }
+
+    public void offer(Issue to) throws SchemaParsingError, IssueComparisonException {
         Issue from = getIssueWithChildren(to.getKey());
         List<Difference> diffs = diff(from, to);
         if (diffs == null || diffs.size() == 0) {

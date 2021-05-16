@@ -36,7 +36,13 @@ public class JiraApiDataProvider extends IssueDataProvider {
 
     @Override
     public void updateSummary(String key, String newValue) {
-        throw new UnsupportedOperationException();
+        log.info("Updating issue: " + key);
+        JiraIssue jiraIssue = JiraIssue.builder()
+                .fields(Fields.builder()
+                        .summary(newValue)
+                        .build())
+                .build();
+        httpApiClient.requestPut("/rest/api/2/issue/" + key, jiraIssue, JiraIssue.class);
     }
 
     @Override

@@ -79,4 +79,34 @@ public class HttpApiClient {
         }
     }
 
+    public <T> T requestPut(String method, Object payload, Class<T> clazz) {
+        try {
+            String uri = host + method;
+            log.debug("Calling: " + uri);
+            String auth = username + ":" + password;
+            byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes(StandardCharsets.US_ASCII));
+            String authHeader = "Basic " + new String(encodedAuth);
+
+            String payloadString = stringify(payload);
+            log.debug("Payload: " + payloadString);
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI(uri))
+                    .headers("Authorization", authHeader)
+                    .header("Content-Type", "application/json")
+                    .PUT(HttpRequest.BodyPublishers.ofString(payloadString))
+                    .build();
+            HttpResponse<String> response = HttpClient
+                    .newBuilder()
+                    .proxy(ProxySelector.getDefault())
+                    .build()
+                    .send(request, HttpResponse.BodyHandlers.ofString());
+            log.debug("Response code: " + response.statusCode());
+            String responseBody = response.body();
+            log.debug("Response payload: " + responseBody);
+            return read(responseBody, clazz);
+        } catch (InterruptedException | URISyntaxException | IOException e) {
+            throw new RuntimeException(e.getLocalizedMessage(), e);
+        }
+    }
+
 }
