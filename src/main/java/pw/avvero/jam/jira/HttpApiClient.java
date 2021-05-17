@@ -2,6 +2,8 @@ package pw.avvero.jam.jira;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import pw.avvero.jam.JamException;
+import pw.avvero.jam.jira.dto.ErrorResponse;
 
 import java.io.IOException;
 import java.net.ProxySelector;
@@ -42,17 +44,21 @@ public class HttpApiClient {
                     .proxy(ProxySelector.getDefault())
                     .build()
                     .send(request, HttpResponse.BodyHandlers.ofString());
-            log.debug("Response payload: {}: {}", response.statusCode(), response.body());
+            String responseBody = response.body();
+            log.debug("Response payload: {}: {}", response.statusCode(), responseBody);
             if (response.statusCode() == 404) {
                 return null;
+            } else if (response.statusCode() >= 400) {
+                throw errorFrom(response);
+            } else {
+                return read(responseBody, clazz);
             }
-            return read(response.body(), clazz);
-        } catch (InterruptedException | URISyntaxException | IOException e) {
+        } catch (InterruptedException | URISyntaxException | IOException | JamException e) {
             throw new RuntimeException(e.getLocalizedMessage(), e);
         }
     }
 
-    public <T> T requestPost(String method, Object payload, Class<T> clazz) {
+    public <T> T requestPost(String method, Object payload, Class<T> clazz) throws JamException {
         try {
             String uri = host + method;
             log.debug("Calling: " + uri);
@@ -73,10 +79,13 @@ public class HttpApiClient {
                     .proxy(ProxySelector.getDefault())
                     .build()
                     .send(request, HttpResponse.BodyHandlers.ofString());
-            log.debug("Response code: " + response.statusCode());
             String responseBody = response.body();
-            log.debug("Response payload: {}: {}", response.statusCode(), response.body());
-            return read(responseBody, clazz);
+            log.debug("Response payload: {}: {}", response.statusCode(), responseBody);
+            if (response.statusCode() >= 400) {
+                throw errorFrom(response);
+            } else {
+                return read(responseBody, clazz);
+            }
         } catch (InterruptedException | URISyntaxException | IOException e) {
             throw new RuntimeException(e.getLocalizedMessage(), e);
         }
@@ -103,13 +112,50 @@ public class HttpApiClient {
                     .proxy(ProxySelector.getDefault())
                     .build()
                     .send(request, HttpResponse.BodyHandlers.ofString());
-            log.debug("Response code: " + response.statusCode());
             String responseBody = response.body();
-            log.debug("Response payload: {}: {}", response.statusCode(), response.body());
-            return read(responseBody, clazz);
-        } catch (InterruptedException | URISyntaxException | IOException e) {
+            log.debug("Response payload: {}: {}", response.statusCode(), responseBody);
+            if (response.statusCode() == 404) {
+                return null;
+            } else if (response.statusCode() >= 400) {
+                throw errorFrom(response);
+            } else {
+                return read(responseBody, clazz);
+            }
+        } catch (InterruptedException | URISyntaxException | IOException | JamException e) {
             throw new RuntimeException(e.getLocalizedMessage(), e);
         }
     }
 
+    public void requestDelete(String method) {
+        try {
+            String uri = host + method;
+            log.debug("Calling: " + uri);
+            String auth = username + ":" + password;
+            byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes(StandardCharsets.US_ASCII));
+            String authHeader = "Basic " + new String(encodedAuth);
+            HttpRequest request = HttpRequest.newBuilder()
+                    .DELETE()
+                    .uri(new URI(uri))
+                    .headers("Authorization", authHeader)
+                    .build();
+            HttpResponse<String> response = HttpClient
+                    .newBuilder()
+                    .proxy(ProxySelector.getDefault())
+                    .build()
+                    .send(request, HttpResponse.BodyHandlers.ofString());
+            String responseBody = response.body();
+            log.debug("Response payload: {}: {}", response.statusCode(), responseBody);
+            if (response.statusCode() >= 400) {
+                throw errorFrom(response);
+            }
+        } catch (InterruptedException | URISyntaxException | IOException | JamException e) {
+            throw new RuntimeException(e.getLocalizedMessage(), e);
+        }
+    }
+
+    private JamException errorFrom(HttpResponse<String> response) throws IOException, JamException {
+        String responseBody = response.body();
+        ErrorResponse errorResponse = read(responseBody, ErrorResponse.class);
+        return new JamException(errorResponse.getErrors().values().stream().findFirst().orElse("Unknown error"));
+    }
 }

@@ -67,7 +67,7 @@ public class JamService {
         return SchemaWriter.toString(issue);
     }
 
-    public void offer(Issue to) throws SchemaParsingError, IssueComparisonException {
+    public void offer(Issue to) throws SchemaParsingError, IssueComparisonException, JamException {
         Issue from = getIssueWithChildren(to.getKey());
         List<Difference> diffs = diff(from, to);
         if (diffs == null || diffs.size() == 0) {

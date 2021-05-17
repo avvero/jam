@@ -2,6 +2,7 @@ package pw.avvero.jam.core;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import pw.avvero.jam.JamException;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class DifferenceResolver {
 
     private final IssueDataProvider dataProvider;
 
-    public void resolve(List<Difference> differences) {
+    public void resolve(List<Difference> differences) throws JamException {
         for (Difference difference : differences) {
             if (difference instanceof DifferenceSummary) {
                 DifferenceSummary diff = (DifferenceSummary) difference;

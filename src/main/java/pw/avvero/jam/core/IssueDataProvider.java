@@ -1,5 +1,7 @@
 package pw.avvero.jam.core;
 
+import pw.avvero.jam.JamException;
+
 import java.util.List;
 
 public abstract class IssueDataProvider {
@@ -34,7 +36,7 @@ public abstract class IssueDataProvider {
      * @param child
      * @return key for new issue
      */
-    public abstract String addSubTask(Issue parent, Issue child);
+    public abstract String addSubTask(Issue parent, Issue child) throws JamException;
 
     public abstract void addIssueToEpic(Issue epic, Issue issue);
 }

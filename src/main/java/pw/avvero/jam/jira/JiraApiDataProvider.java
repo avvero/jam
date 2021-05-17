@@ -2,12 +2,15 @@ package pw.avvero.jam.jira;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import pw.avvero.jam.JamException;
 import pw.avvero.jam.core.Issue;
 import pw.avvero.jam.core.IssueDataProvider;
 import pw.avvero.jam.jira.dto.*;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -42,10 +45,10 @@ public class JiraApiDataProvider extends IssueDataProvider {
                         .summary(newValue)
                         .build())
                 .build();
-        httpApiClient.requestPut("/rest/api/2/issue/" + key, jiraIssue, JiraIssue.class);
+        httpApiClient.requestPut("/rest/api/latest/issue/" + key, jiraIssue, JiraIssue.class);
     }
 
-    public String createIssue(Issue issue) {
+    public JiraIssue createIssue(Issue issue) throws JamException {
         log.info("Creating issue: " + issue.getKey());
         IssueType issueType = getIssueType(issue.getProject(), issue.getType());
         JiraIssue jiraIssue = JiraIssue.builder()
@@ -55,12 +58,14 @@ public class JiraApiDataProvider extends IssueDataProvider {
                         .issuetype(issueType)
                         .build())
                 .build();
-        JiraIssue response = httpApiClient.requestPost("/rest/api/2/issue", jiraIssue, JiraIssue.class);
-        return response.getKey();
+        JiraIssue response = httpApiClient.requestPost("/rest/api/latest/issue", jiraIssue, JiraIssue.class);
+        jiraIssue.setId(response.getId());
+        jiraIssue.setKey(response.getKey());
+        return jiraIssue;
     }
 
     @Override
-    public String addSubTask(Issue parent, Issue child) {
+    public String addSubTask(Issue parent, Issue child) throws JamException {
         log.info("Adding task to issue: " + parent.getKey());
         IssueType issueType = getIssueType(child.getProject(), child.getType());
         JiraIssue jiraIssue = JiraIssue.builder()
@@ -71,7 +76,7 @@ public class JiraApiDataProvider extends IssueDataProvider {
                         .issuetype(issueType)
                         .build())
                 .build();
-        JiraIssue response = httpApiClient.requestPost("/rest/api/2/issue", jiraIssue, JiraIssue.class);
+        JiraIssue response = httpApiClient.requestPost("/rest/api/latest/issue", jiraIssue, JiraIssue.class);
         return response.getKey();
     }
 
@@ -97,5 +102,21 @@ public class JiraApiDataProvider extends IssueDataProvider {
         return httpApiClient.requestGet(method, CreatemetaResponse.class);
     }
 
+    public Project createProject(String key, String name) throws JamException {
+        log.info("Creating project: " + key);
+        Map<String, String> request = new HashMap<>();
+        request.put("assigneeType", "UNASSIGNED");
+        request.put("projectTypeKey", "software");
+        request.put("projectTemplateKey", "com.pyxis.greenhopper.jira:gh-scrum-template");
+        request.put("key", key);
+        request.put("name", name);
+        request.put("lead", "admin");
+        Project response = httpApiClient.requestPost("/rest/api/latest/project", request, Project.class);
+        return response;
+    }
+
+    public void deleteProject(String key) {
+        httpApiClient.requestDelete("/rest/api/latest/project/" + key);
+    }
 
 }
