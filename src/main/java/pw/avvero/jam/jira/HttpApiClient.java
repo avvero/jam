@@ -29,7 +29,7 @@ public class HttpApiClient {
     public <T> T requestGet(String method, Class<T> clazz) {
         try {
             String uri = host + method;
-            log.debug("Calling: " + uri);
+            log.debug("Calling GET: " + uri);
             String auth = username + ":" + password;
             byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes(StandardCharsets.US_ASCII));
             String authHeader = "Basic " + new String(encodedAuth);
@@ -61,7 +61,7 @@ public class HttpApiClient {
     public <T> T requestPost(String method, Object payload, Class<T> clazz) throws JamException {
         try {
             String uri = host + method;
-            log.debug("Calling: " + uri);
+            log.debug("Calling POST: " + uri);
             String auth = username + ":" + password;
             byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes(StandardCharsets.US_ASCII));
             String authHeader = "Basic " + new String(encodedAuth);
@@ -94,7 +94,7 @@ public class HttpApiClient {
     public <T> T requestPut(String method, Object payload, Class<T> clazz) {
         try {
             String uri = host + method;
-            log.debug("Calling: " + uri);
+            log.debug("Calling PUT: " + uri);
             String auth = username + ":" + password;
             byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes(StandardCharsets.US_ASCII));
             String authHeader = "Basic " + new String(encodedAuth);
