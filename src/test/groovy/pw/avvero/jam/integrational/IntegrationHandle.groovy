@@ -12,7 +12,7 @@ import static pw.avvero.jam.core.SerializationUtils.read
 import static pw.avvero.test.ResourceDataProvider.fromFile
 
 @Ignore
-class IntegrationalHandle extends Specification {
+class IntegrationHandle extends Specification {
 
     def "Parse jira issue file and print schema to sout"() {
         when:

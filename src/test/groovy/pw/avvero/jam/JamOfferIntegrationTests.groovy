@@ -9,7 +9,7 @@ import spock.lang.Stepwise
 import spock.lang.Unroll
 
 @Stepwise
-class JamOfferITests extends Specification {
+class JamOfferIntegrationTests extends Specification {
 
     @Shared
     private String project = "WTJ"
