@@ -40,4 +40,9 @@ public class IssueMapDataProvider extends IssueDataProvider {
     public void addIssueToEpic(Issue epic, Issue issue) {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public void moveSubTaskToParent(Issue parent, Issue child) {
+        throw new UnsupportedOperationException();
+    }
 }

@@ -39,4 +39,6 @@ public abstract class IssueDataProvider {
     public abstract String addSubTask(Issue parent, Issue child) throws JamException;
 
     public abstract void addIssueToEpic(Issue epic, Issue issue);
+
+    public abstract void moveSubTaskToParent(Issue parent, Issue child) throws JamException;
 }

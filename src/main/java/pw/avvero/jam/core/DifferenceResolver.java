@@ -30,8 +30,10 @@ public class DifferenceResolver {
                 dataProvider.addIssueToEpic(diff.getEpic(), diff.getIssue());
                 continue;
             }
-            if (difference instanceof DifferenceSubTaskChangesParent) {
-                throw new JamException("Move to the new parent is not supported for subtasks now");
+            if (difference instanceof DifferenceMoveSubTaskToParent) {
+                DifferenceMoveSubTaskToParent diff = (DifferenceMoveSubTaskToParent) difference;
+                dataProvider.moveSubTaskToParent(diff.getParent(), diff.getChild());
+                continue;
             }
             throw new UnsupportedOperationException("Difference with type is not supported: "
                     + difference.getClass().getSimpleName());

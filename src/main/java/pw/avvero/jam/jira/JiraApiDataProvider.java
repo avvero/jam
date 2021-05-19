@@ -85,6 +85,11 @@ public class JiraApiDataProvider extends IssueDataProvider {
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public void moveSubTaskToParent(Issue parent, Issue child) throws JamException {
+        throw new JamException("Move to the new parent is not supported for subtasks now");
+    }
+
     private IssueType getIssueType(String projectKey, String type) {
         CreatemetaResponse response = createmeta(projectKey);
         for (Project project : response.getProjects()) {

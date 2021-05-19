@@ -2,8 +2,7 @@ package pw.avvero.jam.core.diff
 
 import pw.avvero.jam.IssueMapDataProvider
 import pw.avvero.jam.JamService
-import pw.avvero.jam.core.DifferenceNewSubTask
-import pw.avvero.jam.core.DifferenceSubTaskChangesParent
+import pw.avvero.jam.core.DifferenceMoveSubTaskToParent
 import pw.avvero.jam.schema.SchemaParser
 import spock.lang.Shared
 import spock.lang.Specification
@@ -30,7 +29,7 @@ class CompositeDiffSubTaskMovingTests extends Specification {
                        - [WATCH-3:Sub-task] Prepare to do one thing part 1"""
         def diff = service.diff("WATCH-2", offer)
         then:
-        diff[0] instanceof DifferenceSubTaskChangesParent
+        diff[0] instanceof DifferenceMoveSubTaskToParent
         diff[0].parent.summary == "Do second thing"
         diff[0].child.type == "Sub-task"
         diff[0].child.summary == "Prepare to do one thing part 1"

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class DifferenceSubTaskChangesParent implements Difference {
+public class DifferenceMoveSubTaskToParent implements Difference {
 
     private final Issue parent;
     private final Issue child;
