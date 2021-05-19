@@ -38,11 +38,15 @@ public class IssueComparator {
                     } else {
                         diffs.add(DifferenceFactory.ofNewSubTask(to, toChild));
                     }
-                    continue;
+                } else {
+                    Issue fromChild = fromIssuesMap.get(toChild.getKey());
+                    if (fromChild != null) {
+                        compare(diffs, fromChild, toChild);
+                    } else {
+                        // Child with key is not presented in current parent, but is presented in offer
+                        diffs.add(DifferenceFactory.ofChangeParent(to, toChild));
+                    }
                 }
-                Issue fromChild = fromIssuesMap.get(toChild.getKey());
-                if (fromChild == null) continue;
-                compare(diffs, fromChild, toChild);
             }
         }
     }

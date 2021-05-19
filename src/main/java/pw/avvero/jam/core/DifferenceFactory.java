@@ -14,4 +14,8 @@ public class DifferenceFactory {
         return new DifferenceNewSubTask(parent, child);
     }
 
+    public static DifferenceSubTaskChangesParent ofChangeParent(Issue parent, Issue child) {
+        return new DifferenceSubTaskChangesParent(parent, child);
+    }
+
 }
