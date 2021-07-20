@@ -33,6 +33,11 @@ password = admin
 ./jam checkout WATCH-1 -c=jam-local.properties
 ```
 
+If you don't have binary you can build it with `nativeImage` task (tested with GraalVM CE 21.1.0):
+```bash
+./gradlew nativeImage
+```
+
 ## Features
 
 ### Available
