@@ -4,6 +4,7 @@ plugins {
     id 'antlr'
     id 'idea'
     id "com.palantir.graal" version "0.7.2"
+    id "application"
 }
 
 group 'pw.avvero'
@@ -48,6 +49,10 @@ jar {
     from {
         configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
+}
+
+application {
+    mainClass = 'pw.avvero.jam.App'
 }
 
 generateGrammarSource {
