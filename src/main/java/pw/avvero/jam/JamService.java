@@ -52,6 +52,11 @@ public class JamService {
         return issueComparator.compare(from, to);
     }
 
+    /**
+     * Checkouts issue by key and returns schema representation as string
+     * @param issueKey
+     * @return
+     */
     public String checkout(String issueKey) {
         Issue issue = getIssueWithChildren(issueKey);
         return SchemaWriter.toString(issue);

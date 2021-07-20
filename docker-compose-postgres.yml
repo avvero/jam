@@ -1,0 +1,18 @@
+jira-p:
+  image: teamatldocker/jira
+  container_name: jira-p
+  ports:
+    - '8081:8080'
+  environment:
+    - 'JIRA_DATABASE_URL=postgresql://jiradb@postgresql/jiradb'
+    - 'JIRA_DB_PASSWORD=jellyfish'
+  links:
+    - postgresql
+postgresql:
+  image: postgres:9.5
+  ports:
+    - '5432:5432'
+  environment:
+    - 'POSTGRES_USER=jiradb'
+    - 'POSTGRES_PASSWORD=jellyfish'
+    - 'POSTGRES_DB=jiradb'

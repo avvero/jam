@@ -2,6 +2,8 @@
 
 **J**ira **a**bstraction with **m**arkdown.
 
+<img src="assets/poc.png" width="500" height="auto">
+
 Jira schema in markdown looks like:
 ```markdown
 # [WATCH-1:Epic] Working with jira issues as a code
@@ -13,6 +15,8 @@ Jira schema in markdown looks like:
 
 ## How to launch
 
+### With gradle
+
 ```bash
 ./gradlew run --args='checkout WATCH-1 -c=jam-local.properties'
 ```
@@ -23,13 +27,22 @@ username = admin
 password = admin
 ```
 
+### With binary
+
+```bash
+./jam checkout WATCH-1 -c=jam-local.properties
+```
+
 ## Features
 
 ### Available
 
-- Schema generation by issue identifier
+- Schema generation by issue identifier (Stories, Tasks, Epics):
+- - Sub-task (maybe not)
+- - Story -> Sub-task
+- - Epic -> Story -> Sub-task
 - Creation of issue
-- Changing of issue (summary, description)
+- Changing of issue by identifier (summary, description)
 
 ### Not available yet
 
@@ -42,3 +55,13 @@ password = admin
 ### Will not be implemented for now due rest api restrictions
 
 - Issue deletion - dangerous
+
+## For testing
+
+For some integration tests jira instance is required with default configuration: 
+```properties
+host = http://localhost:8081
+username = admin
+password = admin
+```
+Check `docker-compose-postgres.yml`
