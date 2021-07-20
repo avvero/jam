@@ -2,7 +2,7 @@
 
 **J**ira **a**bstraction with **m**arkdown.
 
-<img src="assets/poc.png" width="500" height="auto">
+<img src="assets/poc.png" width="700" height="auto">
 
 Jira schema in markdown looks like:
 ```markdown
