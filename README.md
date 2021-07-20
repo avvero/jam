@@ -13,6 +13,33 @@ Jira schema in markdown looks like:
 - [WATCH-5:Story] Actually do one thing
 ```
 
+## Features
+
+Ways of working:
+- **checkout** - provide schema representation in markdown for the issue by the key
+- **offer** - offers changes that schema represents to the issue
+
+### Available
+
+- Schema representation by issue identifier (Stories, Tasks, Epics):
+- - Sub-task (maybe not)
+- - Story -> Sub-task
+- - Epic -> Story -> Sub-task
+
+### Not available yet
+
+- Creation of issue
+- Changing of issue by identifier (summary, description)
+- Estimation changing
+- Linkage
+- Type changing
+- Parent changing
+- Movement
+
+### Will not be implemented
+
+- Issue deletion - dangerous
+
 ## How to launch
 
 ### With gradle
@@ -20,7 +47,7 @@ Jira schema in markdown looks like:
 ```bash
 ./gradlew run --args='checkout WATCH-1 -c=jam-local.properties'
 ```
-where `jam-local.properties` is 
+where `jam-local.properties` is
 ```properties
 host = http://localhost:8081
 username = admin
@@ -37,29 +64,6 @@ If you don't have binary you can build it with `nativeImage` task (tested with G
 ```bash
 ./gradlew nativeImage
 ```
-
-## Features
-
-### Available
-
-- Schema generation by issue identifier (Stories, Tasks, Epics):
-- - Sub-task (maybe not)
-- - Story -> Sub-task
-- - Epic -> Story -> Sub-task
-- Creation of issue
-- Changing of issue by identifier (summary, description)
-
-### Not available yet
-
-- Estimation changing
-- Linkage
-- Type changing
-- Parent changing
-- Movement
-
-### Will not be implemented for now due rest api restrictions
-
-- Issue deletion - dangerous
 
 ## For testing
 
