@@ -19,7 +19,8 @@ public class JiraIssueMapper {
                 getProject(key);
         String type = jiraIssue.getFields().getIssuetype().getName();
         String summary = jiraIssue.getFields().getSummary();
-        Issue issue = new Issue(project, key, type, summary, parent, emptyList(), emptyList());
+        String status = jiraIssue.getFields().getStatus().getStatusCategory().getKey();
+        Issue issue = new Issue(project, key, type, summary, status, parent, emptyList(), emptyList());
         List<Issue> children = Optional.ofNullable(jiraIssue.getFields().getSubtasks()).orElse(emptyList()).stream()
                 .map(c -> map(c, issue))
                 .collect(Collectors.toList());

@@ -17,6 +17,7 @@ public class Fields implements Serializable {
     private IssueType issuetype;
     private Project project;
     private String summary;
+    private JiraIssueStatus status;
     private JiraIssue parent;
     private List<JiraIssue> subtasks;
     private List<JiraIssueLink> issuelinks;

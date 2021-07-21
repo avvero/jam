@@ -16,6 +16,7 @@ public class Issue {
     private String key;
     private String type;
     private String summary;
+    private String status;
     private Issue parent;
     private List<Issue> children = new ArrayList<>();
     private List<IssueLink> links = new ArrayList<>();

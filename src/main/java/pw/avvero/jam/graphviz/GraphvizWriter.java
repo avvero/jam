@@ -65,6 +65,10 @@ public class GraphvizWriter {
             default: color = "black"; break;
         }
 
+        if ("done".equals(issue.getStatus())) {
+            color = "grey";
+        }
+
         return format("    \"%s\" -> \"%s\" [style=dashed, label=\"%s\", color=%s];\n",
                 issue.getKey(),
                 issueLink.getIssue().getKey(),

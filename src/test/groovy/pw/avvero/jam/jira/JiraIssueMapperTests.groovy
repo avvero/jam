@@ -18,6 +18,7 @@ class JiraIssueMapperTests extends Specification {
         issue.type == "Epic"
         issue.parent == null
         issue.summary == "Working with jira issues as a code"
+        issue.status == "new"
     }
 
     def "Issue could be mapped from jira story"() {
@@ -29,6 +30,7 @@ class JiraIssueMapperTests extends Specification {
         issue.type == "Story"
         issue.parent == null
         issue.summary == "Prepare to do one thing"
+        issue.status == "new"
     }
 
     def "Issue with children and links could be mapped from jira story with subtasks"() {
@@ -40,20 +42,25 @@ class JiraIssueMapperTests extends Specification {
         issue.type == "Story"
         issue.parent == null
         issue.summary == "Prepare to do one thing"
+        issue.status == "new"
         issue.children[0].project == "WATCH"
         issue.children[0].key == "WATCH-3"
         issue.children[0].type == "Sub-task"
         issue.children[0].parent.key == "WATCH-2"
         issue.children[0].summary == "Prepare to do one thing part 1"
+        issue.children[0].status == "new"
         issue.children[1].project == "WATCH"
         issue.children[1].key == "WATCH-4"
         issue.children[1].type == "Sub-task"
-        issue.children[0].parent.key == "WATCH-2"
+        issue.children[1].parent.key == "WATCH-2"
         issue.children[1].summary == "Prepare to do one thing part 2"
+        issue.children[1].status == "new"
         issue.links[0].type == "blocks"
         issue.links[0].issue.key == "WATCH-5"
+        issue.links[0].issue.status == "new"
         issue.links[1].type == "is blocked by"
         issue.links[1].issue.key == "WATCH-6"
+        issue.links[1].issue.status == "new"
     }
 
 }
