@@ -3,6 +3,7 @@ package pw.avvero.jam.graphviz;
 import pw.avvero.jam.core.Issue;
 import pw.avvero.jam.core.IssueLink;
 
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import static java.lang.String.format;
@@ -33,6 +34,7 @@ public class GraphvizWriter {
 //            sb.append("    ").append(rank);
             for (Issue child : issue.getChildren()) {
                 if (child.getKey().startsWith("STAT-")) continue;
+                if (isIgnored(child.getType())) continue;
 
                 toString(sb, issue, child);
             }
@@ -41,6 +43,8 @@ public class GraphvizWriter {
         if (issue.getLinks() != null && issue.getLinks().size() > 0) {
             for (IssueLink issueLink : issue.getLinks()) {
                 if (issueLink.getIssue().getKey().startsWith("STAT-")) continue;
+                if (isIgnored(issueLink.getIssue().getType())) continue;
+
                 sb.append(link(issue, issueLink));
             }
         }
@@ -66,5 +70,9 @@ public class GraphvizWriter {
                 issueLink.getIssue().getKey(),
                 issueLink.getType(),
                 color);
+    }
+
+    private static boolean isIgnored(String type) {
+        return Arrays.asList("Sub-Task", "Sub-Bug").contains(type);
     }
 }
