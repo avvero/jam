@@ -17,6 +17,7 @@ Jira schema in markdown looks like:
 
 Ways of working:
 - **checkout** - provide schema representation in markdown for the issue by the key
+- **dependencies** - graphviz representation for issue's dependencies
 - **offer** - offers changes that schema represents to the issue
 
 ### Available
@@ -25,6 +26,7 @@ Ways of working:
 - - Sub-task (maybe not)
 - - Story -> Sub-task
 - - Epic -> Story -> Sub-task
+- Graphviz representation for issue's dependencies
 
 ### Not available yet
 
@@ -46,6 +48,7 @@ Ways of working:
 
 ```bash
 ./gradlew run --args='checkout WATCH-1 -c=jam-local.properties'
+./gradlew run --args='dependencies WATCH-1 -c=jam-local.properties'
 ```
 where `jam-local.properties` is
 ```properties
@@ -58,6 +61,7 @@ password = admin
 
 ```bash
 ./jam checkout WATCH-1 -c=jam-local.properties
+./jam dependencies WATCH-1 -c=jam-local.properties
 ```
 
 If you don't have binary you can build it with `nativeImage` task (tested with GraalVM CE 21.1.0):

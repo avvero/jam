@@ -4,12 +4,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import pw.avvero.jam.core.*;
+import pw.avvero.jam.graphviz.GraphvizWriter;
 import pw.avvero.jam.schema.SchemaParser;
 import pw.avvero.jam.schema.SchemaParsingError;
 import pw.avvero.jam.schema.SchemaWriter;
 
 import java.util.List;
 
+/**
+ * Service-facade
+ */
 @Slf4j
 @RequiredArgsConstructor
 public class JamService {
@@ -40,6 +44,15 @@ public class JamService {
 
     public String getSchemaForIssueWithChildren(String key) {
         return SchemaWriter.toString(getIssueWithChildren(key));
+    }
+
+    /**
+     * Returns graphviz schema with dependencies
+     * @param key
+     * @return
+     */
+    public String getDependenciesForIssueWithChildren(String key) {
+        return GraphvizWriter.toString(getIssueWithChildren(key));
     }
 
     public List<Difference> diff(String key, String schema) throws SchemaParsingError, IssueComparisonException {

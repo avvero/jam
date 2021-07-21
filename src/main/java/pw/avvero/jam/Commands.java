@@ -5,6 +5,7 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 import pw.avvero.jam.core.Issue;
 import pw.avvero.jam.core.IssueDataProvider;
+import pw.avvero.jam.graphviz.GraphvizWriter;
 import pw.avvero.jam.jira.HttpApiClient;
 import pw.avvero.jam.jira.JiraApiDataProvider;
 import pw.avvero.jam.schema.SchemaWriter;
@@ -43,6 +44,18 @@ public class Commands implements Callable<Integer> {
         JamService service = getJamService(properties);
         Issue to = service.parseFromFile(schemaFile);
         service.offer(to);
+    }
+
+    @Command(description = "Provide graphviz representation for issue's dependencies")
+    public void dependencies(@Parameters(index = "0", description = "Key of the issue")
+                                     String key,
+                             @Option(names = {"-c", "--configuration"},
+                                     description = "File with configuration",
+                                     defaultValue = "jam.properties")
+                                     File properties) throws IOException {
+        JamService service = getJamService(properties);
+        Issue issue = service.getIssueWithChildren(key);
+        console.newLineBlue(GraphvizWriter.toString(issue));
     }
 
     private JamService getJamService(File file) throws IOException {
