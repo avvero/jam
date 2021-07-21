@@ -17,14 +17,14 @@ class JamServiceGetDependenciesTests extends Specification {
         schema == """digraph jam {
     rankdir=LR;
     node [shape=box];
-    "WATCH-1" [shape=circle];
+    "WATCH-1" [shape=Mdiamond];
     "WATCH-1" -> "WATCH-2";
     "WATCH-2" -> "WATCH-3";
     "WATCH-2" -> "WATCH-4";
-    "WATCH-2" -> "WATCH-5" [style=dashed, label="blocks"];
-    "WATCH-2" -> "WATCH-6" [style=dashed, label="is blocked by"];
+    "WATCH-2" -> "WATCH-5" [style=dashed, label="blocks", color=red];
+    "WATCH-2" -> "WATCH-6" [style=dashed, label="is blocked by", color=orange];
     "WATCH-1" -> "WATCH-5";
-    "WATCH-5" -> "WATCH-2" [style=dashed, label="is blocked by"];
+    "WATCH-5" -> "WATCH-2" [style=dashed, label="is blocked by", color=orange];
 }"""
     }
 
@@ -35,7 +35,7 @@ class JamServiceGetDependenciesTests extends Specification {
         schema == """digraph jam {
     rankdir=LR;
     node [shape=box];
-    "WATCH-6" [shape=circle];
+    "WATCH-6" [shape=Mdiamond];
 }"""
     }
 

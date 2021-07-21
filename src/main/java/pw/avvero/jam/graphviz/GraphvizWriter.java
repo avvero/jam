@@ -22,7 +22,7 @@ public class GraphvizWriter {
         if (parent != null) {
             sb.append(format("    \"%s\" -> \"%s\";\n", parent.getKey(), issue.getKey()));
         } else {
-            sb.append(format("    \"%s\" [shape=circle];\n", issue.getKey()));
+            sb.append(format("    \"%s\" [shape=Mdiamond];\n", issue.getKey()));
         }
         // Children
         if (issue.getChildren() != null && !issue.getChildren().isEmpty()) {
@@ -41,10 +41,30 @@ public class GraphvizWriter {
         if (issue.getLinks() != null && issue.getLinks().size() > 0) {
             for (IssueLink issueLink : issue.getLinks()) {
                 if (issueLink.getIssue().getKey().startsWith("STAT-")) continue;
-
-                sb.append(format("    \"%s\" -> \"%s\" [style=dashed, label=\"%s\"];\n", issue.getKey(), issueLink.getIssue().getKey(),
-                        issueLink.getType()));
+                sb.append(link(issue, issueLink));
             }
         }
+    }
+
+    private static String link(Issue issue, IssueLink issueLink) {
+        String color;
+        switch (issueLink.getType()) {
+            case "depends on": color = "orange"; break;
+            case "is blocked by": color = "orange"; break;
+
+            case "relates to": color = "green"; break;
+            case "is related to": color = "green"; break;
+
+            case "enables": color = "red"; break;
+            case "blocks": color = "red"; break;
+
+            default: color = "black"; break;
+        }
+
+        return format("    \"%s\" -> \"%s\" [style=dashed, label=\"%s\", color=%s];\n",
+                issue.getKey(),
+                issueLink.getIssue().getKey(),
+                issueLink.getType(),
+                color);
     }
 }
