@@ -15,15 +15,16 @@ class JamServiceGetDependenciesTests extends Specification {
         def schema = service.getDependenciesForIssueWithChildren("WATCH-1")
         then:
         schema == """digraph jam {
-    "WATCH-1";
-    { rank=same "WATCH-2" "WATCH-5" }
+    rankdir=LR;
+    node [shape=box];
+    "WATCH-1" [shape=circle];
     "WATCH-1" -> "WATCH-2";
-    { rank=same "WATCH-3" "WATCH-4" }
     "WATCH-2" -> "WATCH-3";
     "WATCH-2" -> "WATCH-4";
+    "WATCH-2" -> "WATCH-5" [style=dashed, label="blocks"];
+    "WATCH-2" -> "WATCH-6" [style=dashed, label="is blocked by"];
     "WATCH-1" -> "WATCH-5";
-    "WATCH-2" -> "WATCH-5";
-    "WATCH-6" -> "WATCH-2";
+    "WATCH-5" -> "WATCH-2" [style=dashed, label="is blocked by"];
 }"""
     }
 
@@ -31,7 +32,11 @@ class JamServiceGetDependenciesTests extends Specification {
         when:
         def schema = service.getDependenciesForIssueWithChildren("WATCH-6")
         then:
-        schema == """# [WATCH-6:Epic] Empty epic"""
+        schema == """digraph jam {
+    rankdir=LR;
+    node [shape=box];
+    "WATCH-6" [shape=circle];
+}"""
     }
 
 }

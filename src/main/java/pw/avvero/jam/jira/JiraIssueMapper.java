@@ -1,7 +1,9 @@
 package pw.avvero.jam.jira;
 
 import pw.avvero.jam.core.Issue;
+import pw.avvero.jam.core.IssueLink;
 import pw.avvero.jam.jira.dto.JiraIssue;
+import pw.avvero.jam.jira.dto.JiraIssueLink;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,16 +19,34 @@ public class JiraIssueMapper {
                 getProject(key);
         String type = jiraIssue.getFields().getIssuetype().getName();
         String summary = jiraIssue.getFields().getSummary();
-        Issue issue = new Issue(project, key, type, summary, parent, emptyList());
+        Issue issue = new Issue(project, key, type, summary, parent, emptyList(), emptyList());
         List<Issue> children = Optional.ofNullable(jiraIssue.getFields().getSubtasks()).orElse(emptyList()).stream()
                 .map(c -> map(c, issue))
                 .collect(Collectors.toList());
         issue.setChildren(children);
+        List<IssueLink> links = Optional.ofNullable(jiraIssue.getFields().getIssuelinks()).orElse(emptyList()).stream()
+                .map(JiraIssueMapper::map)
+                .collect(Collectors.toList());
+        issue.setLinks(links);
         return issue;
+    }
+
+    public static IssueLink map(JiraIssueLink jiraIssueLink) {
+        IssueLink issueLink = new IssueLink();
+        if (jiraIssueLink.getInwardIssue() != null) {
+            issueLink.setType(jiraIssueLink.getType().getInward());
+            issueLink.setIssue(map(jiraIssueLink.getInwardIssue(), null));
+        }
+        if (jiraIssueLink.getOutwardIssue() != null) {
+            issueLink.setType(jiraIssueLink.getType().getOutward());
+            issueLink.setIssue(map(jiraIssueLink.getOutwardIssue(), null));
+        }
+        return issueLink;
     }
 
     /**
      * Get project from key
+     *
      * @param key
      * @return
      */

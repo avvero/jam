@@ -19,5 +19,6 @@ public class Fields implements Serializable {
     private String summary;
     private JiraIssue parent;
     private List<JiraIssue> subtasks;
+    private List<JiraIssueLink> issuelinks;
 
 }

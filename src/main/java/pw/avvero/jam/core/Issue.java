@@ -18,5 +18,6 @@ public class Issue {
     private String summary;
     private Issue parent;
     private List<Issue> children = new ArrayList<>();
+    private List<IssueLink> links = new ArrayList<>();
 
 }

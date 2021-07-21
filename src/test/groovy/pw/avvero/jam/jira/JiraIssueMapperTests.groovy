@@ -31,7 +31,7 @@ class JiraIssueMapperTests extends Specification {
         issue.summary == "Prepare to do one thing"
     }
 
-    def "Issue with children could be mapped from jira story with subtasks"() {
+    def "Issue with children and links could be mapped from jira story with subtasks"() {
         when:
         def issue = JiraIssueMapper.map(read(fromFile("jira/story-with-subtasks.json"), JiraIssue), null)
         then:
@@ -50,6 +50,10 @@ class JiraIssueMapperTests extends Specification {
         issue.children[1].type == "Sub-task"
         issue.children[0].parent.key == "WATCH-2"
         issue.children[1].summary == "Prepare to do one thing part 2"
+        issue.links[0].type == "blocks"
+        issue.links[0].issue.key == "WATCH-5"
+        issue.links[1].type == "is blocked by"
+        issue.links[1].issue.key == "WATCH-6"
     }
 
 }
