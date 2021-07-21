@@ -15,15 +15,21 @@ class JamServiceGetDependenciesTests extends Specification {
         def schema = service.getDependenciesForIssueWithChildren("WATCH-1")
         then:
         schema == """digraph jam {
+    graph [nodesep="0.1"];
     rankdir=LR;
     node [shape=box];
-    "WATCH-1" [shape=Mdiamond];
-    "WATCH-1" -> "WATCH-2";
-    "WATCH-2" -> "WATCH-3";
-    "WATCH-2" -> "WATCH-4";
+    "WATCH-6" [shape=box, color=green];
+    "WATCH-1" [shape=box, color=green];
+    "WATCH-2" [shape=box, color=green];
+    "WATCH-3" [shape=box, color=green];
+    "WATCH-4" [shape=box, color=green];
+    "WATCH-5" [shape=box, color=green];
+    "WATCH-1" -> "WATCH-2" [color=grey];
+    "WATCH-2" -> "WATCH-3" [color=grey];
+    "WATCH-2" -> "WATCH-4" [color=grey];
     "WATCH-2" -> "WATCH-5" [style=dashed, label="blocks", color=red];
     "WATCH-2" -> "WATCH-6" [style=dashed, label="is blocked by", color=orange];
-    "WATCH-1" -> "WATCH-5";
+    "WATCH-1" -> "WATCH-5" [color=grey];
     "WATCH-5" -> "WATCH-2" [style=dashed, label="is blocked by", color=orange];
 }"""
     }
@@ -33,9 +39,10 @@ class JamServiceGetDependenciesTests extends Specification {
         def schema = service.getDependenciesForIssueWithChildren("WATCH-6")
         then:
         schema == """digraph jam {
+    graph [nodesep="0.1"];
     rankdir=LR;
     node [shape=box];
-    "WATCH-6" [shape=Mdiamond];
+    "WATCH-6" [shape=box, color=green];
 }"""
     }
 
