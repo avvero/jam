@@ -1,10 +1,12 @@
 package pw.avvero.jam;
 
+import lombok.extern.slf4j.Slf4j;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 import pw.avvero.jam.core.Issue;
 import pw.avvero.jam.core.IssueDataProvider;
+import pw.avvero.jam.core.IssueLink;
 import pw.avvero.jam.graphviz.GraphvizWriter;
 import pw.avvero.jam.jira.HttpApiClient;
 import pw.avvero.jam.jira.JiraApiDataProvider;
@@ -17,6 +19,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.Callable;
 
+@Slf4j
 @Command
 public class Commands implements Callable<Integer> {
 
@@ -55,6 +58,16 @@ public class Commands implements Callable<Integer> {
                                      File properties) throws IOException {
         JamService service = getJamService(properties);
         Issue issue = service.getIssueWithChildren(key);
+        // TODO custom jira structure specifique
+        if ("Initiative".equalsIgnoreCase(issue.getType()) && issue.getLinks() != null) {
+            for (IssueLink link : issue.getLinks()) {
+                if ("is parent task of".equals(link.getType())) {
+                    log.debug("Take details from linked issue: {} {}", link.getType(), link.getIssue().getKey());
+                    Issue enriched = service.getIssueWithChildren(link.getIssue().getKey());
+                    issue.getChildren().add(enriched);
+                }
+            }
+        }
         console.newLineBlue(GraphvizWriter.toString(issue));
     }
 

@@ -10,6 +10,7 @@ public abstract class IssueDataProvider {
      * Returns issues with children:
      * - sub-tasks any kind if issue has it
      * - task of ony kind withing epic if this is this epic
+     *
      * @param key
      * @return
      */
@@ -32,6 +33,7 @@ public abstract class IssueDataProvider {
 
     /**
      * Adds sub task for the issue
+     *
      * @param parent
      * @param child
      * @return key for new issue
