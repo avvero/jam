@@ -6,11 +6,11 @@
 
 Jira schema in markdown looks like:
 ```markdown
-# [ISSUE-1:Epic] Working with jira issues as a code
-- [ISSUE-2:Story] Prepare to do one thing
-- - [ISSUE-3:Sub-task] Prepare to do one thing part 1
-- - [ISSUE-4:Sub-task] Prepare to do one thing part 2
-- [ISSUE-5:Story] Actually do one thing
+# [WATCH-1:Epic] Working with jira issues as a code
+- [WATCH-2:Story] Prepare to do one thing
+- - [WATCH-3:Sub-task] Prepare to do one thing part 1
+- - [WATCH-4:Sub-task] Prepare to do one thing part 2
+- [WATCH-5:Story] Actually do one thing
 ```
 
 ## Features
@@ -47,8 +47,8 @@ Ways of working:
 ### CLI with gradle
 
 ```bash
-./gradlew run --args='checkout ISSUE-1 -c=jam-local.properties'
-./gradlew run --args='dependencies ISSUE-1 -c=jam-local.properties'
+./gradlew run --args='checkout WATCH-1 -c=jam-local.properties'
+./gradlew run --args='dependencies WATCH-1 -c=jam-local.properties'
 ```
 where `jam-local.properties` is
 ```properties
@@ -60,8 +60,8 @@ password = admin
 ### CLI with binary
 
 ```bash
-./jam checkout ISSUE-1 -c=jam-local.properties
-./jam dependencies ISSUE-1 -c=jam-local.properties
+./jam checkout WATCH-1 -c=jam-local.properties
+./jam dependencies WATCH-1 -c=jam-local.properties
 ```
 
 If you don't have binary you can build it with `nativeImage` task (tested with GraalVM CE 21.1.0):
