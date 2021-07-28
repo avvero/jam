@@ -73,7 +73,7 @@ If you don't have binary you can build it with `nativeImage` task (tested with G
 
 Check https://github.com/avvero/jam-wui
 
-## For testing
+## Testing related information
 
 For some integration tests jira instance is required with default configuration: 
 ```properties
