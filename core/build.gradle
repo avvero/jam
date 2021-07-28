@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'antlr'
+    id 'idea'
+}
+
+project.description = "Core for the ${rootProject.name}"
+project.group = "${rootProject.group}"
+
+dependencies {
+    antlr "org.antlr:antlr4:4.7.1"
+    implementation 'org.antlr:antlr4-runtime:4.7.1'
+    implementation 'org.apache.commons:commons-lang3:3.9'
+    implementation "com.fasterxml.jackson.core:jackson-core:2.6.5"
+    implementation "com.fasterxml.jackson.core:jackson-databind:2.6.5"
+    implementation "org.slf4j:slf4j-api:1.7.30"
+
+    compileOnly "org.projectlombok:lombok:1.18.12"
+    annotationProcessor "org.projectlombok:lombok:1.18.12"
+
+    testCompileOnly "org.projectlombok:lombok:1.18.12"
+    testAnnotationProcessor "org.projectlombok:lombok:1.18.12"
+
+    testImplementation "org.codehaus.groovy:groovy-all:2.4.6"
+    testImplementation "org.spockframework:spock-core:1.1-groovy-2.4-rc-2"
+}
+
+generateGrammarSource {
+    maxHeapSize = "64m"
+    arguments += ['-package', 'pw.avvero.jam.antlr']
+    outputDirectory = new File("${project.buildDir}/generated-src/antlr/main/pw/avvero/jam/antlr".toString())
+}
+
+idea {
+    module {
+        sourceDirs += file("${project.buildDir}/generated-src/antlr/main")
+    }
+}
