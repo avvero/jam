@@ -44,7 +44,7 @@ Ways of working:
 
 ## How to launch
 
-### With gradle
+### CLI with gradle
 
 ```bash
 ./gradlew run --args='checkout WATCH-1 -c=jam-local.properties'
@@ -57,7 +57,7 @@ username = admin
 password = admin
 ```
 
-### With binary
+### CLI with binary
 
 ```bash
 ./jam checkout WATCH-1 -c=jam-local.properties
@@ -68,6 +68,10 @@ If you don't have binary you can build it with `nativeImage` task (tested with G
 ```bash
 ./gradlew nativeImage
 ```
+
+### Web UI with docker
+
+Check https://github.com/avvero/jam-wui
 
 ## For testing
 
