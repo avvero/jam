@@ -18,7 +18,7 @@ public class GraphvizWriter {
         StringBuilder sb = new StringBuilder("digraph jam {\n");
         sb.append("    graph [nodesep=\"0.1\"];\n");
         sb.append("    rankdir=LR;\n");
-        sb.append("    node [shape=box];\n");
+        sb.append("    node [shape=box, penwidth=1];\n");
         printNodes(sb, issue);
         printEdges(sb, null, issue);
         sb.append("}");

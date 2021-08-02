@@ -17,7 +17,7 @@ class JamServiceGetDependenciesTests extends Specification {
         schema == """digraph jam {
     graph [nodesep="0.1"];
     rankdir=LR;
-    node [shape=box];
+    node [shape=box, penwidth=1];
     "WATCH-6" [shape=box, color=green, label=<WATCH-6<BR/><FONT POINT-SIZE="10">Very first enabler</FONT>>, URL="dependencies?issueCode=WATCH-6"];
     "WATCH-1" [shape=box, color=green, label=<WATCH-1<BR/><FONT POINT-SIZE="10">Working with jira issues as a code</FONT>>, URL="dependencies?issueCode=WATCH-1"];
     "WATCH-2" [shape=box, color=green, label=<WATCH-2<BR/><FONT POINT-SIZE="10">Prepare to do one thing</FONT>>, URL="dependencies?issueCode=WATCH-2"];
@@ -41,7 +41,7 @@ class JamServiceGetDependenciesTests extends Specification {
         schema == """digraph jam {
     graph [nodesep="0.1"];
     rankdir=LR;
-    node [shape=box];
+    node [shape=box, penwidth=1];
     "WATCH-6" [shape=box, color=green, label=<WATCH-6<BR/><FONT POINT-SIZE="10">Empty epic</FONT>>, URL="dependencies?issueCode=WATCH-6"];
 }"""
     }
