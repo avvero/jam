@@ -18,12 +18,12 @@ class JamServiceGetDependenciesTests extends Specification {
     graph [nodesep="0.1"];
     rankdir=LR;
     node [shape=box, penwidth=1];
-    "WATCH-6" [shape=box, color=green, label=<WATCH-6<BR/><FONT POINT-SIZE="10">Very first enabler</FONT>>, URL="dependencies?issueCode=WATCH-6"];
-    "WATCH-1" [shape=box, color=green, label=<WATCH-1<BR/><FONT POINT-SIZE="10">Working with jira issues as a code</FONT>>, URL="dependencies?issueCode=WATCH-1"];
-    "WATCH-2" [shape=box, color=green, label=<WATCH-2<BR/><FONT POINT-SIZE="10">Prepare to do one thing</FONT>>, URL="dependencies?issueCode=WATCH-2"];
-    "WATCH-3" [shape=box, color=green, label=<WATCH-3<BR/><FONT POINT-SIZE="10">Prepare to do one thing part 1</FONT>>, URL="dependencies?issueCode=WATCH-3"];
-    "WATCH-4" [shape=box, color=green, label=<WATCH-4<BR/><FONT POINT-SIZE="10">Prepare to do one thing part 2</FONT>>, URL="dependencies?issueCode=WATCH-4"];
-    "WATCH-5" [shape=box, color=green, label=<WATCH-5<BR/><FONT POINT-SIZE="10">Actually do one thing</FONT>>, URL="dependencies?issueCode=WATCH-5"];
+    "WATCH-6" [shape=box, color=green, label=<WATCH-6<BR/><FONT POINT-SIZE="10">Very first enabler</FONT>>, URL="dependencies?issueCode=WATCH-6&from=WATCH-1"];
+    "WATCH-1" [shape=box, color=green, label=<WATCH-1<BR/><FONT POINT-SIZE="10">Working with jira issues as a code</FONT>>, URL="dependencies?issueCode=WATCH-1&from=WATCH-1"];
+    "WATCH-2" [shape=box, color=green, label=<WATCH-2<BR/><FONT POINT-SIZE="10">Prepare to do one thing</FONT>>, URL="dependencies?issueCode=WATCH-2&from=WATCH-1"];
+    "WATCH-3" [shape=box, color=green, label=<WATCH-3<BR/><FONT POINT-SIZE="10">Prepare to do one thing part 1</FONT>>, URL="dependencies?issueCode=WATCH-3&from=WATCH-1"];
+    "WATCH-4" [shape=box, color=green, label=<WATCH-4<BR/><FONT POINT-SIZE="10">Prepare to do one thing part 2</FONT>>, URL="dependencies?issueCode=WATCH-4&from=WATCH-1"];
+    "WATCH-5" [shape=box, color=green, label=<WATCH-5<BR/><FONT POINT-SIZE="10">Actually do one thing</FONT>>, URL="dependencies?issueCode=WATCH-5&from=WATCH-1"];
     "WATCH-1" -> "WATCH-2" [color=grey];
     "WATCH-2" -> "WATCH-3" [color=grey];
     "WATCH-2" -> "WATCH-4" [color=grey];
@@ -42,7 +42,7 @@ class JamServiceGetDependenciesTests extends Specification {
     graph [nodesep="0.1"];
     rankdir=LR;
     node [shape=box, penwidth=1];
-    "WATCH-6" [shape=box, color=green, label=<WATCH-6<BR/><FONT POINT-SIZE="10">Empty epic</FONT>>, URL="dependencies?issueCode=WATCH-6"];
+    "WATCH-6" [shape=box, color=green, label=<WATCH-6<BR/><FONT POINT-SIZE="10">Empty epic</FONT>>, URL="dependencies?issueCode=WATCH-6&from=WATCH-6"];
 }"""
     }
 

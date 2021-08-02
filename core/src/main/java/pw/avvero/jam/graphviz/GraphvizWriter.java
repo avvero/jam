@@ -3,8 +3,6 @@ package pw.avvero.jam.graphviz;
 import pw.avvero.jam.core.Issue;
 import pw.avvero.jam.core.IssueLink;
 
-import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,12 +13,21 @@ import static java.lang.String.format;
 public class GraphvizWriter {
 
     public static String toString(Issue issue) {
+        return toString(issue, null);
+    }
+
+    public static String toString(Issue issue, String fromIssueCode) {
         StringBuilder sb = new StringBuilder("digraph jam {\n");
         sb.append("    graph [nodesep=\"0.1\"];\n");
         sb.append("    rankdir=LR;\n");
         sb.append("    node [shape=box, penwidth=1];\n");
         printNodes(sb, issue);
         printEdges(sb, null, issue);
+        if (fromIssueCode != null) {
+            sb.append(format("    \"%s\" [shape=lpromoter, URL=\"dependencies?issueCode=%s\"];\n", fromIssueCode,
+                    fromIssueCode));
+            sb.append(format("    \"%s\" -> \"%s\" [style=dashed];\n", fromIssueCode, issue.getKey()));
+        }
         sb.append("}");
         return sb.toString();
     }
@@ -32,7 +39,7 @@ public class GraphvizWriter {
             if (entry.getKey().startsWith("STAT-")) continue;
             if (isIgnored(entry.getType())) continue;
 
-            sb.append(node(entry));
+            sb.append(node(entry, issue));
         }
     }
 
@@ -79,7 +86,7 @@ public class GraphvizWriter {
         }
     }
 
-    private static String node(Issue issue) {
+    private static String node(Issue issue, Issue root) {
         String color;
         switch (issue.getStatus()) {
             case "new": color = "green"; break;
@@ -88,7 +95,7 @@ public class GraphvizWriter {
             default: color = "black";
         }
         String label = format("<%s<BR/><FONT POINT-SIZE=\"10\">%s</FONT>>", issue.getKey(), escape(issue.getSummary()));
-        String url = "dependencies?issueCode=" + issue.getKey();
+        String url = format("dependencies?issueCode=%s&from=%s", issue.getKey(), root.getKey());
         return format("    \"%s\" [shape=box, color=%s, label=%s, URL=\"%s\"];\n", issue.getKey(), color,
                 label, url);
     }
