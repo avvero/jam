@@ -3,6 +3,8 @@ package pw.avvero.jam.graphviz;
 import pw.avvero.jam.core.Issue;
 import pw.avvero.jam.core.IssueLink;
 
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,15 +32,7 @@ public class GraphvizWriter {
             if (entry.getKey().startsWith("STAT-")) continue;
             if (isIgnored(entry.getType())) continue;
 
-            String color;
-            switch (entry.getStatus()) {
-                case "new": color = "green"; break;
-                case "done": color = "grey"; break;
-                case "indeterminate": color = "blue"; break;
-                default: color = "black";
-            }
-            sb.append(format("    \"%s\" [shape=box, color=%s];\n", entry.getKey(), color));
-//            sb.append(format("    \"%s\" [shape=box, color=%s, label=\"%s\\l%s\"];\n", entry.getKey(), color, entry.getKey(), entry.getSummary()));
+            sb.append(node(entry));
         }
     }
 
@@ -80,12 +74,34 @@ public class GraphvizWriter {
                 if (issueLink.getIssue().getKey().startsWith("STAT-")) continue;
                 if (isIgnored(issueLink.getIssue().getType())) continue;
 
-                sb.append(link(issue, issueLink));
+                sb.append(edge(issue, issueLink));
             }
         }
     }
 
-    private static String link(Issue issue, IssueLink issueLink) {
+    private static String node(Issue issue) {
+        String color;
+        switch (issue.getStatus()) {
+            case "new": color = "green"; break;
+            case "done": color = "grey"; break;
+            case "indeterminate": color = "blue"; break;
+            default: color = "black";
+        }
+        String label = format("<%s<BR/><FONT POINT-SIZE=\"10\">%s</FONT>>", issue.getKey(), escape(issue.getSummary()));
+        String url = "dependencies?issueCode=" + issue.getKey();
+        return format("    \"%s\" [shape=box, color=%s, label=%s, URL=\"%s\"];\n", issue.getKey(), color,
+                label, url);
+    }
+
+    private static String escape(String summary) {
+        if (summary == null) return null;
+        return summary
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;");
+    }
+
+    private static String edge(Issue issue, IssueLink issueLink) {
         String color;
         String label = issueLink.getType();
         switch (issueLink.getType()) {
