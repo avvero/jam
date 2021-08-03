@@ -24,9 +24,10 @@ public class GraphvizWriter {
         printNodes(sb, issue);
         printEdges(sb, null, issue);
         if (fromIssueCode != null) {
-            sb.append(format("    \"%s\" [shape=lpromoter, URL=\"dependencies?issueCode=%s\"];\n", fromIssueCode,
+            String fromIssueLabel = "Back to " + fromIssueCode;
+            sb.append(format("    \"%s\" [shape=lpromoter, URL=\"dependencies?issueCode=%s\"];\n", fromIssueLabel,
                     fromIssueCode));
-            sb.append(format("    \"%s\" -> \"%s\" [style=dashed];\n", fromIssueCode, issue.getKey()));
+            sb.append(format("    \"%s\" -> \"%s\" [style=dashed];\n", fromIssueLabel, issue.getKey()));
         }
         sb.append("}");
         return sb.toString();

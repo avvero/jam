@@ -16,6 +16,7 @@ public abstract class IssueDataProvider {
      */
     public Issue getWithChildren(String key) {
         Issue root = getByCode(key);
+        if (root == null) return null;
         if ("Epic".equalsIgnoreCase(root.getType())) {
             List<Issue> epiclings = getIssuesInEpic(key, root);
             if (epiclings != null && !epiclings.isEmpty()) {

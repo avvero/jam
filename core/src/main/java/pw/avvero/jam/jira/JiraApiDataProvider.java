@@ -22,6 +22,7 @@ public class JiraApiDataProvider extends IssueDataProvider {
     @Override
     public Issue getByCode(String key) {
         JiraIssue issue = httpApiClient.requestGet("/rest/api/latest/issue/" + key, JiraIssue.class);
+        if (issue == null) return null;
         return JiraIssueMapper.map(issue, null);
     }
 
