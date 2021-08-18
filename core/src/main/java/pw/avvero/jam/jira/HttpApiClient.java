@@ -13,6 +13,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.Base64;
 
 import static pw.avvero.jam.core.SerializationUtils.read;
@@ -25,11 +26,12 @@ public class HttpApiClient {
     private final String host;
     private final String username;
     private final String password;
+    private final int connectTimeout;
 
     public <T> T requestGet(String method, Class<T> clazz) {
+        String uri = host + method;
+        log.debug("Calling GET: " + uri);
         try {
-            String uri = host + method;
-            log.debug("Calling GET: " + uri);
             String auth = username + ":" + password;
             byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes(StandardCharsets.US_ASCII));
             String authHeader = "Basic " + new String(encodedAuth);
@@ -42,6 +44,8 @@ public class HttpApiClient {
             HttpResponse<String> response = HttpClient
                     .newBuilder()
                     .proxy(ProxySelector.getDefault())
+                    .connectTimeout(Duration.ofMillis(connectTimeout))
+                    .followRedirects(HttpClient.Redirect.ALWAYS)
                     .build()
                     .send(request, HttpResponse.BodyHandlers.ofString());
             String responseBody = response.body();
@@ -54,14 +58,14 @@ public class HttpApiClient {
                 return read(responseBody, clazz);
             }
         } catch (InterruptedException | URISyntaxException | IOException | JamException e) {
-            throw new RuntimeException(e.getLocalizedMessage(), e);
+            throw new RuntimeException(String.format("Error with request to %s: %s", uri, e.getLocalizedMessage()), e);
         }
     }
 
     public <T> T requestPost(String method, Object payload, Class<T> clazz) throws JamException {
+        String uri = host + method;
+        log.debug("Calling POST: " + uri);
         try {
-            String uri = host + method;
-            log.debug("Calling POST: " + uri);
             String auth = username + ":" + password;
             byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes(StandardCharsets.US_ASCII));
             String authHeader = "Basic " + new String(encodedAuth);
@@ -77,6 +81,8 @@ public class HttpApiClient {
             HttpResponse<String> response = HttpClient
                     .newBuilder()
                     .proxy(ProxySelector.getDefault())
+                    .connectTimeout(Duration.ofMillis(connectTimeout))
+                    .followRedirects(HttpClient.Redirect.ALWAYS)
                     .build()
                     .send(request, HttpResponse.BodyHandlers.ofString());
             String responseBody = response.body();
@@ -86,15 +92,15 @@ public class HttpApiClient {
             } else {
                 return read(responseBody, clazz);
             }
-        } catch (InterruptedException | URISyntaxException | IOException e) {
-            throw new RuntimeException(e.getLocalizedMessage(), e);
+        } catch (InterruptedException | URISyntaxException | IOException | JamException e) {
+            throw new RuntimeException(String.format("Error with request to %s: %s", uri, e.getLocalizedMessage()), e);
         }
     }
 
     public <T> T requestPut(String method, Object payload, Class<T> clazz) {
+        String uri = host + method;
+        log.debug("Calling PUT: " + uri);
         try {
-            String uri = host + method;
-            log.debug("Calling PUT: " + uri);
             String auth = username + ":" + password;
             byte[] encodedAuth = Base64.getEncoder().encode(auth.getBytes(StandardCharsets.US_ASCII));
             String authHeader = "Basic " + new String(encodedAuth);
@@ -110,6 +116,8 @@ public class HttpApiClient {
             HttpResponse<String> response = HttpClient
                     .newBuilder()
                     .proxy(ProxySelector.getDefault())
+                    .connectTimeout(Duration.ofMillis(connectTimeout))
+                    .followRedirects(HttpClient.Redirect.ALWAYS)
                     .build()
                     .send(request, HttpResponse.BodyHandlers.ofString());
             String responseBody = response.body();
@@ -122,7 +130,7 @@ public class HttpApiClient {
                 return read(responseBody, clazz);
             }
         } catch (InterruptedException | URISyntaxException | IOException | JamException e) {
-            throw new RuntimeException(e.getLocalizedMessage(), e);
+            throw new RuntimeException(String.format("Error with request to %s: %s", uri, e.getLocalizedMessage()), e);
         }
     }
 

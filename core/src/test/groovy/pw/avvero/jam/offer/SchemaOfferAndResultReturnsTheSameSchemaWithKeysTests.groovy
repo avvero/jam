@@ -20,7 +20,7 @@ class SchemaOfferAndResultReturnsTheSameSchemaWithKeysTests extends Specificatio
     private JiraApiDataProvider jira
 
     def setupSpec() {
-        jira = new JiraApiDataProvider(new HttpApiClient("http://localhost:8081", "admin", "admin"))
+        jira = new JiraApiDataProvider(new HttpApiClient("http://localhost:8081", "admin", "admin", 30000))
         jam = new JamService(jira)
         jira.createProject(project, "Test-$project")
     }

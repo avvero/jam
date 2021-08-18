@@ -77,7 +77,9 @@ public class Commands implements Callable<Integer> {
         String host = prop.getProperty("host");
         String username = prop.getProperty("username");
         String password = prop.getProperty("password");
-        IssueDataProvider dataProvider = new JiraApiDataProvider(new HttpApiClient(host, username, password));
+        int connectTimeout = Integer.parseInt(prop.getProperty("connect-timeout", "30000"));
+        IssueDataProvider dataProvider = new JiraApiDataProvider(new HttpApiClient(host, username, password,
+                connectTimeout));
         return new JamService(dataProvider);
     }
 
